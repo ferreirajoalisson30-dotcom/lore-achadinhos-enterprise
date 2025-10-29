@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja Afiliado - Lore Achadinhos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rosa-claro: #F9D5E5;
+            --lilas: #E7C6FF;
+            --branco: #FFFFFF;
+            --dourado: #F4C542;
+            --cinza-claro: #F6F6F6;
+            --texto-escuro: #5A4A6A;
+            --texto-medio: #8A7A9A;
+            --rosa-escuro: #D48FAF;
+            --radius: 12px;
+            --sombra: 0 4px 20px rgba(90, 74, 106, 0.08);
+            --sombra-hover: 0 8px 30px rgba(90, 74, 106, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            color: var(--texto-escuro);
+            background-color: var(--cinza-claro);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--branco);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--rosa-claro), var(--lilas));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            font-weight: 700;
+            font-size: 20px;
+            box-shadow: var(--sombra);
+        }
+
+        .logo-text h1 {
+            font-size: 22px;
+            margin-bottom: 2px;
+            color: var(--texto-escuro);
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: var(--texto-medio);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .auth-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-links a {
+            color: var(--texto-medio);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .auth-links a:hover {
+            color: var(--rosa-escuro);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--texto-escuro);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--rosa-escuro);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(to right, var(--rosa-claro), var(--lilas));
+            padding: 12px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--texto-escuro);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--branco);
+        }
+
+        .affiliate-btn {
+            background: var(--dourado);
+            color: var(--texto-escuro);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .affiliate-btn:hover {
+            background: var(--branco);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--rosa-claro) 0%, var(--lilas) 100%);
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--texto-escuro);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--texto-medio);
+        }
+
+        .btn {
+            background: var(--branco);
+            border: 1px solid var(--rosa-claro);
+            border-radius: var(--radius);
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--rosa-claro);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--rosa-claro), var(--lilas));
+            color: var(--texto-escuro);
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn.primary:hover {
+            background: linear-gradient(135deg, var(--lilas), var(--rosa-claro));
+            transform: translateY(-2px);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--texto-escuro);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .benefit-card {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--sombra);
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--rosa-claro), var(--lilas));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--branco);
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            color: var(--texto-escuro);
+        }
+
+        .benefit-card p {
+            color: var(--texto-medio);
+            line-height: 1.6;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 50px;
+            box-shadow: var(--sombra);
+            margin: 40px 0;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--texto-escuro);
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--texto-escuro);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--rosa-claro);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+            background: var(--cinza-claro);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--lilas);
+            background: var(--branco);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--rosa-claro), var(--lilas));
+            padding: 60px 0;
+            border-radius: var(--radius);
+            margin: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: var(--texto-escuro);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 60px 0;
+        }
+
+        .faq-item {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--sombra);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--texto-escuro);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: var(--texto-medio);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--texto-escuro);
+            color: var(--branco);
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--branco);
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 400px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--branco);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--lilas);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--branco);
+        }
+
+        .social-link:hover {
+            background: var(--lilas);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .auth-links {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container top-header">
+            <div class="logo">
+                <div class="logo-icon">LA</div>
+                <div class="logo-text">
+                    <h1>Lore Achadinhos</h1>
+                    <p>Pequenos tesouros com carinho</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="auth-links">
+                    <a href="#" id="loginBtn">Entre ou cadastre-se</a>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <nav>
+            <div class="container nav-container">
+                <div class="nav-links">
+                    <a href="index.html"><i class="fas fa-home"></i> Início</a>
+                    <a href="brinquedos.html"><i class="fas fa-gamepad"></i> Brinquedos</a>
+                    <a href="cozinha.html"><i class="fas fa-utensils"></i> Cozinha</a>
+                    <a href="eletronicos.html"><i class="fas fa-headphones"></i> Eletrônicos</a>
+                    <a href="moda.html"><i class="fas fa-tshirt"></i> Moda</a>
+                    <a href="casa.html"><i class="fas fa-home"></i> Casa</a>
+                </div>
+                <button class="affiliate-btn" id="affiliateBtn">
+                    <i class="fas fa-star"></i> Seja um Afiliado
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Junte-se à Nossa Família de Afiliados</h2>
+            <p>Ganhe comissões divulgando produtos incríveis enquanto ajuda outras pessoas a descobrirem tesouros especiais</p>
+            <a href="#formulario" class="btn primary">
+                <i class="fas fa-rocket"></i> Quero Ser Afiliado
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <h2 class="section-title">Por que ser nosso afiliado?</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Comissões Atraentes</h3>
+                    <p>Ganhe até 20% de comissão por cada venda realizada através do seu link exclusivo.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Bônus Especiais</h3>
+                    <p>Receba bônus por metas batidas e comissões extras em produtos selecionados.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Suporte Dedicado</h3>
+                    <p>Equipe especializada para te auxiliar no que precisar, quando precisar.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Ferramentas Profissionais</h3>
+                    <p>Acesso a materiais de marketing, relatórios detalhados e links rastreáveis.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Comunidade Ativa</h3>
+                    <p>Participe da nossa comunidade exclusiva de afiliados e troque experiências.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Pagamentos Seguros</h3>
+                    <p>Pagamentos semanais via PIX ou transferência bancária, sempre pontuais.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">R$ 50mil+</span>
+                        <div class="stat-label">Em Comissões</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <div class="stat-label">Afiliados Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <div class="stat-label">Satisfação</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24h</span>
+                        <div class="stat-label">Suporte</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="form-section" id="formulario">
+            <h2 class="form-title">Cadastre-se como Afiliado</h2>
+            
+            <form id="affiliateForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="affiliateName">Nome Completo *</label>
+                        <input type="text" id="affiliateName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="affiliateEmail">E-mail *</label>
+                        <input type="email" id="affiliateEmail" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="affiliatePhone">Telefone/WhatsApp *</label>
+                        <input type="tel" id="affiliatePhone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="affiliateCPF">CPF *</label>
+                        <input type="text" id="affiliateCPF" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliateSocial">Redes Sociais (Instagram, TikTok, YouTube, etc.)</label>
+                    <input type="text" id="affiliateSocial" class="form-control" placeholder="@seuusuario ou link do canal">
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliateExperience">Conte um pouco sobre sua experiência com marketing digital (opcional)</label>
+                    <textarea id="affiliateExperience" class="form-control" rows="4" placeholder="Já trabalhou com afiliados? Tem seguidores nas redes? Conte para nós!"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliateHow">Como você conheceu a Lore Achadinhos?</label>
+                    <select id="affiliateHow" class="form-control">
+                        <option value="">Selecione...</option>
+                        <option value="google">Google</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="indicacao">Indicação</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit" class="btn primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                        <i class="fas fa-paper-plane"></i> Enviar Inscrição
+                    </button>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px; color: var(--texto-medio); font-size: 0.9rem;">
+                    Ao se cadastrar, você concorda com nossos <a href="#" style="color: var(--lilas);">Termos de Uso</a> 
+                    e <a href="#" style="color: var(--lilas);">Política de Privacidade</a>.
+                </p>
+            </form>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Como funcionam as comissões?</div>
+                <div class="faq-answer">
+                    Você recebe comissões que variam de 10% a 20% sobre o valor total de cada venda realizada através do seu link único. Pagamentos são realizados semanalmente.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Preciso ter muitos seguidores?</div>
+                <div class="faq-answer">
+                    Não! Valorizamos a qualidade do seu conteúdo e engajamento. Afiliados com poucos seguidores mas boa taxa de conversão também têm sucesso.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Quanto tempo leva para ser aprovado?</div>
+                <div class="faq-answer">
+                    Nossa equipe analisa cada cadastro em até 48 horas. Você receberá um e-mail com o resultado e, se aprovado, suas credenciais de acesso.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Posso divulgar em qualquer rede social?</div>
+                <div class="faq-answer">
+                    Sim! Instagram, TikTok, YouTube, Facebook, blogs, sites pessoais... O importante é que o conteúdo seja adequado e respeite nossas diretrizes.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Há algum custo para ser afiliado?</div>
+                <div class="faq-answer">
+                    Não! O programa é totalmente gratuito. Você só precisa se cadastrar, ser aprovado e começar a divulgar nossos produtos.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Lore Achadinhos</h3>
+                    <p>Pequenos tesouros selecionados com carinho para trazer alegria e criar memórias especiais para sua família.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="afiliado.html">Trabalhe Conosco</a></li>
+                        <li><a href="#">Nossa História</a></li>
+                        <li><a href="#">Políticas de Entrega</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Atendimento</h4>
+                    <ul>
+                        <li><a href="#">Termo de compra e venda</a></li>
+                        <li><a href="#">Trocas e devoluções</a></li>
+                        <li><a href="#">Política de privacidade</a></li>
+                        <li><a href="#">Regulamentos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom" id="footerBottom">
+                <p>&copy; 2024 Lore Achadinhos. Todos os direitos reservados. | CNPJ: 12.345.678/0001-99</p>
+                <p>Clique 5x aqui para abrir o modo administrador</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        document.getElementById('affiliateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de envio
+            const name = document.getElementById('affiliateName').value;
+            
+            // Mostrar mensagem de sucesso
+            alert(`Obrigada, ${name}! Sua inscrição foi enviada com sucesso!\n\nNossa equipe entrará em contato em até 48 horas.`);
+            
+            // Redirecionar para página inicial após 2 segundos
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+
+        // Botão de afiliados no menu
+        document.getElementById('affiliateBtn').addEventListener('click', function() {
+            window.location.href = 'afiliado.html';
+        });
+
+        // Modo admin
+        let adminClicks = 0;
+        document.getElementById('footerBottom').addEventListener('click', function() {
+            adminClicks++;
+            if (adminClicks >= 5) {
+                adminClicks = 0;
+                const password = prompt('Modo administrador - Digite a senha:');
+                if (password === 'admin@lore') {
+                    window.location.href = 'admin.html';
+                } else {
+                    alert('Senha incorreta!');
+                }
+            }
+        });
+
+        // Login
+        document.getElementById('loginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Redirecionando para o login...');
+        });
+
+        // Ícone do carrinho
+        document.getElementById('cartIcon').addEventListener('click', function() {
+            alert('Esta é a página de afiliados. Continue navegando pelo site!');
+        });
+    </script>
+</body>
+</html>

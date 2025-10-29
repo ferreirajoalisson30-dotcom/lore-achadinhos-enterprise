@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lore Achadinhos — Loja</title>
+<meta name="description" content="Lore Achadinhos — achadinhos e brinquedos selecionados para pequenos tesouros" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  /* =========================
+     Brand variables & reset
+     ========================= */
+  :root{
+    --primary:#FF8BA7;     /* Rosa Pêssego */
+    --accent:#FF6F61;      /* Rosa Coral */
+    --bg:#FFF1E6;          /* Bege claro */
+    --card:#FFFFFF;
+    --text:#5C4033;
+    --muted:#8B6F66;
+    --soft:#A3CEF1;
+    --radius:12px;
+    --shadow:0 10px 30px rgba(92,64,51,0.06);
+    --glass: rgba(255,255,255,0.6);
+    font-family: Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+    color-scheme: light;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#FFF8F3);color:var(--text);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  /* =========================
+     Layout
+     ========================= */
+  .container{max-width:1120px;margin:0 auto;padding:18px}
+
+  header.site-header{position:sticky;top:0;background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid rgba(92,64,51,0.04)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo-mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:Poppins, sans-serif}
+  .brand h1{font-size:18px;margin:0;font-family:Poppins, sans-serif}
+  .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+  .search{flex:1;max-width:540px}
+  .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(92,64,51,0.06);background:var(--card)}
+
+  .top-actions{display:flex;gap:8px;align-items:center}
+  .btn{padding:8px 12px;border-radius:10px;background:var(--card);border:1px solid rgba(92,64,51,0.04);cursor:pointer;box-shadow:0 6px 14px rgba(16,24,32,0.04);font-weight:600}
+  .btn.primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:white;border:none}
+
+  /* hero */
+  .hero{padding:26px 0 6px;display:flex;gap:18px;align-items:center}
+  .hero h2{font-size:28px;margin:0;font-family:Poppins, sans-serif}
+  .hero p{margin:6px 0 0;color:var(--muted)}
+
+  /* categories & grid */
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .chip{padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid rgba(92,64,51,0.04);cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+  .card h3{margin:10px 0 6px;font-size:16px}
+  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+
+  /* floating admin bar (hidden until unlock) */
+  #adminFloating{position:fixed;right:18px;bottom:18px;z-index:999;display:none}
+  #adminFloating.open{display:block}
+  #adminPanel{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 20px 40px rgba(16,24,32,0.12);width:360px;max-width:calc(100% - 36px)}
+
+  /* modal */
+  .modal {position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);z-index:200;padding:20px}
+  .modal.open{display:flex}
+  .modal .panel{width:100%;max-width:720px;background:var(--card);border-radius:12px;padding:18px;box-shadow:0 20px 40px rgba(16,24,32,0.12)}
+
+  /* footer */
+  footer.site-footer{background:var(--text);color:white;padding:36px 0;margin-top:40px}
+  .footer-inner{max-width:1120px;margin:0 auto;padding:0 18px}
+  .footer-bottom{text-align:center;padding-top:18px;color:rgba(255,255,255,0.75);font-size:14px;cursor:default;user-select:none}
+  .footer-bottom small{display:block}
+
+  /* toast */
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:var(--text);color:white;padding:12px 16px;border-radius:10px;z-index:300;display:none}
+
+  /* responsive */
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.search{max-width:320px}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:stretch}.brand{justify-content:center}}
+</style>
+</head>
+<body>
+
+<!-- ===========================
+     HEADER / NAV
+     =========================== -->
+<header class="site-header">
+  <div class="container topbar">
+    <div class="brand" style="gap:10px">
+      <div class="logo-mark">LA</div>
+      <div>
+        <h1>Lore Achadinhos</h1>
+        <p>Pequenos tesouros com carinho</p>
+      </div>
+    </div>
+
+    <div class="search">
+      <input id="searchInput" placeholder="Buscar produto, categoria ou descrição..." aria-label="Buscar produtos">
+    </div>
+
+    <div class="top-actions">
+      <button class="btn" id="navHome">Início</button>
+      <button class="btn" id="navProdutos">Produtos</button>
+      <button class="btn" id="navCliente">Minha Conta</button>
+      <button class="btn" id="navAfiliado">Afiliado</button>
+      <button class="btn" id="cartButton">Carrinho <span id="cartCount" style="background:var(--accent);color:white;padding:4px 8px;border-radius:999px;margin-left:8px">0</span></button>
+    </div>
+  </div>
+
+  <div class="container hero" style="padding-bottom:14px">
+    <div>
+      <h2>Bem-vindo(a) à Lore Achadinhos</h2>
+      <p>Escolha, personalize e presenteie com carinho — teste as funcionalidades do protótipo abaixo.</p>
+    </div>
+    <div style="margin-left:auto">
+      <button class="btn primary" id="ctaExplore">Explorar produtos</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===========================
+     MAIN CONTENT (single-page sections)
+     =========================== -->
+<main class="container" id="mainContent" style="padding-top:18px;padding-bottom:40px">
+  <!-- Products controls -->
+  <div class="controls" id="controlsBar">
+    <div class="chip" data-cat="all">Todos</div>
+    <div class="chip" data-cat="brinquedos">Brinquedos</div>
+    <div class="chip" data-cat="eletronicos">Eletrônicos</div>
+    <div class="chip" data-cat="cozinha">Cozinha</div>
+    <div class="chip" data-cat="decoracao">Decoração</div>
+  </div>
+
+  <!-- Products grid -->
+  <section id="productsSection">
+    <div class="grid" id="productsGrid" aria-live="polite">
+      <!-- JS renders product cards here -->
+    </div>
+  </section>
+
+  <!-- Hidden: customer panel -->
+  <section id="customerArea" style="display:none;margin-top:26px">
+    <h3>Área do Cliente</h3>
+    <div id="customerBox">
+      <!-- Login / register forms / orders -->
+    </div>
+  </section>
+
+  <!-- Hidden: affiliate panel -->
+  <section id="affiliateArea" style="display:none;margin-top:26px">
+    <h3>Área do Afiliado</h3>
+    <div id="affiliateBox"></div>
+  </section>
+
+  <!-- Hidden: admin panel (also available floating when unlocked) -->
+  <section id="adminArea" style="display:none;margin-top:26px">
+    <h3>Área do Administrador</h3>
+    <div id="adminBox"></div>
+  </section>
+</main>
+
+<!-- ===========================
+     Modals (product, cart, checkout, login)
+     =========================== -->
+<!-- Product detail -->
+<div class="modal" id="productModal" aria-hidden="true">
+  <div class="panel" role="dialog" aria-modal="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <strong id="productModalTitle">Produto</strong>
+      <button class="btn" id="closeProductModal"><i class="fa fa-times"></i></button>
+    </div>
+    <div id="productModalBody"></div>
+  </div>
+</div>
+
+<!-- Cart modal -->
+<div class="modal" id="cartModal" aria-hidden="true">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <strong>Carrinho</strong>
+      <button class="btn" id="closeCartModal"><i class="fa fa-times"></i></button>
+    </div>
+    <div id="cartItems"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+      <div id="cartTotal">Total: R$0,00</div>
+      <div>
+        <button class="btn primary" id="openCheckout">Finalizar compra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal" id="checkoutModal" aria-hidden="true">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Finalizar Compra</strong>
+      <button class="btn" id="closeCheckout"><i class="fa fa-times"></i></button>
+    </div>
+
+    <form id="checkoutForm" style="margin-top:12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <input type="text" id="buyerName" class="form-control" placeholder="Nome completo" required>
+        <input type="email" id="buyerEmail" class="form-control" placeholder="E-mail" required>
+        <input type="text" id="buyerCEP" class="form-control" placeholder="CEP">
+        <input type="text" id="buyerAddress" class="form-control" placeholder="Endereço">
+      </div>
+      <div style="margin-top:12px">
+        <label style="display:block;margin-bottom:6px;font-weight:700">Escolha forma de pagamento (simulado)</label>
+        <select id="paymentMethod" class="form-control" required>
+          <option value="pix">PIX (simulado)</option>
+          <option value="boleto">Boleto (simulado)</option>
+          <option value="card">Cartão (simulado)</option>
+        </select>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:12px">
+        <button class="btn" type="button" id="cancelCheckoutBtn">Cancelar</button>
+        <button class="btn primary" type="submit">Confirmar e Pagar (simulado)</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Login modal (client) -->
+<div class="modal" id="loginModal" aria-hidden="true">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Entrar / Cadastrar</strong>
+      <button class="btn" id="closeLogin"><i class="fa fa-times"></i></button>
+    </div>
+    <div style="margin-top:12px">
+      <form id="customerAuthForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input id="authEmail" type="email" placeholder="E-mail" class="form-control" required>
+          <input id="authPassword" type="password" placeholder="Senha" class="form-control" required>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn primary" id="loginSubmit" type="submit">Entrar</button>
+          <button class="btn" id="registerBtn" type="button">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Affiliate modal -->
+<div class="modal" id="affiliateModal" aria-hidden="true">
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Área do Afiliado</strong>
+      <button class="btn" id="closeAffiliate"><i class="fa fa-times"></i></button>
+    </div>
+
+    <div style="margin-top:12px">
+      <form id="affiliateForm">
+        <input id="affName" type="text" class="form-control" placeholder="Seu nome" required>
+        <input id="affEmail" type="email" class="form-control" placeholder="E-mail" required>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button type="submit" class="btn primary">Criar conta de afiliado</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Admin floating panel (appears when unlocked) -->
+<div id="adminFloating" aria-hidden="true">
+  <div id="adminPanel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Painel Admin</strong>
+      <button class="btn" id="closeAdminPanel"><i class="fa fa-times"></i></button>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn" id="adminAddProduct">Adicionar Produto</button>
+      <button class="btn" id="adminViewOrders">Ver Pedidos</button>
+      <button class="btn" id="adminViewAffiliates">Afiliados</button>
+      <div id="adminInner" style="margin-top:12px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div style="max-width:480px">
+        <h3 style="font-family:Poppins, sans-serif;margin-bottom:8px;color:#fff">Lore Achadinhos</h3>
+        <p style="color:rgba(255,255,255,0.8)">Pequenos tesouros selecionados com carinho. Loja demo para testes.</p>
+      </div>
+      <div style="display:flex;gap:18px">
+        <div>
+          <strong style="color:#fff">Suporte</strong>
+          <div style="color:rgba(255,255,255,0.8);margin-top:6px">contato@loreachadinhos.com</div>
+        </div>
+        <div>
+          <strong style="color:#fff">Siga</strong>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <a class="btn" style="background:transparent;color:white"><i class="fab fa-instagram"></i></a>
+            <a class="btn" style="background:transparent;color:white"><i class="fab fa-facebook-f"></i></a>
+            <a class="btn" style="background:transparent;color:white"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom" id="footerBottom" title="Clique 5 vezes aqui para abrir o modo admin">
+      <small>&copy; <span id="yearNow"></span> Lore Achadinhos. Todos os direitos reservados.</small>
+      <small style="display:block;margin-top:8px;color:rgba(255,255,255,0.6)">Clique 5x neste texto para abrir o modo administrador (local)</small>
+    </div>
+  </div>
+</footer>
+
+<!-- ===========================
+     SCRIPT: Data + Logic
+     =========================== -->
+<script>
+/* ===========================
+   Configuration & initial data
+   =========================== */
+const ADMIN_PASSWORD = 'admin@lore'; // as requested
+const APP = {
+  key_products: 'la_products_v1',
+  key_cart: 'la_cart_v1',
+  key_users: 'la_users_v1',
+  key_affiliates: 'la_affiliates_v1',
+  key_orders: 'la_orders_v1',
+  affiliateParam: 'aff' // ?aff=CODE in URL
+};
+
+/* Example seed products (use your images in /img/ or remote links) */
+const seedProducts = [
+  { id:'p-caixa-sm10', title:'Caixa de Som Aurora - LED', price:182.50, category:'eletronicos', img:'img/CAIXA_SM10.jpg', desc:'Bluetooth com LEDs multicoloridos.', featured:true },
+  { id:'p-projetor-pro9102', title:'Projetor Estelar - PRO9102', price:389.20, category:'eletronicos', img:'img/PROJETOR_PRO9102.jpg', desc:'Projeta estrelas no teto.', featured:true },
+  { id:'p-ralador-6em1', title:'Ralador Multiuso 6 em 1', price:119.90, category:'cozinha', img:'img/RALA_MULTI1.jpg', desc:'Lâminas intercambiáveis.', featured:false }
+];
+
+/* ===========================
+   Persistence helpers
+   =========================== */
+function storeGet(key, fallback=null){
+  try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; }
+}
+function storeSet(key, value){
+  try{ localStorage.setItem(key, JSON.stringify(value)); } catch(e){ console.error('Storage error', e); }
+}
+
+/* Initialize datasets if missing */
+if(!storeGet(APP.key_products)) storeSet(APP.key_products, seedProducts);
+if(!storeGet(APP.key_cart)) storeSet(APP.key_cart, []);
+if(!storeGet(APP.key_users)) storeSet(APP.key_users, []); // users: {email,name,password}
+if(!storeGet(APP.key_affiliates)) storeSet(APP.key_affiliates, []); // affiliates: {id,code,name,email,approved}
+if(!storeGet(APP.key_orders)) storeSet(APP.key_orders, []); // orders
+
+/* App state */
+let PRODUCTS = storeGet(APP.key_products);
+let CART = storeGet(APP.key_cart);
+let USERS = storeGet(APP.key_users);
+let AFFILIATES = storeGet(APP.key_affiliates);
+let ORDERS = storeGet(APP.key_orders);
+
+/* Active session (local simple session) */
+let SESSION = {
+  user: storeGet('la_session_user') || null, // {email, name}
+  affiliateCode: null // detect via URL or login
+};
+
+/* detect affiliate code via URL ?aff=CODE */
+(function(){
+  const params = new URLSearchParams(location.search);
+  const a = params.get(APP.affiliateParam);
+  if(a){ SESSION.affiliateCode = a; showToast(`Código de afiliado aplicado: ${a}`); }
+})();
+
+/* ===========================
+   Utilities (UI)
+   =========================== */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+function showToast(msg, time=2200){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  t.style.opacity = '1';
+  setTimeout(()=>{ t.style.opacity = '0'; setTimeout(()=>t.style.display='none',300); }, time);
+}
+
+/* Formatting */
+function formatBRL(v){ return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v); }
+
+/* ===========================
+   Rendering: Products
+   =========================== */
+function renderProducts(filter='all', q=''){
+  PRODUCTS = storeGet(APP.key_products); // reload
+  const container = $('#productsGrid');
+  let items = PRODUCTS.slice();
+  if(filter && filter !== 'all') items = items.filter(p => p.category === filter);
+  if(q) items = items.filter(p => (p.title + ' ' + (p.desc||'')).toLowerCase().includes(q.toLowerCase()));
+
+  if(items.length === 0){
+    container.innerHTML = `<div style="grid-column:1/-1;padding:24px;background:var(--card);border-radius:10px;text-align:center">Nenhum produto encontrado</div>`;
+    return;
+  }
+
+  container.innerHTML = items.map(p => `
+    <div class="card">
+      ${p.featured ? '<div style="position:absolute;right:14px;top:14px;background:linear-gradient(90deg,var(--soft),var(--primary));color:white;padding:6px 10px;border-radius:999px;font-weight:700">DESTAQUE</div>' : ''}
+      <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.title)}" onerror="this.src='https://via.placeholder.com/600x400?text=Imagem+indispon%C3%ADvel'"/>
+      <h3>${escapeHtml(p.title)}</h3>
+      <div style="color:var(--muted);font-size:14px;min-height:38px">${escapeHtml(p.desc||'')}</div>
+      <div class="meta">
+        <div><strong style="color:var(--primary)">${formatBRL(p.price)}</strong></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" onclick='openProductModal("${p.id}")'><i class="fa fa-eye"></i> Ver</button>
+          <button class="btn primary" onclick='quickAddToCart("${p.id}")'><i class="fa fa-cart-plus"></i> Comprar</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* Escape HTML helper */
+function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/* ===========================
+   Product modal, quick add
+   =========================== */
+function openProductModal(productId){
+  const p = PRODUCTS.find(x=>x.id===productId);
+  if(!p) return;
+  $('#productModalTitle').textContent = p.title;
+  $('#productModalBody').innerHTML = `
+    <div style="display:flex;gap:12px">
+      <img src="${escapeHtml(p.img)}" style="width:220px;height:160px;object-fit:cover;border-radius:8px" onerror="this.src='https://via.placeholder.com/400x300?text=ND'"/>
+      <div style="flex:1">
+        <p style="margin:0 0 8px;color:var(--muted)">${escapeHtml(p.desc||'')}</p>
+        <p style="font-weight:800;color:var(--primary);font-size:20px;margin-bottom:8px">${formatBRL(p.price)}</p>
+        <div>
+          <label>Quantidade</label>
+          <input id="modalQty" type="number" value="1" min="1" style="width:80px;padding:8px;border-radius:8px;border:1px solid #eee;margin-right:6px"/>
+          <button class="btn primary" id="modalAddBtn">Adicionar ao carrinho</button>
+        </div>
+      </div>
+    </div>
+  `;
+  $('#productModal').classList.add('open');
+  $('#modalAddBtn').onclick = () => {
+    const qty = parseInt($('#modalQty').value || '1');
+    addToCart(productId, qty);
+    closeModal('productModal');
+  };
+}
+function closeModal(modId){ document.getElementById(modId).classList.remove('open'); }
+
+/* quick add (no options) */
+function quickAddToCart(productId, qty=1){
+  addToCart(productId, qty);
+}
+
+/* ===========================
+   Cart logic
+   =========================== */
+function saveCart(){ storeSet(APP.key_cart, CART); updateCartCount(); renderCartModalContent(); }
+function updateCartCount(){ const count = CART.reduce((s,i)=>s+i.quantity,0); $('#cartCount').textContent = count; }
+function addToCart(productId, qty=1){
+  const p = PRODUCTS.find(x=>x.id===productId);
+  if(!p) return;
+  const existing = CART.find(i=>i.id===productId);
+  if(existing) existing.quantity += qty; else CART.push({ id:productId, title:p.title, price:p.price, quantity:qty, img:p.img });
+  saveCart();
+  showToast(`${p.title} adicionado ao carrinho`);
+}
+function removeCartItem(productId){
+  CART = CART.filter(i=>i.id !== productId);
+  saveCart();
+}
+function changeCartQty(productId, delta){
+  const it = CART.find(i=>i.id===productId);
+  if(!it) return;
+  it.quantity += delta;
+  if(it.quantity <=0) removeCartItem(productId);
+  saveCart();
+}
+function renderCartModalContent(){
+  const container = $('#cartItems');
+  if(!container) return;
+  if(CART.length === 0){ container.innerHTML = `<div style="padding:18px">Seu carrinho está vazio</div>`; $('#cartTotal').textContent = 'Total: R$0,00'; return; }
+  container.innerHTML = CART.map(i=>`
+    <div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.04)">
+      <img src="${escapeHtml(i.img)}" style="width:72px;height:56px;object-fit:cover;border-radius:6px" onerror="this.src='https://via.placeholder.com/200x150'"/>
+      <div style="flex:1">
+        <div style="font-weight:700">${escapeHtml(i.title)}</div>
+        <div style="color:var(--muted)">${formatBRL(i.price)} x ${i.quantity}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn" onclick='changeCartQty("${i.id}", -1)'>-</button>
+        <div style="min-width:28px;text-align:center">${i.quantity}</div>
+        <button class="btn" onclick='changeCartQty("${i.id}", 1)'>+</button>
+        <button class="btn" onclick='removeCartItem("${i.id}")'>Remover</button>
+      </div>
+    </div>
+  `).join('');
+  const total = CART.reduce((s,i)=>s + i.price * i.quantity, 0);
+  $('#cartTotal').textContent = `Total: ${formatBRL(total)}`;
+}
+
+/* ===========================
+   Checkout (simulado) & Orders
+   =========================== */
+function openCheckout(){
+  if(CART.length === 0){ showToast('Carrinho vazio'); return; }
+  $('#checkoutModal').classList.add('open');
+  // fill defaults if user logged in
+  const user = SESSION.user;
+  if(user){
+    $('#buyerName').value = user.name || '';
+    $('#buyerEmail').value = user.email || '';
+  }
+}
+function submitCheckout(e){
+  e.preventDefault();
+  const name = $('#buyerName').value.trim();
+  const email = $('#buyerEmail').value.trim();
+  if(!name || !email){ showToast('Preencha nome e email'); return; }
+  const payment = $('#paymentMethod').value;
+  const total = CART.reduce((s,i)=>s + i.price * i.quantity, 0);
+  // Create order
+  const order = {
+    id: 'o-' + Date.now(),
+    date: new Date().toISOString(),
+    buyer: { name, email },
+    items: JSON.parse(JSON.stringify(CART)),
+    total,
+    payment,
+    affiliate: SESSION.affiliateCode || null,
+    status: 'paid-simulated'
+  };
+  ORDERS.unshift(order);
+  storeSet(APP.key_orders, ORDERS);
+  // Clear cart
+  CART = [];
+  storeSet(APP.key_cart, CART);
+  renderCartModalContent();
+  updateCartCount();
+  closeModal('checkoutModal');
+  showToast('Compra simulada realizada! Pedido: ' + order.id);
+}
+
+/* ===========================
+   Customer auth (local-only)
+   =========================== */
+function registerUser(email, password, name){
+  USERS = storeGet(APP.key_users);
+  if(USERS.find(u=>u.email===email)) return { ok:false, msg:'Usuário já existe' };
+  USERS.push({ email, password, name, created: new Date().toISOString(), orders:[] });
+  storeSet(APP.key_users, USERS);
+  return { ok:true };
+}
+function loginUser(email,password){
+  USERS = storeGet(APP.key_users);
+  const u = USERS.find(x=>x.email===email && x.password===password);
+  if(u){ SESSION.user = { email:u.email, name:u.name }; storeSet('la_session_user', SESSION.user); showToast('Bem-vindo, ' + (u.name || 'cliente')); return true; }
+  return false;
+}
+function logoutUser(){
+  SESSION.user = null; storeSet('la_session_user', null); showToast('Desconectado'); renderCustomerArea();
+}
+function renderCustomerArea(){
+  const box = $('#customerBox');
+  if(!box) return;
+  if(SESSION.user){
+    box.innerHTML = `
+      <div style="padding:12px;background:var(--card);border-radius:10px">
+        <div><strong>${escapeHtml(SESSION.user.name)}</strong> (${escapeHtml(SESSION.user.email)})</div>
+        <div style="margin-top:8px">
+          <button class="btn" id="btnLogout">Sair</button>
+        </div>
+      </div>
+      <h4 style="margin-top:12px">Pedidos (local)</h4>
+      <div id="customerOrders"></div>
+    `;
+    $('#btnLogout').onclick = logoutUser;
+    // list orders for this email
+    const myOrders = ORDERS.filter(o => o.buyer && o.buyer.email === SESSION.user.email);
+    const list = myOrders.map(o => `<div style="padding:8px;border-bottom:1px solid #eee"><strong>${o.id}</strong> - ${new Date(o.date).toLocaleString()} - ${formatBRL(o.total)} - ${o.status}</div>`).join('') || '<div style="padding:8px">Nenhum pedido</div>';
+    $('#customerOrders').innerHTML = list;
+  } else {
+    box.innerHTML = `
+      <div style="padding:12px;background:var(--card);border-radius:10px">
+        <p>Faça login ou cadastre-se para ver seus pedidos e finalizar compras mais rápido.</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn" id="openLoginBtn">Entrar / Cadastrar</button>
+        </div>
+      </div>
+    `;
+    $('#openLoginBtn').onclick = ()=> { $('#loginModal').classList.add('open'); };
+  }
+}
+
+/* ===========================
+   Affiliate system (local)
+   =========================== */
+function createAffiliate(name,email){
+  AFFILIATES = storeGet(APP.key_affiliates);
+  const code = 'aff' + Math.random().toString(36).slice(2,8);
+  const id = 'a-' + Date.now();
+  const record = { id, code, name, email, approved:false, created:new Date().toISOString(), clicks:0, sales:0 };
+  AFFILIATES.push(record);
+  storeSet(APP.key_affiliates, AFFILIATES);
+  return record;
+}
+function renderAffiliateBox(){
+  const box = $('#affiliateBox');
+  if(!box) return;
+  box.innerHTML = `
+    <div style="padding:12px;background:var(--card);border-radius:10px">
+      <p>Tenha seu código de afiliado e ganhe comissões. Aqui você pode criar sua conta de afiliado.</p>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="openAffiliateModal">Criar conta de afiliado</button>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <h4>Afiliados aprovados</h4>
+      <div id="affList"></div>
+    </div>
+  `;
+  $('#openAffiliateModal').onclick = ()=>$('#affiliateModal').classList.add('open');
+
+  const approved = AFFILIATES.filter(a => a.approved);
+  $('#affList').innerHTML = approved.map(a => `<div style="padding:8px;border-bottom:1px solid #eee">${escapeHtml(a.name)} — Código: <strong>${escapeHtml(a.code)}</strong> — Vendas: ${a.sales}</div>`).join('') || '<div style="padding:8px">Nenhum afiliado aprovado</div>';
+}
+
+/* ===========================
+   Admin unlock (5 clicks on footer)
+   =========================== */
+let footerClicks = 0;
+$('#footerBottom').addEventListener('click', ()=>{
+  footerClicks++;
+  if(footerClicks >= 5){
+    footerClicks = 0;
+    const pass = prompt('Modo admin — insira a senha:');
+    if(pass === ADMIN_PASSWORD){
+      openAdminPanel(true);
+      showToast('✨ Modo administrador ativado 💼');
+    } else {
+      alert('Senha incorreta');
+    }
+  }
+});
+/* Open admin panel */
+function openAdminPanel(showFloating=false){
+  $('#adminFloating').classList.add('open');
+  $('#adminFloating').setAttribute('aria-hidden','false');
+  // populate admin inner
+  renderAdminInner();
+}
+/* Close admin */
+$('#closeAdminPanel').onclick = function(){ $('#adminFloating').classList.remove('open'); $('#adminFloating').setAttribute('aria-hidden','true'); };
+
+/* Admin inner controls */
+function renderAdminInner(){
+  const inner = $('#adminInner');
+  if(!inner) return;
+  inner.innerHTML = `
+    <div style="margin-top:8px">
+      <strong>Produtos</strong>
+      <div id="adminProductList" style="margin-top:8px"></div>
+      <div style="margin-top:8px">
+        <button class="btn" id="adminOpenAddProduct">Novo produto</button>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <strong>Pedidos</strong>
+      <div id="adminOrdersList" style="margin-top:8px"></div>
+    </div>
+    <div style="margin-top:12px">
+      <strong>Afiliados</strong>
+      <div id="adminAffList" style="margin-top:8px"></div>
+    </div>
+  `;
+  // populate lists
+  const pList = PRODUCTS.map(p=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0">${escapeHtml(p.title)} <div><button class="btn" onclick='adminEditProduct("${p.id}")'>Editar</button> <button class="btn" onclick='adminDeleteProduct("${p.id}")'>Remover</button></div></div>`).join('') || '<div>Sem produtos</div>';
+  $('#adminProductList').innerHTML = pList;
+
+  const oList = ORDERS.map(o=>`<div style="padding:6px 0;border-bottom:1px solid #f0f0f0"><strong>${o.id}</strong> ${new Date(o.date).toLocaleString()} - ${formatBRL(o.total)} - ${o.status}</div>`).join('') || '<div>Sem pedidos</div>';
+  $('#adminOrdersList').innerHTML = oList;
+
+  const aList = AFFILIATES.map(a=>`<div style="padding:6px 0;border-bottom:1px solid #f0f0f0">${escapeHtml(a.name)} - ${escapeHtml(a.email)} - <strong>${escapeHtml(a.code)}</strong> - Approved: ${a.approved ? 'Sim' : 'Não'} <button class="btn" onclick='adminToggleAffiliate("${a.id}")'>Toggle aprovar</button></div>`).join('') || '<div>Sem afiliados</div>';
+  $('#adminAffList').innerHTML = aList;
+
+  $('#adminOpenAddProduct').onclick = ()=>openAdminAddProduct();
+}
+
+/* Admin product functions */
+function adminDeleteProduct(id){
+  if(!confirm('Remover produto?')) return;
+  PRODUCTS = PRODUCTS.filter(p=>p.id !== id);
+  storeSet(APP.key_products, PRODUCTS);
+  renderProducts();
+  renderAdminInner();
+  showToast('Produto removido');
+}
+function adminEditProduct(id){
+  // simple edit prompt flow (name & price)
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  const newName = prompt('Nome do produto', p.title) || p.title;
+  const newPrice = parseFloat(prompt('Preço (use ponto)', p.price) || p.price);
+  p.title = newName; p.price = isNaN(newPrice) ? p.price : newPrice;
+  storeSet(APP.key_products, PRODUCTS);
+  renderProducts(); renderAdminInner(); showToast('Produto atualizado');
+}
+
+/* Admin add product form in modal */
+function openAdminAddProduct(){
+  $('#productModalTitle').textContent = 'Adicionar produto (admin)';
+  $('#productModalBody').innerHTML = `
+    <form id="adminAddForm">
+      <div style="display:grid;gap:8px">
+        <input id="ap_title" placeholder="Nome" class="form-control" required>
+        <input id="ap_price" placeholder="Preço (ex: 199.90)" class="form-control" required>
+        <input id="ap_category" placeholder="Categoria" class="form-control" required>
+        <input id="ap_img" placeholder="Imagem (caminho relativo ex: img/arquivo.jpg ou URL)" class="form-control">
+        <textarea id="ap_desc" placeholder="Descrição curta" class="form-control"></textarea>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn" type="button" id="adminCancelAdd">Cancelar</button>
+          <button class="btn primary" type="submit">Adicionar</button>
+        </div>
+      </div>
+    </form>
+  `;
+  $('#productModal').classList.add('open');
+  $('#adminCancelAdd').onclick = ()=>closeModal('productModal');
+  $('#adminAddForm').onsubmit = function(e){
+    e.preventDefault();
+    const title = $('#ap_title').value.trim(); const price = parseFloat($('#ap_price').value); const cat = $('#ap_category').value.trim(); const img = $('#ap_img').value.trim() || 'https://via.placeholder.com/600x400';
+    const desc = $('#ap_desc').value.trim();
+    if(!title || isNaN(price)) return alert('Preencha nome e preço');
+    const id = 'p-' + Date.now();
+    PRODUCTS.unshift({ id, title, price, category:cat, img, desc, featured:false });
+    storeSet(APP.key_products, PRODUCTS);
+    renderProducts(); renderAdminInner(); closeModal('productModal'); showToast('Produto adicionado');
+  };
+}
+
+/* Admin affiliates toggle */
+function adminToggleAffiliate(id){
+  const a = AFFILIATES.find(x=>x.id===id);
+  if(!a) return;
+  a.approved = !a.approved;
+  storeSet(APP.key_affiliates, AFFILIATES);
+  renderAdminInner();
+  showToast('Afiliado atualizado');
+}
+
+/* ===========================
+   Affiliate create (modal)
+   =========================== */
+$('#affiliateForm').onsubmit = function(e){
+  e.preventDefault();
+  const name = $('#affName').value.trim();
+  const email = $('#affEmail').value.trim();
+  if(!name || !email) return showToast('Preencha nome e email');
+  const rec = createAffiliate(name,email);
+  showToast('Conta criada. Aguarde aprovação do admin. Código: ' + rec.code);
+  $('#affiliateModal').classList.remove('open');
+  renderAffiliateBox();
+};
+
+/* createAffiliate already implemented above */
+
+/* ===========================
+   UI event bindings
+   =========================== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  $('#yearNow').textContent = new Date().getFullYear();
+
+  // load data to UI
+  renderProducts();
+  renderCartModalContent();
+  updateCartCount();
+  renderCustomerArea();
+  renderAffiliateBox();
+
+  // search
+  $('#searchInput').addEventListener('input', (e)=> renderProducts('all', e.target.value));
+
+  // nav
+  $('#navHome').onclick = ()=> { window.scrollTo({top:0,behavior:'smooth'}); };
+  $('#navProdutos').onclick = ()=> { location.hash = '#produtos'; document.querySelector('#productsSection').scrollIntoView({behavior:'smooth'}); };
+  $('#navCliente').onclick = ()=> { location.hash = '#cliente'; $('#customerArea').style.display = 'block'; $('#affiliateArea').style.display='none'; $('#adminArea').style.display='none'; renderCustomerArea(); $('#customerArea').scrollIntoView({behavior:'smooth'}); };
+  $('#navAfiliado').onclick = ()=> { location.hash = '#afiliado'; $('#affiliateArea').style.display='block'; $('#customerArea').style.display='none'; $('#adminArea').style.display='none'; renderAffiliateBox(); $('#affiliateArea').scrollIntoView({behavior:'smooth'}); };
+
+  // cta
+  $('#ctaExplore').onclick = ()=> { $('#productsSection').scrollIntoView({behavior:'smooth'}); };
+
+  // product modal close
+  $('#closeProductModal').onclick = ()=> closeModal('productModal');
+
+  // cart modal
+  $('#cartButton').onclick = ()=> { $('#cartModal').classList.add('open'); renderCartModalContent(); };
+  $('#closeCartModal').onclick = ()=> closeModal('cartModal');
+
+  // open checkout
+  $('#openCheckout').onclick = ()=> openCheckout();
+  $('#closeCheckout').onclick = ()=> closeModal('checkoutModal');
+  $('#cancelCheckoutBtn').onclick = ()=> closeModal('checkoutModal');
+  $('#checkoutForm').onsubmit = submitCheckout;
+
+  // login modal handlers
+  $('#closeLogin').onclick = ()=> closeModal('loginModal');
+  $('#loginSubmit').onclick = (e)=>{}; // handled by form
+  $('#customerAuthForm').onsubmit = function(e){
+    e.preventDefault();
+    const email = $('#authEmail').value.trim();
+    const password = $('#authPassword').value.trim();
+    // Try login, else register flow offered
+    if(loginUser(email,password)){
+      closeModal('loginModal');
+      renderCustomerArea();
+    } else {
+      // suggest registration
+      if(confirm('Usuário não encontrado. Deseja cadastrar com esses dados?')){
+        const name = prompt('Nome completo (para cadastro)') || email.split('@')[0];
+        const res = registerUser(email,password,name);
+        if(res.ok){ showToast('Cadastro realizado. Você está logado.'); loginUser(email,password); closeModal('loginModal'); renderCustomerArea(); }
+        else alert(res.msg);
+      }
+    }
+  };
+
+  // affiliate modal close
+  $('#closeAffiliate').onclick = ()=> closeModal('affiliateModal');
+});
+
+/* ===========================
+   Helper: Orders record affiliate sales when checkout created
+   (We record affiliate code on order creation above)
+   Update affiliate stats: increment sales count when order is placed
+   =========================== */
+function updateAffiliateSalesOnOrder(order){
+  if(!order.affiliate) return;
+  AFFILIATES = storeGet(APP.key_affiliates);
+  const a = AFFILIATES.find(x=>x.code === order.affiliate);
+  if(a){ a.sales = (a.sales || 0) + 1; storeSet(APP.key_affiliates, AFFILIATES); }
+}
+
+/* hook into submitCheckout to update affiliate after creating order */
+(function(){
+  const originalSubmit = submitCheckout;
+  submitCheckout = function(e){
+    e.preventDefault();
+    originalSubmit(e); // creates the order above
+    // update ORDERS var and call affiliate update on last order
+    ORDERS = storeGet(APP.key_orders);
+    if(ORDERS && ORDERS.length > 0){
+      const last = ORDERS[0];
+      updateAffiliateSalesOnOrder(last);
+    }
+  };
+})();
+
+/* ===========================
+   Utility to open modals via code (exposed)
+   =========================== */
+window.openProductModal = openProductModal;
+window.openModal = id => { document.getElementById(id).classList.add('open'); };
+
+/* ===========================
+   Final: expose some admin functions to global to allow inline button actions
+   =========================== */
+window.adminEditProduct = adminEditProduct;
+window.adminDeleteProduct = adminDeleteProduct;
+window.adminToggleAffiliate = adminToggleAffiliate;
+
+/* End of script */
+</script>
+
+</body>
+</html>

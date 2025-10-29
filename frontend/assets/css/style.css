@@ -1,0 +1,24 @@
+/* style.css - tema Lilás + Branco + Rosa pastel - versão produção (originais) */
+:root{
+  --bg:#ffffff;
+  --primary:#a18cd1; /* lilás */
+  --accent:#ffd1e6;  /* rosa pastel */
+  --muted:#f7f5fb;
+  --text:#222;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.4}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+.site-header{padding:16px;border-bottom:1px solid rgba(0,0,0,0.05);background:linear-gradient(90deg,var(--muted),#fff)}
+.brand{margin:0;font-size:18px}
+.hero{padding:48px 0;text-align:center}
+.login-card{max-width:360px;margin:48px auto;padding:24px;border-radius:var(--radius);background:var(--muted);box-shadow:0 6px 24px rgba(0,0,0,0.04)}
+label{display:block;margin-bottom:12px;font-size:14px}
+input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+button{background:var(--primary);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+button:focus, input:focus{outline:3px solid rgba(161,140,209,0.25);outline-offset:2px}
+a{color:var(--primary);text-decoration:none}
+.small{font-size:13px;color:#666;margin-top:12px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

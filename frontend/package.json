@@ -1,0 +1,16 @@
+{
+  "name": "lore-achadinhos-frontend",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "cleancss -o ./frontend/assets/css/style.min.css ./frontend/assets/css/style.css --source-map",
+    "build:js": "terser ./frontend/assets/js/config.js -o ./frontend/assets/js/config.min.js --source-map",
+    "build": "npm run build:css && npm run build:js",
+    "ci:zip": "node ./scripts/create-zip.js"
+  },
+  "devDependencies": {
+    "terser": "^5.17.0",
+    "clean-css-cli": "^1.5.0",
+    "imagemin-cli": "^7.0.1"
+  }
+}

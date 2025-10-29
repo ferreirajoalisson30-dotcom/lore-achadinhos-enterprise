@@ -1,0 +1,1 @@
+describe('Login Page', () => { it('should load and login successfully', () => { cy.visit('/login'); }); });

@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6
+    container_name: lore-mongo
+    restart: unless-stopped
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: lore-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend/uploads:/app/uploads

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurações - Lore Achadinhos</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header>
+  <img src="assets/images/logo.png" alt="Logo">
+  Lore Achadinhos - Painel Administrativo
+</header>
+<div class="sidebar">
+  <ul>
+    <li onclick="navigate('dashboard.html')">Dashboard</li>
+    <li onclick="navigate('produtos.html')">Produtos</li>
+    <li onclick="navigate('pedidos.html')">Pedidos</li>
+    <li onclick="navigate('clientes.html')">Clientes</li>
+    <li onclick="navigate('afiliados.html')">Afiliados</li>
+    <li onclick="navigate('analytics.html')">Analytics</li>
+    <li class="active" onclick="navigate('configuracoes.html')">Configurações</li>
+  </ul>
+</div>
+<main>
+  <h1>Configurações da Loja</h1>
+  <label>Nome da Loja</label>
+  <input type="text" id="nomeLoja">
+  <label>Email</label>
+  <input type="email" id="emailLoja">
+  <label>Telefone</label>
+  <input type="text" id="telefoneLoja">
+  <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
+</main>
+<script src="assets/js/configuracoes.js"></script>
+<script>
+function navigate(url){ window.location.href=url; }
+</script>
+</body>
+</html>

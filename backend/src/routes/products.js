@@ -1,0 +1,11 @@
+import express from 'express';
+import { listProducts, getProduct, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { requireAuth } from '../middleware/auth.js';
+import { upload } from '../middleware/upload.js';
+const router = express.Router();
+router.get('/', listProducts);
+router.get('/:id', getProduct);
+router.post('/', requireAuth('admin'), upload.array('images', 6), createProduct);
+router.put('/:id', requireAuth('admin'), upload.array('images', 6), updateProduct);
+router.delete('/:id', requireAuth('admin'), deleteProduct);
+export default router;

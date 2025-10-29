@@ -1,0 +1,29 @@
+O que já foi feito
+
+Estrutura completa do site principal criada (HTML, CSS, JS organizados em pastas).
+
+Definida a paleta de cores feminina e moderna para induzir compras.
+
+Criadas as páginas principais do painel administrativo: Dashboard, Produtos, Pedidos, Clientes, Afiliados, Analytics, Configurações e Investigação.
+
+Implementado o sistema de modais, toasts e visualização de carrinho.
+
+Criado um testador de funções JS (test-utils.html) para validar scripts de forma independente.
+
+Organização de scripts em /assets/js com módulos separados (products.js, cart.js, utils.js).
+
+Configuração do servidor local (http.server) para testes.
+
+⏳ O que falta fazer
+
+Finalizar e integrar a página principal da loja (index.html) com todos os módulos JS e estilos.
+
+Corrigir a compatibilidade dos módulos ES6 (import/export) para funcionar em produção.
+
+Adicionar integração Stripe (sandbox) para testes de pagamento.
+
+Refinar o design responsivo e animações.
+
+Criar e otimizar o banco de dados / JSON de produtos.
+
+Fazer testes finais e empacotar o projeto para publicação

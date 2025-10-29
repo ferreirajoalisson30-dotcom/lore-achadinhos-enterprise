@@ -1,0 +1,363 @@
+<!--
+Lore Achadinhos - Single-file website (index.html)
+Descrição: Site de vendas simples, responsivo, com catálogo, carrinho, checkout mock e customização básica.
+
+PASSO A PASSO RÁPIDO (salve este arquivo como index.html e siga):
+1) Copie todo o conteúdo deste arquivo e salve como `index.html` no seu computador.
+2) Abra o arquivo no navegador (duplo-clique em index.html) para rodar localmente.
+   - Se quiser um servidor local (recomendado para algumas funcionalidades), abra um terminal na pasta e rode: `python -m http.server 8000` e visite `http://localhost:8000`.
+3) Para publicar gratuitamente: crie um repositório no GitHub, faça commit deste `index.html` como `index.html` na branch `gh-pages` (ou ative GitHub Pages) — o site ficará disponível em `https://<seu-usuario>.github.io/<repo>`.
+4) Personalize: troque o nome, logo, imagens (URLs em cada produto), e preços no array `products` dentro do script JS.
+5) Recursos extras: posso gerar logo, imagens de produto, versão com backend (Node/Express + banco) ou um React app. Diga o que prefere.
+
+O que está incluso:
+- Layout responsivo (mobile-first)
+- Barra superior com logo, pesquisa e botão de carrinho
+- Grid de produtos com filtros rápidos
+- Carrinho persistente via localStorage
+- Modal de checkout com formulário simples (mock)
+- Painel de seleção de cor da loja e escolha de navegação
+
+Observação: Este é um site estático (sem pagamentos reais). Para aceitar pagamentos reais você precisará integrar um gateway (Stripe, PayPal) e um backend seguro.
+-->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lore Achadinhos — Loja</title>
+  <meta name="description" content="Lore Achadinhos — achadinhos e brinquedos selecionados para pequenos tesouros" />
+  <style>
+    /* Reset simples */
+    :root{
+      --accent:#ff6b6b;
+      --accent-2:#ffb86b;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --dark: #0f172a;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--dark);line-height:1.4}
+    a{color:inherit;text-decoration:none}
+    header{background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));backdrop-filter: blur(6px);box-shadow:0 1px 0 rgba(0,0,0,0.04);position:sticky;top:0;z-index:40}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+
+    /* Top bar */
+    .top{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .brand h1{font-size:18px;margin:0}
+    .search{flex:1;max-width:520px}
+    .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:transparent}
+    .actions{display:flex;gap:8px;align-items:center}
+    .btn{background:var(--card);border-radius:10px;padding:8px 12px;box-shadow:0 6px 10px rgba(15,23,42,0.04);display:inline-flex;gap:8px;align-items:center}
+
+    /* Hero */
+    .hero{padding:28px 0 8px}
+    .hero h2{margin:0 0 6px;font-size:22px}
+    .hero p{margin:0;color:var(--muted)}
+
+    /* Controls */
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+    .chip{padding:8px 12px;background:var(--card);border-radius:999px;border:1px solid rgba(15,23,42,0.04);cursor:pointer}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(12,16,25,0.04);display:flex;flex-direction:column}
+    .card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+    .card h3{margin:10px 0 6px;font-size:16px}
+    .price{font-weight:700}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+
+    /* Cart modal */
+    .cart-badge{background:var(--accent);color:#fff;padding:6px 8px;border-radius:999px;font-size:12px}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);z-index:60}
+    .modal.open{display:flex}
+    .modal-panel{width:96%;max-width:720px;background:var(--card);border-radius:12px;padding:18px}
+
+    /* Responsive */
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.search{max-width:360px}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}.brand h1{font-size:16px}.logo{width:42px;height:42px}}
+
+    footer{padding:28px 0;color:var(--muted)}
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .flex{display:flex;gap:8px;align-items:center}
+    .small{font-size:13px}
+    .center{text-align:center}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container top">
+      <div class="brand">
+        <div class="logo">LA</div>
+        <div>
+          <h1>Lore Achadinhos</h1>
+          <div class="muted small">Achadinhos selecionados para pequenos tesouros</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="search" placeholder="Buscar por brinquedo, presente, cor..." />
+      </div>
+
+      <div class="actions">
+        <div class="btn" id="themeToggle">Tema</div>
+        <div class="btn" id="favoritesBtn">Favoritos</div>
+        <div class="btn" id="cartBtn">Carrinho <span id="cartCount" class="cart-badge">0</span></div>
+      </div>
+    </div>
+
+    <div class="container hero">
+      <h2>Bem-vindos à Lore Achadinhos</h2>
+      <p>Produtos escolhidos com carinho para crianças. Experimente pesquisar, filtrar por categoria e clicar em comprar.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="controls">
+      <div class="chip" data-cat="all">Todos</div>
+      <div class="chip" data-cat="brinquedo">Brinquedos</div>
+      <div class="chip" data-cat="roupa">Roupas</div>
+      <div class="chip" data-cat="acessorio">Acessórios</div>
+      <div class="chip" id="clearFilters">Limpar</div>
+    </div>
+
+    <section id="productsSection">
+      <div id="productsGrid" class="grid"></div>
+    </section>
+
+    <section style="margin-top:20px">
+      <h3>Como funciona</h3>
+      <ol>
+        <li>Pesquise ou escolha uma categoria.</li>
+        <li>Adicione ao carrinho.</li>
+        <li>Abra o carrinho e clique em finalizar compra (mock) — não há pagamento real.</li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Cart modal -->
+  <div id="cartModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <h3>Carrinho</h3>
+      <div id="cartItems"></div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="muted small" id="cartTotal">Total: R$0,00</div>
+        <div style="display:flex;gap:8px">
+          <button id="checkoutBtn" class="btn">Finalizar compra</button>
+          <button id="closeCart" class="btn">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div id="checkoutModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <h3>Finalizar compra</h3>
+      <form id="checkoutForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input name="nome" required placeholder="Nome completo" />
+          <input name="email" type="email" required placeholder="Email" />
+          <input name="cep" placeholder="CEP" />
+          <input name="endereco" placeholder="Endereço" />
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <div class="muted small">Pagamento: Simulação (sem cobrança)</div>
+          <div style="display:flex;gap:8px">
+            <button type="submit" class="btn">Confirmar</button>
+            <button type="button" id="cancelCheckout" class="btn">Cancelar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <strong>Lore Achadinhos</strong>
+        <div class="muted small">Feito com carinho — exemplo didático</div>
+      </div>
+      <div class="muted small">© Lore Achadinhos — <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* PRODUTOS: Edite/adicione produtos aqui. Imagens usam picsum.photos (exemplo). */
+    const products = [
+      { id: 'p1', title: 'Urso de Pelúcia Rosa', price: 69.9, category: 'brinquedo', img: 'https://picsum.photos/seed/urso/600/400' },
+      { id: 'p2', title: 'Camiseta Estrela', price: 39.0, category: 'roupa', img: 'https://picsum.photos/seed/camiseta/600/400' },
+      { id: 'p3', title: 'Kit Lacinhos', price: 24.5, category: 'acessorio', img: 'https://picsum.photos/seed/lacos/600/400' },
+      { id: 'p4', title: 'Carrinho de Madeira', price: 119.0, category: 'brinquedo', img: 'https://picsum.photos/seed/carrinho/600/400' },
+      { id: 'p5', title: 'Manta Fofa', price: 89.5, category: 'roupa', img: 'https://picsum.photos/seed/manta/600/400' }
+    ];
+
+    // Estado
+    let state = {
+      cart: JSON.parse(localStorage.getItem('la_cart') || '[]'),
+      filter: 'all',
+      q: ''
+    };
+
+    const productsGrid = document.getElementById('productsGrid');
+    const cartCount = document.getElementById('cartCount');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('cartModal');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const checkoutModal = document.getElementById('checkoutModal');
+
+    function formatBRL(v){
+      return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function saveCart(){
+      localStorage.setItem('la_cart', JSON.stringify(state.cart));
+      renderCartCount();
+    }
+
+    function renderCartCount(){
+      const total = state.cart.reduce((s,i)=>s+i.qty,0);
+      cartCount.textContent = total;
+    }
+
+    function addToCart(productId){
+      const prod = products.find(p=>p.id===productId);
+      if(!prod) return;
+      const existing = state.cart.find(i=>i.id===productId);
+      if(existing) existing.qty += 1; else state.cart.push({ id:prod.id, title:prod.title, price:prod.price, qty:1 });
+      saveCart();
+      toast(`${prod.title} adicionado ao carrinho`);
+    }
+
+    function removeFromCart(productId){
+      state.cart = state.cart.filter(i=>i.id!==productId);
+      saveCart();
+      renderCartModal();
+    }
+
+    function changeQty(productId, delta){
+      const item = state.cart.find(i=>i.id===productId);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty < 1) removeFromCart(productId);
+      saveCart(); renderCartModal();
+    }
+
+    function renderProducts(){
+      const q = state.q.trim().toLowerCase();
+      const filtered = products.filter(p=>{
+        if(state.filter !== 'all' && p.category !== state.filter) return false;
+        if(q && !(p.title.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))) return false;
+        return true;
+      });
+
+      productsGrid.innerHTML = filtered.map(p=>`
+        <div class="card">
+          <img src="${p.img}" alt="${p.title}" loading="lazy" />
+          <h3>${p.title}</h3>
+          <div class="muted small">Categoria: ${p.category}</div>
+          <div class="meta">
+            <div>
+              <div class="price">${formatBRL(p.price)}</div>
+            </div>
+            <div>
+              <button class="btn" onclick="addToCart('${p.id}')">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderCartModal(){
+      if(state.cart.length === 0){
+        cartItemsEl.innerHTML = '<div class="center muted">Seu carrinho está vazio</div>';
+        cartTotalEl.textContent = 'Total: R$0,00';
+        return;
+      }
+      cartItemsEl.innerHTML = state.cart.map(item=>`
+        <div style="display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.04)">
+          <div style="flex:1">
+            <div style="font-weight:600">${item.title}</div>
+            <div class="small muted">${formatBRL(item.price)} x ${item.qty}</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="btn" onclick="changeQty('${item.id}', -1)">-</button>
+            <div style="min-width:28px;text-align:center">${item.qty}</div>
+            <button class="btn" onclick="changeQty('${item.id}', 1)">+</button>
+            <button class="btn" onclick="removeFromCart('${item.id}')">Remover</button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = state.cart.reduce((s,i)=>s + i.price * i.qty, 0);
+      cartTotalEl.textContent = `Total: ${formatBRL(total)}`;
+    }
+
+    // Toast
+    function toast(msg){
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position='fixed';el.style.left='50%';el.style.transform='translateX(-50%)';el.style.bottom='18px';el.style.background='var(--card)';el.style.padding='10px 14px';el.style.borderRadius='10px';el.style.boxShadow='0 8px 22px rgba(12,16,25,0.08)';
+      document.body.appendChild(el);
+      setTimeout(()=>{el.style.opacity='0';el.style.transition='opacity 300ms';setTimeout(()=>el.remove(),300)},1800);
+    }
+
+    // Event bindings and UI controls
+    document.getElementById('search').addEventListener('input', (e)=>{ state.q = e.target.value; renderProducts(); });
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=>{ state.filter = c.dataset.cat || 'all'; renderProducts(); }));
+    document.getElementById('clearFilters').addEventListener('click', ()=>{ state.filter='all'; state.q=''; document.getElementById('search').value=''; renderProducts(); });
+
+    // Cart open/close
+    cartBtn.addEventListener('click', ()=>{ cartModal.classList.add('open'); renderCartModal(); });
+    document.getElementById('closeCart').addEventListener('click', ()=>cartModal.classList.remove('open'));
+    cartModal.addEventListener('click', (e)=>{ if(e.target === cartModal) cartModal.classList.remove('open'); });
+
+    // Checkout
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{ cartModal.classList.remove('open'); checkoutModal.classList.add('open'); });
+    document.getElementById('cancelCheckout').addEventListener('click', ()=>checkoutModal.classList.remove('open'));
+    document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // Simulação de compra
+      const name = e.target.nome.value || 'Cliente';
+      state.cart = [];
+      saveCart();
+      checkoutModal.classList.remove('open');
+      toast(`Obrigado ${name}! Pedido simulado realizado.`);
+    });
+
+    // Theme toggle (simples alternância de cor da marca)
+    document.getElementById('themeToggle').addEventListener('click', ()=>{
+      if(getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() === '#ff6b6b'){
+        document.documentElement.style.setProperty('--accent', '#6b8bff');
+        document.documentElement.style.setProperty('--accent-2', '#6bdfff');
+      } else {
+        document.documentElement.style.setProperty('--accent', '#ff6b6b');
+        document.documentElement.style.setProperty('--accent-2', '#ffb86b');
+      }
+    });
+
+    // Initialize
+    window.addEventListener('load', ()=>{
+      renderProducts(); renderCartCount();
+    });
+
+    // Expose some functions for inline onclick attributes
+    window.addToCart = addToCart;
+    window.changeQty = changeQty;
+    window.removeFromCart = removeFromCart;
+
+  </script>
+</body>
+</html>

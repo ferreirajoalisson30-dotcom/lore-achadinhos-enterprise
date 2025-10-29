@@ -1,0 +1,14 @@
+{
+  "name": "LoreAchadinhos-v3-pro",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend run build && echo \"frontend built\"",
+    "prepare:zip": "node ./scripts/create-zip.js",
+    "ci": "npm run build && npm run prepare:zip"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.44.0"
+  }
+}

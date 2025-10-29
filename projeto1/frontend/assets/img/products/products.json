@@ -1,0 +1,23 @@
+[
+  {
+    "id": 101,
+    "name": "La\u00e7o Lil\u00e1s",
+    "price": 19.9,
+    "stock": 12,
+    "img": "/assets/img/products/laco-lilas.jpg"
+  },
+  {
+    "id": 102,
+    "name": "Vestido Rosa Pastel",
+    "price": 129.9,
+    "stock": 5,
+    "img": "/assets/img/products/vestido-rosa.jpg"
+  },
+  {
+    "id": 103,
+    "name": "Saia Pastel",
+    "price": 79.5,
+    "stock": 8,
+    "img": "/assets/img/products/saia-pastel.jpg"
+  }
+]

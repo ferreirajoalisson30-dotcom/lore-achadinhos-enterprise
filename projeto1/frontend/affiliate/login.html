@@ -1,0 +1,20 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Afiliado - Login</title><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../css/style.css"></head><body>
+  <main style="max-width:420px;margin:80px auto">
+    <div style="background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)">
+      <h2 style="color:#6b3aa8">Painel Afiliado</h2>
+      <form id="f"><input name="email" placeholder="email" style="width:100%;padding:10px;margin:8px 0"><input name="password" type="password" placeholder="senha" style="width:100%;padding:10px;margin:8px 0"><button class="button" type="submit">Entrar</button></form>
+    </div>
+  </main>
+  <script>
+    const API='http://localhost:4000/api';
+    document.getElementById('f').addEventListener('submit', async e=>{
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const body = { email: fd.get('email'), password: fd.get('password') };
+      const res = await fetch(API + '/auth/login', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body)});
+      const data = await res.json();
+      if(data.token){ localStorage.setItem('token', data.token); localStorage.setItem('user', JSON.stringify(data.user)); location.href='dashboard.html'; }
+      else alert('Erro');
+    });
+  </script>
+</body></html>

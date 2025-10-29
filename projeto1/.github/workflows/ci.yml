@@ -1,0 +1,33 @@
+name: Build and Package
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install frontend dev tools
+        run: |
+          cd frontend
+          npm install
+      - name: Build frontend assets
+        run: |
+          cd frontend
+          npm run build
+      - name: Install root deps and create zip artifact
+        run: |
+          npm install archiver
+          node ./scripts/create-zip.js
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: loreachadinhos-build
+          path: LoreAchadinhos-v3-pro-final.zip
