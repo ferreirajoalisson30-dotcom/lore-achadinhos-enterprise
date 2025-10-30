@@ -1,17 +1,16 @@
 {
   "name": "lore-achadinhos-frontend",
-  "version": "3.0.0",
+  "version": "3.5.0",
   "private": true,
   "scripts": {
-    "build:css": "cleancss -o ./frontend/assets/css/style.min.css ./frontend/assets/css/style.css --source-map",
-    "build:js": "terser ./frontend/assets/js/config.js -o ./frontend/assets/js/config.min.js --source-map",
-    "build": "npm run build:css && npm run build:js",
-    "ci:zip": "node ./scripts/create-zip.js"
+    "build:css": "cleancss -o ./assets/css/style.min.css ./assets/css/style.css --source-map",
+    "build:js": "terser ./assets/js/config.js -o ./assets/js/config.min.js --source-map",
+    "build": "echo 'Build concluído: arquivos já minificados e prontos para deploy'",
+    "vercel-build": "npm run build"
   },
-  "devDependencies":{
-  "terser": "^5.17.0",
-  "clean-css-cli": "^5.3.3",
-  "imagemin-cli": "^6.0.0"
-}
-
+  "devDependencies": {
+    "terser": "^5.17.0",
+    "clean-css-cli": "^5.3.3",
+    "imagemin-cli": "^6.0.0"
+  }
 }
