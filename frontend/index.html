@@ -1,28 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#a18cd1" />
-  <meta name="description" content="Lore Achadinhos — loja com visual moderno Lilás / Rosa pastel" />
-  <link rel="icon" href="./assets/img/favicon.ico" />
-  <title>Lore Achadinhos - Loja</title>
-  <link rel="preload" href="./assets/css/style.min.css" as="style">
-  <link rel="stylesheet" href="./assets/css/style.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lore Achadinhos — moda feminina moderna com estilo lilás, branco e rosa pastel." />
+  <title>Lore Achadinhos</title>
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="assets/css/style.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
 </head>
+
 <body>
-  <header class="site-header" role="banner">
+  <header class="header">
     <div class="container">
-      <h1 class="brand">Lore Achadinhos</h1>
-      <nav aria-label="Main navigation"><a href="login.html">Login</a></nav>
+      <h1 class="logo">Lore Achadinhos</h1>
+      <nav class="menu">
+        <a href="login.html">Login</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="contato.html">Contato</a>
+      </nav>
     </div>
   </header>
-  <main id="app" role="main">
-    <section class="hero container">
-      <h2>Look moderno — Lilás • Branco • Rosa pastel</h2>
+
+  <main class="hero">
+    <div class="container">
+      <h2>Look moderno — <span class="highlight">Lilás • Branco • Rosa pastel</span></h2>
       <p>Versão de produção otimizada e pronta para deploy.</p>
-    </section>
+
+      <a href="produtos.html" class="btn">Ver coleção</a>
+    </div>
   </main>
-  <script defer src="./assets/js/config.min.js"></script>
+
+  <footer class="footer">
+    <p>© 2025 Lore Achadinhos — Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- JS principal -->
+  <script src="assets/js/config.min.js"></script>
 </body>
 </html>
