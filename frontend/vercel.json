@@ -1,4 +1,8 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false
+  "version": 2,
+  "public": true,
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": "./",
+  "rewrites": [{ "source": "/(.*)", "destination": "/$1" }]
 }
