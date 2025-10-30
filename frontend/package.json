@@ -8,9 +8,10 @@
     "build": "npm run build:css && npm run build:js",
     "ci:zip": "node ./scripts/create-zip.js"
   },
-  "devDependencies": {
-    "terser": "^5.17.0",
-    "clean-css-cli": "^5.3.3",
-    "imagemin-cli": "^6.0.0"
-  }
+  "devDependencies":{
+  "terser": "^5.17.0",
+  "clean-css-cli": "^5.3.3",
+  "imagemin-cli": "^6.0.0"
+}
+
 }
