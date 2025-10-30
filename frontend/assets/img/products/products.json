@@ -1,23 +1,23 @@
 [
   {
-    "id": 101,
-    "name": "La\u00e7o Lil\u00e1s",
-    "price": 19.9,
-    "stock": 12,
-    "img": "/assets/img/products/laco-lilas.jpg"
+    "id": "p1",
+    "title": "Blusa Lilás com Renda",
+    "price": 89.90,
+    "img": "assets/img/products/laco-lilas.jpg",
+    "description": "Blusa gota em renda, toque macio."
   },
   {
-    "id": 102,
-    "name": "Vestido Rosa Pastel",
-    "price": 129.9,
-    "stock": 5,
-    "img": "/assets/img/products/vestido-rosa.jpg"
+    "id": "p2",
+    "title": "Saia Rosa Pastel",
+    "price": 109.90,
+    "img": "assets/img/products/saia-pastel.jpg",
+    "description": "Saia evasê rosa pastel — leve e elegante."
   },
   {
-    "id": 103,
-    "name": "Saia Pastel",
-    "price": 79.5,
-    "stock": 8,
-    "img": "/assets/img/products/saia-pastel.jpg"
+    "id": "p3",
+    "title": "Vestido Floral",
+    "price": 129.90,
+    "img": "assets/img/products/vestido-rosa.jpg",
+    "description": "Vestido floral com corte feminino."
   }
 ]

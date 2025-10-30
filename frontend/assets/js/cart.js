@@ -1,159 +1,146 @@
-// ===============================
-// 🛒 LORE ACHADINHOS - CART MODULE
-// ===============================
+/* cart.js - client-side cart using localStorage
+   API:
+   - addToCart(item)
+   - removeFromCart(id)
+   - updateQty(id, qty)
+   - getCart()
+*/
 
-import { showToast, formatBRL } from './utils.js';
+const CART_KEY = 'lore_cart_v1';
 
-// Estado interno do carrinho
-let cartItems = [];
-
-// Função para obter o carrinho atual
-export function getCart() {
-  return cartItems;
-}
-
-// Função para limpar o carrinho
-export function clearCart() {
-  cartItems = [];
-  updateCartPreview();
-  showToast('Carrinho limpo com sucesso 🧹', 'success');
-}
-
-// Adiciona produto ao carrinho
-export function addToCart(product, color, size, quantity, AppState) {
-  const existingItem = cartItems.find(
-    (item) =>
-      item.id === product.id &&
-      item.color === color &&
-      item.size === size
-  );
-
-  if (existingItem) {
-    existingItem.quantity += quantity;
-  } else {
-    cartItems.push({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      color,
-      size,
-      quantity,
-    });
+function getCart() {
+  try {
+    return JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  } catch (e) {
+    return [];
   }
-
-  AppState.cart = [...cartItems];
-  updateCartPreview();
-  showToast(`${product.title} adicionado ao carrinho 🛍️`, 'success');
-  openCart();
 }
 
-// Remove item específico do carrinho
-export function removeFromCart(id, color, size) {
-  cartItems = cartItems.filter(
-    (item) => !(item.id === id && item.color === color && item.size === size)
-  );
-  updateCartPreview();
-  showToast('Item removido do carrinho 🗑️', 'success');
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
-// Calcula o total do carrinho
-export function getCartTotal() {
-  return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+function addToCart(item) {
+  const cart = getCart();
+  const idx = cart.findIndex(i => i.id === item.id);
+  if (idx >= 0) {
+    cart[idx].qty += item.qty || 1;
+  } else {
+    cart.push(item);
+  }
+  saveCart(cart);
 }
 
-// Atualiza a visualização do carrinho na tela (cartPreview)
-export function updateCartPreview() {
-  const cartContainer = document.getElementById('cartItemsContainer');
-  const cartTotalEl = document.getElementById('cartTotal');
+function removeFromCart(id) {
+  let cart = getCart();
+  cart = cart.filter(i => i.id !== id);
+  saveCart(cart);
+  renderCart();
+}
 
-  if (!cartContainer || !cartTotalEl) return;
+function updateQty(id, qty) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, parseInt(qty, 10) || 1);
+  saveCart(cart);
+  renderCart();
+}
 
-  if (cartItems.length === 0) {
-    cartContainer.innerHTML = `<p class="empty-cart-text">Seu carrinho está vazio 😢</p>`;
-    cartTotalEl.textContent = 'R$ 0,00';
+function clearCart() {
+  localStorage.removeItem(CART_KEY);
+  renderCart();
+}
+
+function cartTotal() {
+  const cart = getCart();
+  return cart.reduce((s, i) => s + (i.price * i.qty), 0);
+}
+
+function updateCartCount() {
+  const count = getCart().reduce((s,i)=>s+i.qty,0);
+  const el = document.getElementById('nav-cart-count');
+  if (el) el.textContent = count;
+}
+
+// Render cart on cart page
+function renderCart() {
+  const container = document.getElementById('cart-container');
+  const summary = document.getElementById('cart-summary');
+  if (!container) return;
+  const cart = getCart();
+  if (!cart.length) {
+    container.innerHTML = '<p>Seu carrinho está vazio.</p>';
+    summary.innerHTML = '';
+    updateCartCount();
     return;
   }
 
-  cartContainer.innerHTML = cartItems
-    .map(
-      (item) => `
-      <div class="cart-item">
-        <div class="cart-item-info">
-          <h4>${item.title}</h4>
-          <small>Cor: ${item.color} | Tamanho: ${item.size}</small>
-          <div class="cart-item-controls">
-            <span>Qtd:</span>
-            <input type="number" min="1" max="99" value="${item.quantity}" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}" class="cart-item-qty">
-          </div>
-        </div>
-        <div class="cart-item-right">
-          <div class="cart-item-price">${formatBRL(item.price * item.quantity)}</div>
-          <button class="remove-item-btn" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}" aria-label="Remover ${item.title}">
-            <i class="fas fa-trash-alt"></i>
-          </button>
+  container.innerHTML = cart.map(item => `
+    <div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:#fff;margin-bottom:12px;box-shadow:0 6px 12px rgba(0,0,0,0.04);">
+      <img src="${item.img}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
+      <div style="flex:1">
+        <strong>${item.title}</strong>
+        <div style="margin-top:6px;">${item.price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>
+      </div>
+      <div>
+        <input type="number" min="1" value="${item.qty}" data-id="${item.id}" class="cart-qty" style="width:64px;padding:6px;border-radius:6px;border:1px solid #eee;">
+        <div style="margin-top:8px;">
+          <button data-remove="${item.id}" class="btn small">Remover</button>
         </div>
       </div>
-    `
-    )
-    .join('');
+    </div>
+  `).join('');
 
-  cartTotalEl.textContent = formatBRL(getCartTotal());
+  summary.innerHTML = `
+    <div style="text-align:right;">
+      <div style="font-weight:700">Total: ${cartTotal().toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</div>
+      <div style="margin-top:10px;">
+        <button id="checkoutBtn" class="btn">Finalizar Compra (simulado)</button>
+        <button id="clearCart" class="btn" style="margin-left:8px;background:#eee;color:#333">Limpar Carrinho</button>
+      </div>
+    </div>
+  `;
 
-  // Eventos para alterar quantidade
-  document.querySelectorAll('.cart-item-qty').forEach((input) => {
-    input.addEventListener('change', (e) => {
-      const id = Number(e.target.dataset.id);
-      const color = e.target.dataset.color;
-      const size = e.target.dataset.size;
-      const newQty = Math.max(1, Math.min(99, parseInt(e.target.value, 10)));
-
-      const item = cartItems.find(
-        (p) => p.id === id && p.color === color && p.size === size
-      );
-      if (item) {
-        item.quantity = newQty;
-        updateCartPreview();
-      }
+  // bind qty change
+  document.querySelectorAll('.cart-qty').forEach(inp => {
+    inp.addEventListener('change', (e) => {
+      const id = e.target.dataset.id;
+      updateQty(id, e.target.value);
+    });
+  });
+  // bind remove
+  document.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', (e)=> {
+      const id = e.target.dataset.remove;
+      removeFromCart(id);
+      updateCartCount();
     });
   });
 
-  // Eventos para remover itens
-  document.querySelectorAll('.remove-item-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = Number(btn.dataset.id);
-      const color = btn.dataset.color;
-      const size = btn.dataset.size;
-      removeFromCart(id, color, size);
-    });
+  // checkout (simulado)
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  if (checkoutBtn) checkoutBtn.addEventListener('click', ()=> {
+    alert('Pagamento simulado: pedido criado com sucesso! (dev)');
+    clearCart();
+    updateCartCount();
+    window.location.href = '/cliente/dashboard.html';
   });
+
+  const clearBtn = document.getElementById('clearCart');
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (confirm('Deseja limpar o carrinho?')) { clearCart(); updateCartCount(); }
+  });
+
+  updateCartCount();
 }
 
-// Abre o carrinho lateral
-export function openCart() {
-  const cartPreview = document.getElementById('cartPreview');
-  if (cartPreview) {
-    cartPreview.classList.add('open');
-  }
-}
-
-// Fecha o carrinho lateral
-export function closeCart() {
-  const cartPreview = document.getElementById('cartPreview');
-  if (cartPreview) {
-    cartPreview.classList.remove('open');
-  }
-}
-
-// Inicializa o carrinho ao carregar
-export function initCart() {
-  console.log('🛒 Inicializando carrinho...');
-  updateCartPreview();
-}
-
-// Exportar globalmente para depuração (opcional)
-window.updateCartPreview = updateCartPreview;
-window.addToCart = addToCart;
-window.getCart = getCart;
-window.clearCart = clearCart;
-window.openCart = openCart;
-window.closeCart = closeCart;
+// init on cart page
+document.addEventListener('DOMContentLoaded', () => {
+  renderCart();
+  updateCartCount();
+  // attach cart count update on custom event (if other scripts fire)
+  window.updateCartCount = updateCartCount;
+  // expose for products.js
+  window.addToCart = addToCart;
+});

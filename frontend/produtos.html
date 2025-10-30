@@ -1,46 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produtos - Lore Achadinhos</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Produtos - Lore Achadinhos</title>
+  <link rel="stylesheet" href="../assets/css/style.min.css">
 </head>
 <body>
-<header>
-  <img src="assets/images/logo.png" alt="Logo">
-  Lore Achadinhos - Painel Administrativo
-</header>
-<div class="sidebar">
-  <ul>
-    <li onclick="navigate('dashboard.html')">Dashboard</li>
-    <li class="active" onclick="navigate('produtos.html')">Produtos</li>
-    <li onclick="navigate('pedidos.html')">Pedidos</li>
-    <li onclick="navigate('clientes.html')">Clientes</li>
-    <li onclick="navigate('afiliados.html')">Afiliados</li>
-    <li onclick="navigate('analytics.html')">Analytics</li>
-    <li onclick="navigate('configuracoes.html')">Configurações</li>
-  </ul>
-</div>
-<main>
-  <h1>Produtos</h1>
-  <button onclick="adicionarProduto()">Adicionar Produto</button>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Estoque</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="produtosTable"></tbody>
-  </table>
-</main>
-<script src="assets/js/produtos.js"></script>
-<script>
-function navigate(url){ window.location.href=url; }
-</script>
+  <!-- reutilize seu header (ou inclua por server-side include) -->
+  <header>
+    <div class="brand"><a href="../index.html"><h1>Lore Achadinhos</h1></a></div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="produtos.html" class="active">Produtos</a>
+      <a href="../carrinho.html">Carrinho</a>
+      <a href="../login.html">Entrar</a>
+    </nav>
+  </header>
+
+  <main class="section">
+    <h3>Produtos</h3>
+    <div id="products" class="products"></div>
+  </main>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
 </body>
 </html>

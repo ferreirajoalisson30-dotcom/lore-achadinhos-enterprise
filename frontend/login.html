@@ -1,22 +1,26 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Login - Lore Achadinhos</title>
-  <link rel="stylesheet" href="./assets/css/style.min.css">
+  <link rel="stylesheet" href="assets/css/style.min.css">
 </head>
-<body class="login-page">
-  <main class="login-card" role="main" aria-labelledby="login-title">
-    <h2 id="login-title">Entrar</h2>
-    <form id="loginForm" novalidate>
-      <label>Email<input type="email" name="email" required></label>
-      <label>Senha<input type="password" name="password" required></label>
-      <button type="submit">Entrar</button>
+<body>
+  <main class="section" style="max-width:480px;margin:auto;padding-top:60px;">
+    <h2>Entrar</h2>
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" id="email" required>
+      <label>Senha</label>
+      <input type="password" id="password" required>
+      <div style="margin-top:12px;">
+        <button type="submit" class="btn">Entrar</button>
+      </div>
+      <p style="margin-top:8px;font-size:.9rem;color:#666">Credenciais de teste: <strong>admin@lore.com / Admin123!</strong></p>
     </form>
-    <p class="small">Use <strong>admin@lore.com</strong> / <strong>password</strong> para acessar demo admin.</p>
   </main>
-  <script defer src="./assets/js/config.min.js"></script>
+
+  <script src="assets/js/login.js"></script>
 </body>
 </html>
