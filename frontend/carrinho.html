@@ -1,28 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Carrinho - Lore Achadinhos</title>
-  <link rel="stylesheet" href="assets/css/style.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Lore Achadinhos</title>
+    <!-- Mesmo CSS -->
 </head>
 <body>
-  <header>
-    <div class="brand"><a href="index.html"><h1>Lore Achadinhos</h1></a></div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="cliente/produtos.html">Produtos</a>
-      <a href="carrinho.html" class="active">Carrinho</a>
-      <a href="login.html">Entrar</a>
-    </nav>
-  </header>
+    <!-- Header -->
 
-  <main class="section" style="max-width:900px;margin:auto">
-    <h3>Seu Carrinho</h3>
-    <div id="cart-container"></div>
-    <div id="cart-summary" style="margin-top:20px;"></div>
-  </main>
+    <main class="container">
+        <h1>Meu Carrinho</h1>
+        
+        <div class="cart-layout">
+            <div class="cart-items" id="cart-items">
+                <!-- Itens do carrinho -->
+            </div>
+            
+            <div class="cart-summary">
+                <div class="summary-card">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Frete</span>
+                        <span id="shipping">Calcular</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span id="total">R$ 0,00</span>
+                    </div>
+                    <button class="btn-primary checkout-btn">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
-  <script src="assets/js/cart.js"></script>
+    <script>
+        // Lógica do carrinho
+    </script>
 </body>
 </html>

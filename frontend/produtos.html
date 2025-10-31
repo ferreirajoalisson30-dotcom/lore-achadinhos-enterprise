@@ -1,29 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Produtos - Lore Achadinhos</title>
-  <link rel="stylesheet" href="../assets/css/style.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Lore Achadinhos</title>
+    <!-- Mesmo CSS do index.html -->
 </head>
 <body>
-  <!-- reutilize seu header (ou inclua por server-side include) -->
-  <header>
-    <div class="brand"><a href="../index.html"><h1>Lore Achadinhos</h1></a></div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="produtos.html" class="active">Produtos</a>
-      <a href="../carrinho.html">Carrinho</a>
-      <a href="../login.html">Entrar</a>
-    </nav>
-  </header>
+    <!-- Mesma estrutura de header do index.html -->
 
-  <main class="section">
-    <h3>Produtos</h3>
-    <div id="products" class="products"></div>
-  </main>
+    <main class="container">
+        <div class="filters-section">
+            <!-- Filtros por categoria, preço, etc -->
+        </div>
+        
+        <div class="products-header">
+            <h1 id="page-title">Todos os Produtos</h1>
+            <div class="sort-options">
+                <!-- Opções de ordenação -->
+            </div>
+        </div>
 
-  <script src="../assets/js/products.js"></script>
-  <script src="../assets/js/cart.js"></script>
+        <div class="products-grid" id="products-container">
+            <!-- Produtos carregados dinamicamente -->
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- Navegação entre páginas -->
+        </div>
+    </main>
+
+    <script>
+        // Lógica específica para página de produtos
+    </script>
 </body>
 </html>
