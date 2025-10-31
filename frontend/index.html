@@ -3,30 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lore Achadinhos - Moda Feminina</title>
+    <title>Lore Achadinhos - Moda Feminina | As Melhores Ofertas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #7B1FA2;
+            --secondary: #FF69B4;
+            --accent: #9370DB;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --lilac: #d8bfd8;
-            --light-lilac: #f0e6f6;
-            --white: #ffffff;
-            --pink: #ffd1dc;
-            --dark-text: #333333;
-            --light-text: #666666;
-            --border: #e0e0e0;
         }
 
         body {
-            background-color: #f9f9f9;
-            color: var(--dark-text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
+            color: var(--gray-800);
+            background-color: var(--white);
         }
 
         .container {
@@ -35,537 +51,1014 @@
             padding: 0 20px;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--lilac), var(--pink));
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
         }
 
-        .header-content {
+        .top-bar-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--white);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        .promo-text {
+            font-weight: 500;
         }
 
-        .logo span {
-            color: var(--dark-text);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
+        .top-links a {
             color: var(--white);
             text-decoration: none;
-            font-weight: 500;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+
+        /* Header Principal */
+        .main-header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 30px;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+        }
+
+        .search-box {
+            display: flex;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: var(--dark-text);
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
         }
 
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 12px 16px;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Header Actions */
         .header-actions {
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            align-items: center;
         }
 
-        .header-actions i {
-            color: var(--white);
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .header-actions i:hover {
-            color: var(--dark-text);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(216, 191, 216, 0.8), rgba(255, 209, 220, 0.8)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--white);
-            color: var(--dark-text);
-            padding: 12px 30px;
-            border-radius: 30px;
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: var(--gray-600);
+            font-size: 12px;
+            transition: color 0.3s ease;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        .action-item:hover {
+            color: var(--primary);
         }
 
-        /* Categories */
-        .section-title {
-            text-align: center;
-            margin: 60px 0 30px;
-            font-size: 32px;
-            color: var(--dark-text);
-            position: relative;
+        .action-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
         }
 
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, var(--lilac), var(--pink));
-            margin: 10px auto;
-        }
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .category-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-img {
-            height: 200px;
-            background-color: var(--light-lilac);
+        .cart-count {
+            background: var(--error);
+            color: var(--white);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
         }
 
-        .category-img i {
-            font-size: 60px;
-            color: var(--lilac);
+        /* Navigation */
+        .main-nav {
+            background: var(--gray-800);
+            color: var(--white);
         }
 
-        .category-card h3 {
-            padding: 20px;
-            font-size: 20px;
-        }
-
-        /* Featured Products */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        .nav-content {
+            display: flex;
+            align-items: center;
             gap: 30px;
+        }
+
+        .nav-categories {
+            position: relative;
+            padding: 12px 0;
+        }
+
+        .categories-toggle {
+            background: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 80px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-800);
+        }
+
+        .feature-desc {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        /* Products Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 60px 0 30px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
             margin-bottom: 60px;
         }
 
         .product-card {
-            background-color: var(--white);
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .product-img {
-            height: 250px;
-            background-color: var(--light-lilac);
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--error);
+            color: var(--white);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .product-img i {
-            font-size: 80px;
-            color: var(--lilac);
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            color: var(--gray-600);
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: var(--white);
         }
 
         .product-info {
             padding: 20px;
         }
 
-        .product-info h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
+        .product-category {
+            color: var(--gray-500);
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
-        .product-info p {
-            color: var(--light-text);
-            margin-bottom: 15px;
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-800);
+            line-height: 1.4;
         }
 
-        .price {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--dark-text);
-            margin-bottom: 15px;
-        }
-
-        .product-actions {
+        .product-price {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .current-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: var(--gray-500);
+            text-decoration: line-through;
+        }
+
+        .discount {
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .installments {
+            color: var(--gray-600);
+            font-size: 12px;
+            margin-bottom: 16px;
         }
 
         .add-to-cart {
-            background-color: var(--lilac);
+            width: 100%;
+            background: var(--primary);
             color: var(--white);
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .add-to-cart:hover {
-            background-color: var(--pink);
+            background: var(--primary-dark);
         }
 
-        .favorite {
-            background: none;
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
             border: none;
-            color: var(--light-text);
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
         }
 
-        .favorite:hover {
-            color: #ff4757;
+        .newsletter-btn {
+            background: var(--secondary);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #E05590;
         }
 
         /* Footer */
-        footer {
-            background-color: var(--dark-text);
+        .main-footer {
+            background: var(--gray-900);
             color: var(--white);
             padding: 60px 0 30px;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
         }
 
         .footer-column h3 {
             font-size: 18px;
+            font-weight: 600;
             margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
+            color: var(--white);
         }
 
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--lilac);
-        }
-
-        .footer-column ul {
+        .footer-links {
             list-style: none;
         }
 
-        .footer-column ul li {
-            margin-bottom: 10px;
+        .footer-links li {
+            margin-bottom: 12px;
         }
 
-        .footer-column ul li a {
-            color: #cccccc;
+        .footer-links a {
+            color: var(--gray-400);
             text-decoration: none;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: color 0.3s ease;
         }
 
-        .footer-column ul li a:hover {
-            color: var(--lilac);
-            padding-left: 5px;
+        .footer-links a:hover {
+            color: var(--white);
         }
 
         .footer-bottom {
-            text-align: center;
+            border-top: 1px solid var(--gray-700);
             padding-top: 30px;
-            border-top: 1px solid #444444;
-            color: #aaaaaa;
+            text-align: center;
+            color: var(--gray-400);
             font-size: 14px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .payment-method {
+            width: 40px;
+            height: 24px;
+            background: var(--white);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .nav-content {
                 flex-direction: column;
                 gap: 15px;
             }
 
-            nav ul {
-                margin-top: 15px;
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
             }
 
-            .hero h1 {
+            .hero-title {
                 font-size: 36px;
             }
 
-            .hero p {
-                font-size: 18px;
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="promo-text">
+                    <i class="fas fa-shipping-fast"></i> Frete Grátis acima de R$ 199 | Parcele em até 12x
+                </div>
+                <div class="top-links">
+                    <a href="#"><i class="fas fa-store"></i> Lojas</a>
+                    <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
+                    <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="main-header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">Lore<span>Achadinhos</span></div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Início</a></li>
-                        <li><a href="#">Produtos</a></li>
-                        <li><a href="#">Categorias</a></li>
-                        <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Sobre</a></li>
-                    </ul>
-                </nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-crown"></i>
+                    LoreAchadinhos
+                </a>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="O que você está procurando?">
+                        <button class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="header-actions">
-                    <i class="fas fa-search"></i>
-                    <i class="fas fa-user"></i>
-                    <i class="fas fa-shopping-bag"></i>
+                    <a href="#" class="action-item">
+                        <i class="fas fa-user"></i>
+                        Entrar
+                    </a>
+                    <a href="#" class="action-item">
+                        <i class="fas fa-heart"></i>
+                        Favoritos
+                    </a>
+                    <a href="#" class="action-item" style="position: relative;">
+                        <i class="fas fa-shopping-bag"></i>
+                        Carrinho
+                        <span class="cart-count">3</span>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Navegação -->
+    <nav class="main-nav">
         <div class="container">
-            <h1>Moda Feminina</h1>
-            <p>Lilás, Branco & Rosa pastel - Peças selecionadas com carinho. Frete grátis a partir de R$199.</p>
-            <a href="#" class="btn">Ver Produtos</a>
+            <div class="nav-content">
+                <div class="nav-categories">
+                    <div class="categories-toggle">
+                        <i class="fas fa-bars"></i>
+                        Todas as Categorias
+                    </div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">Ofertas do Dia</a></li>
+                    <li><a href="#">Mais Vendidos</a></li>
+                    <li><a href="#">Novidades</a></li>
+                    <li><a href="#">Black Friday</a></li>
+                    <li><a href="#">Moda Verão</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Moda Feminina com Até 60% OFF</h1>
+                <p class="hero-subtitle">Descubra as peças mais desejadas da temporada com preços incríveis</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i>
+                        Ver Ofertas
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-star"></i>
+                        Coleção Nova
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Categories -->
+    <!-- Features -->
     <section class="container">
-        <h2 class="section-title">Categorias</h2>
-        <div class="categories">
-            <div class="category-card">
-                <div class="category-img">
-                    <i class="fas fa-tshirt"></i>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
                 </div>
-                <h3>Vestidos</h3>
+                <h3 class="feature-title">Entrega Rápida</h3>
+                <p class="feature-desc">Receba em até 24h nas principais capitais</p>
             </div>
-            <div class="category-card">
-                <div class="category-img">
-                    <i class="fas fa-female"></i>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
                 </div>
-                <h3>Saias</h3>
+                <h3 class="feature-title">Compra Segura</h3>
+                <p class="feature-desc">Seus dados protegidos com criptografia</p>
             </div>
-            <div class="category-card">
-                <div class="category-img">
-                    <i class="fas fa-shopping-bag"></i>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-credit-card"></i>
                 </div>
-                <h3>Bolsas</h3>
+                <h3 class="feature-title">Parcele em 12x</h3>
+                <p class="feature-desc">Cartão de crédito com juros zero</p>
             </div>
-            <div class="category-card">
-                <div class="category-img">
-                    <i class="fas fa-shoe-prints"></i>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
                 </div>
-                <h3>Calçados</h3>
+                <h3 class="feature-title">Troca Grátis</h3>
+                <p class="feature-desc">30 dias para trocar sua compra</p>
             </div>
         </div>
     </section>
 
-    <!-- Featured Products -->
+    <!-- Produtos em Destaque -->
     <section class="container">
-        <h2 class="section-title">Produtos em Destaque</h2>
-        <div class="products">
+        <div class="section-header">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <a href="#" class="view-all">
+                Ver Todos
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="products-grid">
+            <!-- Produto 1 -->
             <div class="product-card">
-                <div class="product-img">
-                    <i class="fas fa-tshirt"></i>
+                <div class="product-badge">-30%</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vestido Floral">
+                    <div class="product-actions">
+                        <button class="action-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-info">
-                    <h3>Vestido Lilás Floral</h3>
-                    <p>Vestido midi com estampa floral delicada.</p>
-                    <div class="price">R$ 149,90</div>
-                    <div class="product-actions">
-                        <button class="add-to-cart">Adicionar</button>
-                        <button class="favorite"><i class="far fa-heart"></i></button>
+                    <div class="product-category">Vestidos</div>
+                    <h3 class="product-name">Vestido Midi Floral com Alças Finas</h3>
+                    <div class="product-price">
+                        <span class="current-price">R$ 89,90</span>
+                        <span class="original-price">R$ 129,90</span>
+                        <span class="discount">30% OFF</span>
                     </div>
+                    <div class="installments">ou 6x de R$ 14,98 sem juros</div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        Adicionar ao Carrinho
+                    </button>
                 </div>
             </div>
+
+            <!-- Produto 2 -->
             <div class="product-card">
-                <div class="product-img">
-                    <i class="fas fa-shopping-bag"></i>
+                <div class="product-badge">Novidade</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bolsa Rosa">
+                    <div class="product-actions">
+                        <button class="action-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-info">
-                    <h3>Bolsa Rosa Pastel</h3>
-                    <p>Bolsa transversal em couro sintético.</p>
-                    <div class="price">R$ 89,90</div>
-                    <div class="product-actions">
-                        <button class="add-to-cart">Adicionar</button>
-                        <button class="favorite"><i class="far fa-heart"></i></button>
+                    <div class="product-category">Bolsas</div>
+                    <h3 class="product-name">Bolsa Transversal Couro Sintético</h3>
+                    <div class="product-price">
+                        <span class="current-price">R$ 129,90</span>
                     </div>
+                    <div class="installments">ou 4x de R$ 32,48 sem juros</div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        Adicionar ao Carrinho
+                    </button>
                 </div>
             </div>
+
+            <!-- Produto 3 -->
             <div class="product-card">
-                <div class="product-img">
-                    <i class="fas fa-shoe-prints"></i>
+                <div class="product-badge">-25%</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sandália Branca">
+                    <div class="product-actions">
+                        <button class="action-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-info">
-                    <h3>Sandália Branca</h3>
-                    <p>Sandália rasteira com detalhes dourados.</p>
-                    <div class="price">R$ 119,90</div>
-                    <div class="product-actions">
-                        <button class="add-to-cart">Adicionar</button>
-                        <button class="favorite"><i class="far fa-heart"></i></button>
+                    <div class="product-category">Calçados</div>
+                    <h3 class="product-name">Sandália Anabela Salto Grosso</h3>
+                    <div class="product-price">
+                        <span class="current-price">R$ 79,90</span>
+                        <span class="original-price">R$ 99,90</span>
+                        <span class="discount">25% OFF</span>
                     </div>
+                    <div class="installments">ou 3x de R$ 26,63 sem juros</div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        Adicionar ao Carrinho
+                    </button>
                 </div>
             </div>
+
+            <!-- Produto 4 -->
             <div class="product-card">
-                <div class="product-img">
-                    <i class="fas fa-female"></i>
-                </div>
-                <div class="product-info">
-                    <h3>Saia Midi Plissada</h3>
-                    <p>Saia plissada na cor rosa bebê.</p>
-                    <div class="price">R$ 99,90</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Conjunto Shorts">
                     <div class="product-actions">
-                        <button class="add-to-cart">Adicionar</button>
-                        <button class="favorite"><i class="far fa-heart"></i></button>
+                        <button class="action-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
                     </div>
                 </div>
+                <div class="product-info">
+                    <div class="product-category">Conjuntos</div>
+                    <h3 class="product-name">Conjunto Shorts e Blusa Alfaiataria</h3>
+                    <div class="product-price">
+                        <span class="current-price">R$ 149,90</span>
+                    </div>
+                    <div class="installments">ou 5x de R$ 29,98 sem juros</div>
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Receba Ofertas Exclusivas</h2>
+                <p>Cadastre-se e seja o primeiro a saber das novidades e promoções</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail">
+                    <button type="submit" class="newsletter-btn">
+                        Cadastrar
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Sobre</h3>
-                    <p>Lore Achadinhos — loja online com estilo moderno e feminino. Peças selecionadas com carinho para valorizar sua beleza única.</p>
+                    <h3>Lore Achadinhos</h3>
+                    <p style="color: var(--gray-400); margin-bottom: 20px;">
+                        Sua loja de moda feminina com as melhores tendências e preços imbatíveis. Qualidade e estilo para mulheres modernas.
+                    </p>
+                    <div class="payment-methods">
+                        <div class="payment-method">Visa</div>
+                        <div class="payment-method">MC</div>
+                        <div class="payment-method">AE</div>
+                        <div class="payment-method">ELO</div>
+                        <div class="payment-method">PIX</div>
+                    </div>
                 </div>
+
+                <div class="footer-column">
+                    <h3>Institucional</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Nossas Lojas</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
+                        <li><a href="#">Programa de Afiliados</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+
                 <div class="footer-column">
                     <h3>Ajuda</h3>
-                    <ul>
-                        <li><a href="#">Manual Deploy</a></li>
+                    <ul class="footer-links">
                         <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Meus Pedidos</a></li>
                         <li><a href="#">Formas de Pagamento</a></li>
                         <li><a href="#">Entregas</a></li>
                         <li><a href="#">Trocas e Devoluções</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-column">
-                    <h3>Políticas</h3>
-                    <ul>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Regulamento de Afiliados</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Política de Cookies</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contato</h3>
-                    <ul>
+                    <h3>Atendimento</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> (11) 4004-1234</li>
+                        <li><i class="fas fa-whatsapp"></i> (11) 99999-9999</li>
                         <li><i class="fas fa-envelope"></i> contato@lore.com</li>
-                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
-                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                        <li><i class="fas fa-clock"></i> Seg à Sex: 8h às 18h</li>
                     </ul>
-                    <div style="margin-top: 20px;">
-                        <i class="fab fa-instagram" style="font-size: 24px; margin-right: 15px; cursor: pointer;"></i>
-                        <i class="fab fa-facebook" style="font-size: 24px; margin-right: 15px; cursor: pointer;"></i>
-                        <i class="fab fa-pinterest" style="font-size: 24px; cursor: pointer;"></i>
-                    </div>
                 </div>
             </div>
+
             <div class="footer-bottom">
-                <p>&copy; 2023 Lore Achadinhos. Todos os direitos reservados.</p>
+                <p>&copy; 2024 Lore Achadinhos. Todos os direitos reservados. CNPJ: 12.345.678/0001-90</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Interatividade básica
+        // Funcionalidades interativas
         document.addEventListener('DOMContentLoaded', function() {
             // Favoritar produtos
-            const favoriteButtons = document.querySelectorAll('.favorite');
-            favoriteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('far')) {
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        this.style.color = '#ff4757';
-                    } else {
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        this.style.color = '';
-                    }
+            const favoriteButtons = document.querySelectorAll('.action-btn .fa-heart');
+            favoriteButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('far');
+                    this.classList.toggle('fas');
+                    this.style.color = this.classList.contains('fas') ? '#EF4444' : '';
                 });
             });
 
             // Adicionar ao carrinho
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const originalText = this.textContent;
-                    this.textContent = 'Adicionado!';
-                    this.style.backgroundColor = '#4CAF50';
+            addToCartButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Adicionado!';
+                    this.style.background = '#10B981';
+                    
+                    // Atualizar contador do carrinho
+                    const cartCount = document.querySelector('.cart-count');
+                    cartCount.textContent = parseInt(cartCount.textContent) + 1;
                     
                     setTimeout(() => {
-                        this.textContent = originalText;
-                        this.style.backgroundColor = '';
+                        this.innerHTML = originalText;
+                        this.style.background = '';
                     }, 2000);
                 });
+            });
+
+            // Newsletter
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = this.querySelector('.newsletter-input');
+                alert(`Obrigado por se cadastrar! Enviamos uma confirmação para: ${input.value}`);
+                input.value = '';
             });
         });
     </script>
