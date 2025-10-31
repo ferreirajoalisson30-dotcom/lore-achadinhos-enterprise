@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "public": true,
-  "framework": null,
-  "buildCommand": "",
-  "outputDirectory": "./",
-  "rewrites": [{ "source": "/(.*)", "destination": "/$1" }]
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }

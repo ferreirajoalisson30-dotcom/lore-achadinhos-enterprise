@@ -5,6 +5,8 @@
   "scripts": {
     "build": "echo 'Frontend estático — build não necessário'",
     "start": "echo 'Executando projeto Lore Achadinhos (frontend estático)'"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1"
   }
 }
-

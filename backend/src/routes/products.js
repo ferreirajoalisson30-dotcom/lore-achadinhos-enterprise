@@ -1,11 +1,24 @@
+// backend/src/routes/products.js
 import express from 'express';
-import { listProducts, getProduct, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
-import { requireAuth } from '../middleware/auth.js';
-import { upload } from '../middleware/upload.js';
+import fs from 'fs';
+import path from 'path';
 const router = express.Router();
-router.get('/', listProducts);
-router.get('/:id', getProduct);
-router.post('/', requireAuth('admin'), upload.array('images', 6), createProduct);
-router.put('/:id', requireAuth('admin'), upload.array('images', 6), updateProduct);
-router.delete('/:id', requireAuth('admin'), deleteProduct);
+
+router.get('/', (req, res) => {
+  const file = path.join(process.cwd(), 'backend', 'data', 'produtos.json');
+  try {
+    if (fs.existsSync(file)) {
+      const raw = fs.readFileSync(file, 'utf8');
+      const data = JSON.parse(raw);
+      return res.json(Array.isArray(data) ? data : []);
+    } else {
+      // fallback sample
+      return res.json([]);
+    }
+  } catch (err) {
+    console.error('Error reading produtos.json', err);
+    return res.status(500).json({ error: 'Erro interno ao ler produtos' });
+  }
+});
+
 export default router;

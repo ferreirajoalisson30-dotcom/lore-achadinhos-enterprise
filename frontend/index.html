@@ -1,65 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lore Achadinhos 💜</title>
-  <link rel="stylesheet" href="assets/css/style.min.css">
-  <link rel="icon" href="assets/img/favicon.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lore Achadinhos — Loja</title>
+  <link rel="stylesheet" href="./assets/css/style.min.css">
 </head>
 <body>
-  <header>
-  <div class="brand">
-    <a href="index.html" aria-label="Lore Achadinhos - Home">
-      <h1>Lore Achadinhos 💜</h1>
-    </a>
-  </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Lore Achadinhos</a>
+      <nav class="main-nav">
+        <button id="btn-open-login" class="btn">Entrar / Cadastrar</button>
+        <a href="/produtos.html" class="btn ghost">Produtos</a>
+        <a href="/afiliados.html" class="btn ghost">Afiliados</a>
+        <a href="/carrinho.html" class="cart-btn">Carrinho (<span id="cart-count">0</span>)</a>
+      </nav>
+    </div>
+  </header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="cliente/produtos.html">Produtos</a>
-    <a href="afiliado/login.html">Afiliados</a>
-    <a href="admin/login.html">Admin</a>
-    <a href="carrinho.html" id="nav-cart">Carrinho (<span id="nav-cart-count">0</span>)</a>
-    <a href="login.html" id="nav-login">Entrar / Registrar</a>
-  </nav>
-</header>
+  <main class="container">
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <h1>Moda feminina — Lilás, Branco & Rosa pastel</h1>
+        <p>Peças selecionadas com carinho. Frete grátis a partir de R$199.</p>
+        <a href="/produtos.html" class="btn primary">Ver produtos</a>
+      </div>
+      <div class="hero-image">
+        <img src="./assets/img/banners/banner1.jpg" alt="Banner" />
+      </div>
+    </section>
 
-  <section class="hero">
-    <h2>✨ Bem-vinda à Lore Achadinhos ✨</h2>
-    <p>Moda feminina moderna e delicada — feita pra você brilhar todos os dias.</p>
-    <a href="#">Ver novidades</a>
-  </section>
+    <section class="featured container" id="featured-products">
+      <h2>Produtos em destaque</h2>
+      <div id="featured-list" class="products-grid"></div>
+    </section>
 
-  <section class="section">
-    <h3>🛍️ Novidades da Semana</h3>
-    <div class="products">
-      <div class="product-card">
-        <img src="assets/img/produto1.jpg" alt="Blusa Lilás com Renda">
-        <h4>Blusa Lilás com Renda</h4>
-        <p>R$ 89,90</p>
+    <section class="categories container">
+      <h3>Categorias</h3>
+      <div class="cats">
+        <a class="cat" href="/produtos.html?cat=vestidos">Vestidos</a>
+        <a class="cat" href="/produtos.html?cat=saias">Saias</a>
+        <a class="cat" href="/produtos.html?cat=bolsas">Bolsas</a>
+        <a class="cat" href="/produtos.html?cat=calçados">Calçados</a>
       </div>
-      <div class="product-card">
-        <img src="assets/img/produto2.jpg" alt="Saia Rosa Pastel">
-        <h4>Saia Rosa Pastel</h4>
-        <p>R$ 109,90</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h4>Sobre</h4>
+        <p>Lore Achadinhos — loja online com estilo moderno e feminino.</p>
       </div>
-      <div class="product-card">
-        <img src="assets/img/produto3.jpg" alt="Vestido Floral">
-        <h4>Vestido Floral</h4>
-        <p>R$ 129,90</p>
+      <div>
+        <h4>Ajuda</h4>
+        <a href="/docs/MANUAL.md">Manual</a>
+        <a href="/docs/DEPLOY.md">Deploy</a>
       </div>
-      <div class="product-card">
-        <img src="assets/img/produto4.jpg" alt="Bolsa Bege Minimalista">
-        <h4>Bolsa Bege Minimalista</h4>
-        <p>R$ 99,90</p>
+      <div>
+        <h4>Políticas</h4>
+        <a href="/politica-privacidade.html">Política de Privacidade</a>
+        <a href="/regulamento-afiliados.html">Regulamento de Afiliados</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <p>contato@lore.com</p>
+        <div class="socials">
+          <a href="#">Instagram</a> • <a href="#">Facebook</a>
+        </div>
       </div>
     </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Lore Achadinhos. Todos os direitos reservados. 💜</p>
   </footer>
+
+  <!-- Modal Login / Register -->
+  <div id="modal-auth" class="modal hidden">
+    <div class="modal-panel">
+      <button class="modal-close" id="modal-close">×</button>
+      <div class="modal-tabs">
+        <button id="tab-login" class="active">Entrar</button>
+        <button id="tab-register">Cadastrar</button>
+      </div>
+
+      <div id="panel-login" class="panel active">
+        <form id="form-login">
+          <label>Email <input name="email" type="email" required></label>
+          <label>Senha <input name="password" type="password" required></label>
+          <div class="form-row">
+            <button type="submit" class="btn primary">Entrar</button>
+            <button type="button" id="btn-forgot" class="btn ghost">Esqueci</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="panel-register" class="panel">
+        <form id="form-register">
+          <label>Nome <input name="name" required></label>
+          <label>Email <input name="email" type="email" required></label>
+          <label>Senha <input name="password" type="password" required></label>
+          <div class="form-row">
+            <button type="submit" class="btn primary">Criar conta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/cart.js"></script>
 </body>
 </html>
-
