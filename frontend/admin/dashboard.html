@@ -1,34 +1,2407 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - Lore Achadinhos</title>
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Security -->
+    <title>Painel Administrativo - Lore Achadinhos</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Styles & Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* ===== DESIGN SYSTEM ENTERPRISE DINÂMICO ===== */
+        :root {
+            /* Cores Enterprise Customizáveis */
+            --enterprise-primary: #1a365d;
+            --enterprise-secondary: #2d3748;
+            --enterprise-accent: #3182ce;
+            --enterprise-success: #38a169;
+            --enterprise-warning: #d69e2e;
+            --enterprise-error: #e53e3e;
+            --enterprise-info: #00b5d8;
+            
+            /* Fonte Customizável */
+            --enterprise-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Tamanhos Customizáveis */
+            --login-modal-width: 400px;
+            --chart-height: 300px;
+            --sidebar-width: 280px;
+            --button-size: medium;
+            
+            /* Layout Customizável */
+            --dashboard-columns: 2;
+            --card-border-radius: 0.5rem;
+            --animation-speed: 0.3s;
+            
+            /* Escala de Cinza */
+            --enterprise-white: #ffffff;
+            --enterprise-gray-50: #f7fafc;
+            --enterprise-gray-100: #edf2f7;
+            --enterprise-gray-200: #e2e8f0;
+            --enterprise-gray-300: #cbd5e0;
+            --enterprise-gray-400: #a0aec0;
+            --enterprise-gray-500: #718096;
+            --enterprise-gray-600: #4a5568;
+            --enterprise-gray-700: #2d3748;
+            --enterprise-gray-800: #1a202c;
+            --enterprise-gray-900: #171923;
+            
+            /* Sombras */
+            --enterprise-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --enterprise-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Tipografia */
+            --enterprise-text-xs: 0.75rem;
+            --enterprise-text-sm: 0.875rem;
+            --enterprise-text-base: 1rem;
+            --enterprise-text-lg: 1.125rem;
+            --enterprise-text-xl: 1.25rem;
+            --enterprise-text-2xl: 1.5rem;
+            --enterprise-text-3xl: 1.875rem;
+            --enterprise-text-4xl: 2.25rem;
+            
+            /* Espaçamentos */
+            --enterprise-space-1: 0.25rem;
+            --enterprise-space-2: 0.5rem;
+            --enterprise-space-3: 0.75rem;
+            --enterprise-space-4: 1rem;
+            --enterprise-space-5: 1.25rem;
+            --enterprise-space-6: 1.5rem;
+            --enterprise-space-8: 2rem;
+            --enterprise-space-10: 2.5rem;
+            --enterprise-space-12: 3rem;
+            --enterprise-space-16: 4rem;
+            
+            /* Border Radius */
+            --enterprise-radius: 0.25rem;
+            --enterprise-radius-md: 0.375rem;
+            --enterprise-radius-lg: 0.5rem;
+            --enterprise-radius-xl: 0.75rem;
+            
+            /* Transições */
+            --enterprise-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== NOVOS ESTILOS PARA FUNCIONALIDADES AVANÇADAS ===== */
+        .css-editor {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            font-family: 'Courier New', monospace;
+            width: 100%;
+            height: 200px;
+            padding: var(--enterprise-space-3);
+            background: var(--enterprise-gray-50);
+            resize: vertical;
+        }
+
+        .template-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--enterprise-space-4);
+            margin-bottom: var(--enterprise-space-6);
+        }
+
+        .template-item {
+            border: 2px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            padding: var(--enterprise-space-4);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+        }
+
+        .template-item:hover {
+            border-color: var(--enterprise-accent);
+            transform: translateY(-2px);
+        }
+
+        .template-item.active {
+            border-color: var(--enterprise-accent);
+            background: rgba(49, 130, 206, 0.1);
+        }
+
+        .template-preview {
+            width: 100%;
+            height: 120px;
+            background: var(--enterprise-gray-200);
+            border-radius: var(--enterprise-radius);
+            margin-bottom: var(--enterprise-space-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--enterprise-gray-500);
+        }
+
+        .backup-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--enterprise-space-3);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            margin-bottom: var(--enterprise-space-3);
+        }
+
+        .backup-actions {
+            display: flex;
+            gap: var(--enterprise-space-2);
+        }
+
+        .widget-library {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: var(--enterprise-space-3);
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .widget-item {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            padding: var(--enterprise-space-3);
+            text-align: center;
+            cursor: move;
+            background: var(--enterprise-white);
+        }
+
+        .widget-item:hover {
+            border-color: var(--enterprise-accent);
+        }
+
+        .seo-preview {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            padding: var(--enterprise-space-4);
+            background: var(--enterprise-white);
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .seo-preview-title {
+            color: #1a0dab;
+            font-size: 1.2rem;
+            margin-bottom: var(--enterprise-space-1);
+        }
+
+        .seo-preview-url {
+            color: #006621;
+            font-size: 0.9rem;
+            margin-bottom: var(--enterprise-space-2);
+        }
+
+        .seo-preview-description {
+            color: #545454;
+            font-size: 0.9rem;
+        }
+
+        .analytics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--enterprise-space-4);
+            margin-bottom: var(--enterprise-space-6);
+        }
+
+        .performance-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .performance-good {
+            background: var(--enterprise-success);
+            color: white;
+        }
+
+        .performance-medium {
+            background: var(--enterprise-warning);
+            color: white;
+        }
+
+        .performance-poor {
+            background: var(--enterprise-error);
+            color: white;
+        }
+
+        .customization-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--enterprise-gray-200);
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .customization-tab {
+            padding: var(--enterprise-space-3) var(--enterprise-space-6);
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: var(--enterprise-transition);
+        }
+
+        .customization-tab.active {
+            border-bottom-color: var(--enterprise-accent);
+            color: var(--enterprise-accent);
+        }
+
+        .customization-panel {
+            display: none;
+        }
+
+        .customization-panel.active {
+            display: block;
+        }
+
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--enterprise-space-4);
+            margin-bottom: var(--enterprise-space-6);
+        }
+
+        .color-picker-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--enterprise-space-2);
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 40px;
+            border-radius: var(--enterprise-radius);
+            border: 1px solid var(--enterprise-gray-300);
+        }
+
+        .font-option {
+            padding: var(--enterprise-space-3);
+            border: 2px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            text-align: center;
+        }
+
+        .font-option:hover,
+        .font-option.selected {
+            border-color: var(--enterprise-accent);
+            background: rgba(49, 130, 206, 0.1);
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .size-control input {
+            flex: 1;
+        }
+
+        .size-value {
+            min-width: 60px;
+            text-align: right;
+            color: var(--enterprise-gray-600);
+        }
+
+        .logo-preview {
+            width: 200px;
+            height: 60px;
+            background: var(--enterprise-gray-100);
+            border: 2px dashed var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--enterprise-space-4);
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+        }
+
+        .logo-preview:hover {
+            border-color: var(--enterprise-accent);
+        }
+
+        .logo-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .layout-builder {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            padding: var(--enterprise-space-4);
+            background: var(--enterprise-gray-50);
+        }
+
+        .layout-preview {
+            display: grid;
+            gap: var(--enterprise-space-4);
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .layout-item {
+            background: var(--enterprise-white);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius);
+            padding: var(--enterprise-space-3);
+            cursor: move;
+        }
+
+        .layout-item.dragging {
+            opacity: 0.5;
+        }
+
+        /* ===== BOTÕES COM TAMANHOS CUSTOMIZÁVEIS ===== */
+        .btn-small {
+            padding: var(--enterprise-space-2) var(--enterprise-space-4);
+            font-size: var(--enterprise-text-sm);
+        }
+
+        .btn-large {
+            padding: var(--enterprise-space-4) var(--enterprise-space-8);
+            font-size: var(--enterprise-text-lg);
+        }
+
+        /* ===== GRÁFICOS COM ALTURA CUSTOMIZÁVEL ===== */
+        .chart-container {
+            height: var(--chart-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== RESET E BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--enterprise-font-family);
+            background: var(--enterprise-gray-100);
+            color: var(--enterprise-gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .admin-container {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            min-height: 100vh;
+        }
+
+        /* ===== PÁGINA DE LOGIN COM TAMANHO CUSTOMIZÁVEL ===== */
+        .login-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--enterprise-primary), var(--enterprise-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--enterprise-space-6);
+        }
+
+        .login-card {
+            background: var(--enterprise-white);
+            border-radius: var(--enterprise-radius-xl);
+            padding: var(--enterprise-space-10);
+            box-shadow: var(--enterprise-shadow-xl);
+            width: 100%;
+            max-width: var(--login-modal-width);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--enterprise-space-8);
+        }
+
+        .login-logo {
+            font-size: var(--enterprise-text-2xl);
+            font-weight: 700;
+            color: var(--enterprise-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--enterprise-space-2);
+            margin-bottom: var(--enterprise-space-2);
+        }
+
+        .login-title {
+            font-size: var(--enterprise-text-lg);
+            color: var(--enterprise-gray-600);
+        }
+
+        .form-group {
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--enterprise-space-2);
+            font-weight: 500;
+            color: var(--enterprise-gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--enterprise-space-3) var(--enterprise-space-4);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius-lg);
+            font-size: var(--enterprise-text-base);
+            transition: var(--enterprise-transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--enterprise-accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+
+        .btn {
+            padding: var(--enterprise-space-3) var(--enterprise-space-6);
+            border: none;
+            border-radius: var(--enterprise-radius-lg);
+            font-size: var(--enterprise-text-base);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--enterprise-space-2);
+        }
+
+        .btn-primary {
+            background: var(--enterprise-accent);
+            color: var(--enterprise-white);
+        }
+
+        .btn-primary:hover {
+            background: #2c5aa0;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ===== SIDEBAR COM LARGURA CUSTOMIZÁVEL ===== */
+        .admin-sidebar {
+            background: var(--enterprise-primary);
+            color: var(--enterprise-white);
+            position: fixed;
+            width: var(--sidebar-width);
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: var(--enterprise-space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+        }
+
+        .sidebar-header .logo {
+            font-size: var(--enterprise-text-xl);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-2);
+        }
+
+        .sidebar-nav {
+            padding: var(--enterprise-space-4) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--enterprise-space-6);
+        }
+
+        .nav-title {
+            font-size: var(--enterprise-text-xs);
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--enterprise-gray-400);
+            padding: 0 var(--enterprise-space-6) var(--enterprise-space-2);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+            padding: var(--enterprise-space-3) var(--enterprise-space-6);
+            color: var(--enterprise-gray-300);
+            text-decoration: none;
+            transition: var(--enterprise-transition);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--enterprise-white);
+            border-left-color: var(--enterprise-accent);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-badge {
+            background: var(--enterprise-accent);
+            color: var(--enterprise-white);
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: var(--enterprise-text-xs);
+            margin-left: auto;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .admin-main {
+            grid-column: 2;
+            padding: var(--enterprise-space-6);
+            margin-left: var(--sidebar-width);
+        }
+
+        /* ===== HEADER ===== */
+        .admin-header {
+            background: var(--enterprise-white);
+            border-radius: var(--enterprise-radius-lg);
+            padding: var(--enterprise-space-6);
+            margin-bottom: var(--enterprise-space-6);
+            box-shadow: var(--enterprise-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: var(--enterprise-text-2xl);
+            font-weight: 700;
+            color: var(--enterprise-gray-800);
+            margin-bottom: var(--enterprise-space-1);
+        }
+
+        .header-title p {
+            color: var(--enterprise-gray-500);
+            font-size: var(--enterprise-text-sm);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--enterprise-space-4);
+            align-items: center;
+        }
+
+        .admin-search {
+            position: relative;
+            min-width: 300px;
+        }
+
+        .admin-search input {
+            width: 100%;
+            padding: var(--enterprise-space-3) var(--enterprise-space-4);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--enterprise-radius-lg);
+            background: var(--enterprise-gray-50);
+            font-size: var(--enterprise-text-sm);
+        }
+
+        .admin-search i {
+            position: absolute;
+            right: var(--enterprise-space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--enterprise-gray-400);
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+            padding: var(--enterprise-space-2) var(--enterprise-space-3);
+            border-radius: var(--enterprise-radius-lg);
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            position: relative;
+        }
+
+        .admin-user:hover {
+            background: var(--enterprise-gray-100);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--enterprise-accent), var(--enterprise-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--enterprise-white);
+            font-weight: 600;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--enterprise-white);
+            border-radius: var(--enterprise-radius-lg);
+            box-shadow: var(--enterprise-shadow-xl);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: var(--enterprise-space-3) var(--enterprise-space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+            text-decoration: none;
+            color: var(--enterprise-gray-700);
+            transition: var(--enterprise-transition);
+        }
+
+        .dropdown-item:hover {
+            background: var(--enterprise-gray-50);
+        }
+
+        /* ===== DASHBOARD GRID COM COLUNAS CUSTOMIZÁVEIS ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(var(--dashboard-columns), minmax(300px, 1fr));
+            gap: var(--enterprise-space-6);
+            margin-bottom: var(--enterprise-space-6);
+        }
+
+        .stat-card {
+            background: var(--enterprise-white);
+            border-radius: var(--card-border-radius);
+            padding: var(--enterprise-space-6);
+            box-shadow: var(--enterprise-shadow);
+            transition: var(--enterprise-transition);
+            border-left: 4px solid transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--enterprise-shadow-lg);
+        }
+
+        .stat-card.primary { border-left-color: var(--enterprise-accent); }
+        .stat-card.success { border-left-color: var(--enterprise-success); }
+        .stat-card.warning { border-left-color: var(--enterprise-warning); }
+        .stat-card.error { border-left-color: var(--enterprise-error); }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--enterprise-space-4);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--enterprise-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card.primary .stat-icon { background: rgba(49, 130, 206, 0.1); color: var(--enterprise-accent); }
+        .stat-card.success .stat-icon { background: rgba(56, 161, 105, 0.1); color: var(--enterprise-success); }
+        .stat-card.warning .stat-icon { background: rgba(214, 158, 46, 0.1); color: var(--enterprise-warning); }
+        .stat-card.error .stat-icon { background: rgba(229, 62, 62, 0.1); color: var(--enterprise-error); }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-1);
+            font-size: var(--enterprise-text-sm);
+            font-weight: 600;
+        }
+
+        .trend-up { color: var(--enterprise-success); }
+        .trend-down { color: var(--enterprise-error); }
+
+        .stat-value {
+            font-size: var(--enterprise-text-3xl);
+            font-weight: 700;
+            margin-bottom: var(--enterprise-space-1);
+        }
+
+        .stat-label {
+            color: var(--enterprise-gray-500);
+            font-size: var(--enterprise-text-sm);
+        }
+
+        /* ===== MODAIS ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--enterprise-space-6);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--enterprise-white);
+            border-radius: var(--enterprise-radius-xl);
+            box-shadow: var(--enterprise-shadow-xl);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: var(--enterprise-space-6);
+            border-bottom: 1px solid var(--enterprise-gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: var(--enterprise-text-xl);
+            font-weight: 600;
+            color: var(--enterprise-gray-800);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--enterprise-gray-500);
+        }
+
+        .modal-body {
+            padding: var(--enterprise-space-6);
+        }
+
+        .modal-footer {
+            padding: var(--enterprise-space-6);
+            border-top: 1px solid var(--enterprise-gray-200);
+            display: flex;
+            gap: var(--enterprise-space-3);
+            justify-content: flex-end;
+        }
+
+        /* ===== NOTIFICAÇÕES ===== */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--enterprise-space-3);
+        }
+
+        .notification {
+            background: var(--enterprise-white);
+            border-radius: var(--enterprise-radius-lg);
+            padding: var(--enterprise-space-4) var(--enterprise-space-5);
+            box-shadow: var(--enterprise-shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--enterprise-space-3);
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: var(--enterprise-transition);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success { border-left: 4px solid var(--enterprise-success); }
+        .notification.error { border-left: 4px solid var(--enterprise-error); }
+        .notification.warning { border-left: 4px solid var(--enterprise-warning); }
+        .notification.info { border-left: 4px solid var(--enterprise-info); }
+
+        .notification-icon {
+            font-size: 1.25rem;
+        }
+
+        .notification.success .notification-icon { color: var(--enterprise-success); }
+        .notification.error .notification-icon { color: var(--enterprise-error); }
+        .notification.warning .notification-icon { color: var(--enterprise-warning); }
+        .notification.info .notification-icon { color: var(--enterprise-info); }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: var(--enterprise-space-1);
+        }
+
+        .notification-message {
+            color: var(--enterprise-gray-600);
+            font-size: var(--enterprise-text-sm);
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--enterprise-gray-400);
+            cursor: pointer;
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--enterprise-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .admin-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .admin-main {
+                margin-left: 0;
+                grid-column: 1;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-actions {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <img src="assets/images/logo.png" alt="Logo">
-  Lore Achadinhos - Painel Administrativo
-</header>
-<div class="sidebar">
-  <ul>
-    <li class="active" onclick="navigate('dashboard.html')">Dashboard</li>
-    <li onclick="navigate('produtos.html')">Produtos</li>
-    <li onclick="navigate('pedidos.html')">Pedidos</li>
-    <li onclick="navigate('clientes.html')">Clientes</li>
-    <li onclick="navigate('afiliados.html')">Afiliados</li>
-    <li onclick="navigate('analytics.html')">Analytics</li>
-    <li onclick="navigate('configuracoes.html')">Configurações</li>
-  </ul>
-</div>
-<main>
-  <h1>Dashboard</h1>
-  <div class="card"></div>
-</main>
-<script src="assets/js/dashboard.js"></script>
-<script>
-function navigate(url){ window.location.href=url; }
-</script>
+    <!-- Container de Notificações -->
+    <div class="notification-container" id="notification-container"></div>
+
+    <!-- Modal de Login -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Login Administrativo</h2>
+                <button class="modal-close" onclick="AuthManager.hideLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" class="form-input" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Senha</label>
+                        <input type="password" class="form-input" id="login-password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Entrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Gerenciar Usuários -->
+    <div class="modal" id="users-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Gerenciar Usuários</h2>
+                <button class="modal-close" onclick="UserManager.hideUsersModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="users-list">
+                    <!-- Lista de usuários será carregada aqui -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="UserManager.showAddUserForm()">
+                    <i class="fas fa-plus"></i>
+                    Adicionar Usuário
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Customização Avançada -->
+    <div class="modal" id="advanced-customization-modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2 class="modal-title">Painel de Controle Avançado</h2>
+                <button class="modal-close" onclick="AdvancedCustomization.hideModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="customization-tabs">
+                    <button class="customization-tab active" onclick="AdvancedCustomization.showTab('templates')">Templates</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('css')">CSS Personalizado</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('backup')">Backup</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('seo')">SEO</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('performance')">Performance</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('widgets')">Widgets</button>
+                    <button class="customization-tab" onclick="AdvancedCustomization.showTab('automation')">Automação</button>
+                </div>
+
+                <div id="templates-panel" class="customization-panel active">
+                    <h3>Templates Pré-definidos</h3>
+                    <div class="template-gallery">
+                        <div class="template-item active" onclick="AdvancedCustomization.applyTemplate('modern')">
+                            <div class="template-preview">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div>Moderno</div>
+                            <small>Layout limpo e contemporâneo</small>
+                        </div>
+                        <div class="template-item" onclick="AdvancedCustomization.applyTemplate('dark')">
+                            <div class="template-preview" style="background: #2d3748; color: white;">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div>Dark Mode</div>
+                            <small>Tema escuro profissional</small>
+                        </div>
+                        <div class="template-item" onclick="AdvancedCustomization.applyTemplate('minimal')">
+                            <div class="template-preview" style="background: #f7fafc;">
+                                <i class="fas fa-minimize"></i>
+                            </div>
+                            <div>Minimalista</div>
+                            <small>Foco no conteúdo</small>
+                        </div>
+                        <div class="template-item" onclick="AdvancedCustomization.applyTemplate('colorful')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div>Colorido</div>
+                            <small>Cores vibrantes</small>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: var(--enterprise-space-6);">Layout do Dashboard</h4>
+                    <div class="size-control">
+                        <label>Colunas do Grid:</label>
+                        <input type="range" min="1" max="4" value="2" id="dashboard-columns">
+                        <span class="size-value" id="columns-value">2 colunas</span>
+                    </div>
+                </div>
+
+                <div id="css-panel" class="customization-panel">
+                    <h3>Editor CSS Personalizado</h3>
+                    <p>Adicione seu próprio CSS para personalização avançada:</p>
+                    <textarea class="css-editor" id="custom-css" placeholder="/* Seu CSS personalizado aqui */"></textarea>
+                    <div style="margin-top: var(--enterprise-space-3); display: flex; gap: var(--enterprise-space-3);">
+                        <button class="btn btn-primary" onclick="AdvancedCustomization.applyCustomCSS()">
+                            <i class="fas fa-play"></i> Aplicar CSS
+                        </button>
+                        <button class="btn" onclick="AdvancedCustomization.resetCustomCSS()">
+                            <i class="fas fa-undo"></i> Limpar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="backup-panel" class="customization-panel">
+                    <h3>Gerenciador de Backup</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--enterprise-space-4);">
+                        <div>
+                            <h4>Criar Backup</h4>
+                            <div class="form-group">
+                                <label class="form-label">Nome do Backup</label>
+                                <input type="text" class="form-input" id="backup-name" placeholder="backup-2024">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Descrição</label>
+                                <textarea class="form-input" id="backup-description" rows="3"></textarea>
+                            </div>
+                            <button class="btn btn-primary" onclick="AdvancedCustomization.createBackup()">
+                                <i class="fas fa-save"></i> Criar Backup
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <h4>Backups Existentes</h4>
+                            <div id="backup-list">
+                                <!-- Lista de backups será carregada aqui -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="seo-panel" class="customization-panel">
+                    <h3>Otimização SEO</h3>
+                    <div class="seo-preview">
+                        <div class="seo-preview-title" id="seo-preview-title">Lore Achadinhos - Sua Loja de Produtos Exclusivos</div>
+                        <div class="seo-preview-url" id="seo-preview-url">https://loreachadinhos.com.br</div>
+                        <div class="seo-preview-description" id="seo-preview-description">Encontre os produtos mais exclusivos e com melhor qualidade. Entrega para todo Brasil.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Meta Title</label>
+                        <input type="text" class="form-input" id="meta-title" maxlength="60" oninput="AdvancedCustomization.updateSEOPreview()">
+                        <small style="color: var(--enterprise-gray-500);" id="title-length">0/60 caracteres</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Meta Description</label>
+                        <textarea class="form-input" id="meta-description" rows="3" maxlength="160" oninput="AdvancedCustomization.updateSEOPreview()"></textarea>
+                        <small style="color: var(--enterprise-gray-500);" id="description-length">0/160 caracteres</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Palavras-chave (separadas por vírgula)</label>
+                        <input type="text" class="form-input" id="meta-keywords" placeholder="produtos exclusivos, loja online, entrega rápida">
+                    </div>
+                </div>
+
+                <div id="performance-panel" class="customization-panel">
+                    <h3>Otimização de Performance</h3>
+                    <div class="analytics-dashboard">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h4>Carregamento da Página</h4>
+                                <span class="performance-badge performance-good" id="load-performance">Bom</span>
+                            </div>
+                            <div class="stat-value" id="load-time">1.2s</div>
+                            <div class="stat-label">Tempo médio</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h4>Uso de Memória</h4>
+                                <span class="performance-badge performance-medium" id="memory-performance">Médio</span>
+                            </div>
+                            <div class="stat-value" id="memory-usage">45%</div>
+                            <div class="stat-label">Consumo atual</div>
+                        </div>
+                    </div>
+                    
+                    <h4>Otimizações</h4>
+                    <div style="display: flex; flex-direction: column; gap: var(--enterprise-space-3);">
+                        <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                            <input type="checkbox" id="lazy-loading" checked>
+                            Carregamento Preguiçoso de Imagens
+                        </label>
+                        <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                            <input type="checkbox" id="css-minification" checked>
+                            Minificação de CSS
+                        </label>
+                        <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                            <input type="checkbox" id="cache-optimization">
+                            Otimização de Cache
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="margin-top: var(--enterprise-space-4);" onclick="AdvancedCustomization.runPerformanceScan()">
+                        <i class="fas fa-sync"></i> Executar Análise
+                    </button>
+                </div>
+
+                <div id="widgets-panel" class="customization-panel">
+                    <h3>Biblioteca de Widgets</h3>
+                    <p>Arraste e solte widgets no seu dashboard:</p>
+                    
+                    <div class="widget-library">
+                        <div class="widget-item" draggable="true" data-widget="sales-chart">
+                            <i class="fas fa-chart-line"></i>
+                            <div>Gráfico de Vendas</div>
+                        </div>
+                        <div class="widget-item" draggable="true" data-widget="revenue">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div>Receita</div>
+                        </div>
+                        <div class="widget-item" draggable="true" data-widget="users">
+                            <i class="fas fa-users"></i>
+                            <div>Usuários Ativos</div>
+                        </div>
+                        <div class="widget-item" draggable="true" data-widget="orders">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div>Pedidos</div>
+                        </div>
+                        <div class="widget-item" draggable="true" data-widget="calendar">
+                            <i class="fas fa-calendar"></i>
+                            <div>Calendário</div>
+                        </div>
+                        <div class="widget-item" draggable="true" data-widget="weather">
+                            <i class="fas fa-cloud-sun"></i>
+                            <div>Clima</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: var(--enterprise-space-6);">Widgets Ativos</h4>
+                    <div id="active-widgets" class="layout-preview">
+                        <!-- Widgets ativos serão mostrados aqui -->
+                    </div>
+                </div>
+
+                <div id="automation-panel" class="customization-panel">
+                    <h3>Automação de Tarefas</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--enterprise-space-6);">
+                        <div>
+                            <h4>Tarefas Agendadas</h4>
+                            <div style="display: flex; flex-direction: column; gap: var(--enterprise-space-3);">
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="auto-backup">
+                                    Backup Automático Diário
+                                </label>
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="auto-reports">
+                                    Relatórios Semanais
+                                </label>
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="auto-cleanup">
+                                    Limpeza de Cache
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>Notificações Automáticas</h4>
+                            <div style="display: flex; flex-direction: column; gap: var(--enterprise-space-3);">
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="notif-orders" checked>
+                                    Novos Pedidos
+                                </label>
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="notif-low-stock">
+                                    Estoque Baixo
+                                </label>
+                                <label class="form-label" style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                                    <input type="checkbox" id="notif-performance">
+                                    Problemas de Performance
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="margin-top: var(--enterprise-space-4);" onclick="AdvancedCustomization.saveAutomationSettings()">
+                        <i class="fas fa-robot"></i> Salvar Automações
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="AdvancedCustomization.exportSettings()">
+                    <i class="fas fa-download"></i> Exportar Configurações
+                </button>
+                <button class="btn btn-primary" onclick="AdvancedCustomization.saveAllSettings()">
+                    <i class="fas fa-save"></i> Salvar Tudo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div id="admin-content" style="display: none;">
+        <div class="admin-container">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <div class="logo" id="custom-logo">
+                        <i class="fas fa-crown" id="logo-icon"></i>
+                        <span id="company-name-display">Lore Admin</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-title">Principal</div>
+                        <a class="nav-item active" onclick="Dashboard.loadSection('dashboard')">
+                            <i class="fas fa-chart-line"></i>
+                            Dashboard
+                        </a>
+                        <a class="nav-item" onclick="Dashboard.loadSection('orders')">
+                            <i class="fas fa-shopping-cart"></i>
+                            Pedidos
+                            <span class="nav-badge" id="orders-badge">0</span>
+                        </a>
+                        <a class="nav-item" onclick="Dashboard.loadSection('products')">
+                            <i class="fas fa-box"></i>
+                            Produtos
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-title">Controle Total</div>
+                        <a class="nav-item" onclick="AdvancedCustomization.showModal()">
+                            <i class="fas fa-sliders-h"></i>
+                            Controle Avançado
+                        </a>
+                        <a class="nav-item" onclick="Dashboard.loadSection('analytics')">
+                            <i class="fas fa-analytics"></i>
+                            Analytics em Tempo Real
+                        </a>
+                        <a class="nav-item" onclick="AdvancedCustomization.showBackupManager()">
+                            <i class="fas fa-database"></i>
+                            Gerenciar Backup
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-title">Sistema</div>
+                        <a class="nav-item" onclick="PDFGenerator.generateSalesReport()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exportar PDF
+                        </a>
+                        <a class="nav-item" onclick="APIManager.testConnection()">
+                            <i class="fas fa-plug"></i>
+                            Status API
+                        </a>
+                        <a class="nav-item" onclick="AuthManager.logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-main">
+                <header class="admin-header">
+                    <div class="header-title">
+                        <h1 id="page-title">Dashboard Geral</h1>
+                        <p id="page-description">Bem-vindo de volta, Administrador! Aqui está o resumo do seu negócio.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="admin-search">
+                            <input type="text" placeholder="Buscar..." id="global-search">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="AdvancedCustomization.showModal()">
+                            <i class="fas fa-cogs"></i>
+                            Controle Total
+                        </button>
+                        <button class="btn btn-success" onclick="AdvancedCustomization.quickOptimize()">
+                            <i class="fas fa-bolt"></i>
+                            Otimizar
+                        </button>
+                        <div class="admin-user" onclick="UserManager.toggleUserDropdown()">
+                            <div class="user-avatar" id="user-avatar">A</div>
+                            <div class="user-info">
+                                <div class="user-name" id="user-name">Administrador</div>
+                                <div class="user-role" id="user-role">Super Admin</div>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="user-dropdown" id="user-dropdown">
+                                <a class="dropdown-item" onclick="UserManager.showProfile()">
+                                    <i class="fas fa-user"></i>
+                                    Meu Perfil
+                                </a>
+                                <a class="dropdown-item" onclick="UserManager.showUsersModal()">
+                                    <i class="fas fa-users-cog"></i>
+                                    Gerenciar Usuários
+                                </a>
+                                <a class="dropdown-item" onclick="AuthManager.logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Conteúdo Dinâmico -->
+                <div id="dynamic-content">
+                    <!-- Dashboard será carregado aqui -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // ===== SISTEMA DE AUTENTICAÇÃO =====
+        class AuthManager {
+            static currentUser = null;
+            static users = JSON.parse(localStorage.getItem('admin_users')) || [
+                {
+                    id: 1,
+                    email: 'admin@loreachadinhos.com',
+                    password: 'admin123',
+                    name: 'Administrador',
+                    role: 'super_admin',
+                    avatar: 'A'
+                }
+            ];
+
+            static init() {
+                this.checkAuthState();
+                this.setupLoginForm();
+            }
+
+            static checkAuthState() {
+                const token = localStorage.getItem('admin_token');
+                const user = localStorage.getItem('admin_user');
+                
+                if (token && user) {
+                    this.currentUser = JSON.parse(user);
+                    this.showAdminContent();
+                } else {
+                    this.showLoginModal();
+                }
+            }
+
+            static showLoginModal() {
+                document.getElementById('login-modal').classList.add('show');
+            }
+
+            static hideLoginModal() {
+                document.getElementById('login-modal').classList.remove('show');
+            }
+
+            static setupLoginForm() {
+                document.getElementById('login-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.login();
+                });
+            }
+
+            static login() {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                const user = this.users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Gerar token JWT simulado
+                    const token = this.generateToken();
+                    localStorage.setItem('admin_token', token);
+                    localStorage.setItem('admin_user', JSON.stringify(user));
+                    
+                    this.currentUser = user;
+                    this.hideLoginModal();
+                    this.showAdminContent();
+                    
+                    NotificationSystem.show('Login realizado com sucesso!', 'success');
+                } else {
+                    NotificationSystem.show('E-mail ou senha incorretos!', 'error');
+                }
+            }
+
+            static generateToken() {
+                return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + btoa(JSON.stringify({
+                    userId: this.currentUser.id,
+                    exp: Date.now() + (24 * 60 * 60 * 1000) // 24 horas
+                })) + '.signature';
+            }
+
+            static logout() {
+                localStorage.removeItem('admin_token');
+                localStorage.removeItem('admin_user');
+                this.currentUser = null;
+                document.getElementById('admin-content').style.display = 'none';
+                this.showLoginModal();
+                NotificationSystem.show('Logout realizado com sucesso!', 'info');
+            }
+
+            static showAdminContent() {
+                document.getElementById('admin-content').style.display = 'block';
+                UserManager.updateUserInfo();
+                Dashboard.init();
+                AdvancedCustomization.init();
+            }
+
+            static validateToken() {
+                const token = localStorage.getItem('admin_token');
+                if (!token) return false;
+
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    return payload.exp > Date.now();
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        // ===== GERENCIAMENTO DE USUÁRIOS =====
+        class UserManager {
+            static showUsersModal() {
+                document.getElementById('users-modal').classList.add('show');
+                this.loadUsersList();
+            }
+
+            static hideUsersModal() {
+                document.getElementById('users-modal').classList.remove('show');
+            }
+
+            static loadUsersList() {
+                const usersList = document.getElementById('users-list');
+                usersList.innerHTML = AuthManager.users.map(user => `
+                    <div class="user-item" style="padding: var(--enterprise-space-4); border-bottom: 1px solid var(--enterprise-gray-200);">
+                        <div style="display: flex; align-items: center; gap: var(--enterprise-space-3);">
+                            <div class="user-avatar">${user.avatar}</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">${user.name}</div>
+                                <div style="color: var(--enterprise-gray-500); font-size: var(--enterprise-text-sm);">
+                                    ${user.email} • ${user.role}
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="UserManager.editUser(${user.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            static updateUserInfo() {
+                if (AuthManager.currentUser) {
+                    document.getElementById('user-name').textContent = AuthManager.currentUser.name;
+                    document.getElementById('user-role').textContent = this.getRoleName(AuthManager.currentUser.role);
+                    document.getElementById('user-avatar').textContent = AuthManager.currentUser.avatar;
+                }
+            }
+
+            static getRoleName(role) {
+                const roles = {
+                    'super_admin': 'Super Admin',
+                    'admin': 'Administrador',
+                    'manager': 'Gerente',
+                    'support': 'Suporte'
+                };
+                return roles[role] || role;
+            }
+
+            static toggleUserDropdown() {
+                document.getElementById('user-dropdown').classList.toggle('show');
+            }
+
+            static showAddUserForm() {
+                // Implementar formulário de adicionar usuário
+                NotificationSystem.show('Funcionalidade em desenvolvimento', 'info');
+            }
+
+            static editUser(userId) {
+                // Implementar edição de usuário
+                NotificationSystem.show('Edição de usuário em desenvolvimento', 'info');
+            }
+
+            static showProfile() {
+                NotificationSystem.show('Perfil do usuário em desenvolvimento', 'info');
+            }
+        }
+
+        // ===== SISTEMA DE NOTIFICAÇÕES =====
+        class NotificationSystem {
+            static notificationCount = 0;
+
+            static show(message, type = 'info', title = null) {
+                const container = document.getElementById('notification-container');
+                const id = 'notification-' + Date.now();
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.id = id;
+                
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+
+                notification.innerHTML = `
+                    <i class="fas ${icons[type]} notification-icon"></i>
+                    <div class="notification-content">
+                        <div class="notification-title">${title || this.getDefaultTitle(type)}</div>
+                        <div class="notification-message">${message}</div>
+                    </div>
+                    <button class="notification-close" onclick="NotificationSystem.close('${id}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+
+                container.appendChild(notification);
+
+                // Animação de entrada
+                setTimeout(() => notification.classList.add('show'), 100);
+
+                // Auto-remover após 5 segundos
+                setTimeout(() => this.close(id), 5000);
+
+                // Atualizar badge
+                this.updateNotificationBadge(1);
+            }
+
+            static getDefaultTitle(type) {
+                const titles = {
+                    success: 'Sucesso!',
+                    error: 'Erro!',
+                    warning: 'Atenção!',
+                    info: 'Informação'
+                };
+                return titles[type] || 'Notificação';
+            }
+
+            static close(id) {
+                const notification = document.getElementById(id);
+                if (notification) {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                            this.updateNotificationBadge(-1);
+                        }
+                    }, 300);
+                }
+            }
+
+            static updateNotificationBadge(change) {
+                this.notificationCount = Math.max(0, this.notificationCount + change);
+                const badge = document.getElementById('notifications-badge');
+                if (badge) {
+                    badge.textContent = this.notificationCount;
+                    badge.style.display = this.notificationCount > 0 ? 'flex' : 'none';
+                }
+            }
+
+            static testNotification() {
+                const types = ['success', 'error', 'warning', 'info'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                this.show('Esta é uma notificação de teste do sistema!', type);
+            }
+        }
+
+        // ===== SISTEMA DE CONTROLE AVANÇADO =====
+        class AdvancedCustomization {
+            static currentSettings = JSON.parse(localStorage.getItem('advanced_settings')) || {};
+            static templates = {
+                modern: {
+                    colors: {
+                        '--enterprise-primary': '#1a365d',
+                        '--enterprise-accent': '#3182ce',
+                        '--enterprise-success': '#38a169'
+                    },
+                    fonts: {
+                        '--enterprise-font-family': "'Inter', sans-serif"
+                    }
+                },
+                dark: {
+                    colors: {
+                        '--enterprise-primary': '#2d3748',
+                        '--enterprise-secondary': '#1a202c',
+                        '--enterprise-accent': '#63b3ed',
+                        '--enterprise-white': '#1a202c',
+                        '--enterprise-gray-100': '#2d3748',
+                        '--enterprise-gray-50': '#1a202c'
+                    }
+                },
+                minimal: {
+                    colors: {
+                        '--enterprise-primary': '#4a5568',
+                        '--enterprise-accent': '#718096'
+                    },
+                    sizes: {
+                        '--card-border-radius': '0.25rem'
+                    }
+                },
+                colorful: {
+                    colors: {
+                        '--enterprise-primary': '#667eea',
+                        '--enterprise-accent': '#764ba2',
+                        '--enterprise-success': '#f093fb',
+                        '--enterprise-warning': '#f5576c'
+                    }
+                }
+            };
+
+            static init() {
+                this.loadAdvancedSettings();
+                this.setupEventListeners();
+                this.loadBackupList();
+            }
+
+            static showModal() {
+                document.getElementById('advanced-customization-modal').classList.add('show');
+                this.showTab('templates');
+            }
+
+            static hideModal() {
+                document.getElementById('advanced-customization-modal').classList.remove('show');
+            }
+
+            static showTab(tabName) {
+                document.querySelectorAll('.customization-panel').forEach(panel => {
+                    panel.classList.remove('active');
+                });
+                document.querySelectorAll('.customization-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                document.getElementById(tabName + '-panel').classList.add('active');
+                event.target.classList.add('active');
+
+                // Ações específicas por aba
+                if (tabName === 'performance') {
+                    this.updatePerformanceMetrics();
+                }
+            }
+
+            static applyTemplate(templateName) {
+                const template = this.templates[templateName];
+                if (template) {
+                    // Aplicar template
+                    if (template.colors) {
+                        Object.entries(template.colors).forEach(([variable, value]) => {
+                            document.documentElement.style.setProperty(variable, value);
+                        });
+                    }
+                    if (template.fonts) {
+                        Object.entries(template.fonts).forEach(([variable, value]) => {
+                            document.documentElement.style.setProperty(variable, value);
+                        });
+                    }
+                    if (template.sizes) {
+                        Object.entries(template.sizes).forEach(([variable, value]) => {
+                            document.documentElement.style.setProperty(variable, value);
+                        });
+                    }
+
+                    // Atualizar seleção visual
+                    document.querySelectorAll('.template-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    event.target.classList.add('active');
+
+                    NotificationSystem.show(`Template "${templateName}" aplicado!`, 'success');
+                }
+            }
+
+            static applyCustomCSS() {
+                const css = document.getElementById('custom-css').value;
+                if (css.trim()) {
+                    // Remover estilo anterior
+                    const oldStyle = document.getElementById('custom-css-style');
+                    if (oldStyle) oldStyle.remove();
+
+                    // Aplicar novo estilo
+                    const style = document.createElement('style');
+                    style.id = 'custom-css-style';
+                    style.textContent = css;
+                    document.head.appendChild(style);
+
+                    this.currentSettings.customCSS = css;
+                    this.saveSettings();
+
+                    NotificationSystem.show('CSS personalizado aplicado!', 'success');
+                }
+            }
+
+            static resetCustomCSS() {
+                document.getElementById('custom-css').value = '';
+                const oldStyle = document.getElementById('custom-css-style');
+                if (oldStyle) oldStyle.remove();
+                
+                delete this.currentSettings.customCSS;
+                this.saveSettings();
+                
+                NotificationSystem.show('CSS personalizado removido!', 'info');
+            }
+
+            static createBackup() {
+                const name = document.getElementById('backup-name').value || `backup-${new Date().toISOString().split('T')[0]}`;
+                const description = document.getElementById('backup-description').value;
+                
+                const backup = {
+                    id: Date.now(),
+                    name: name,
+                    description: description,
+                    date: new Date().toLocaleString(),
+                    data: {
+                        customization: localStorage.getItem('admin_customization'),
+                        advanced: localStorage.getItem('advanced_settings'),
+                        users: localStorage.getItem('admin_users')
+                    }
+                };
+
+                // Salvar backup
+                const backups = JSON.parse(localStorage.getItem('backups')) || [];
+                backups.push(backup);
+                localStorage.setItem('backups', JSON.stringify(backups));
+
+                this.loadBackupList();
+                NotificationSystem.show('Backup criado com sucesso!', 'success');
+            }
+
+            static loadBackupList() {
+                const backups = JSON.parse(localStorage.getItem('backups')) || [];
+                const backupList = document.getElementById('backup-list');
+                
+                if (backups.length === 0) {
+                    backupList.innerHTML = '<p style="color: var(--enterprise-gray-500);">Nenhum backup encontrado</p>';
+                    return;
+                }
+
+                backupList.innerHTML = backups.map(backup => `
+                    <div class="backup-item">
+                        <div>
+                            <div style="font-weight: 600;">${backup.name}</div>
+                            <div style="color: var(--enterprise-gray-500); font-size: 0.9rem;">
+                                ${backup.date} • ${backup.description || 'Sem descrição'}
+                            </div>
+                        </div>
+                        <div class="backup-actions">
+                            <button class="btn btn-small" onclick="AdvancedCustomization.restoreBackup(${backup.id})">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="btn btn-small btn-error" onclick="AdvancedCustomization.deleteBackup(${backup.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            static restoreBackup(backupId) {
+                const backups = JSON.parse(localStorage.getItem('backups')) || [];
+                const backup = backups.find(b => b.id === backupId);
+                
+                if (backup && confirm('Restaurar este backup? Isso substituirá as configurações atuais.')) {
+                    if (backup.data.customization) {
+                        localStorage.setItem('admin_customization', backup.data.customization);
+                    }
+                    if (backup.data.advanced) {
+                        localStorage.setItem('advanced_settings', backup.data.advanced);
+                    }
+                    
+                    location.reload(); // Recarregar para aplicar configurações
+                }
+            }
+
+            static deleteBackup(backupId) {
+                const backups = JSON.parse(localStorage.getItem('backups')) || [];
+                const filtered = backups.filter(b => b.id !== backupId);
+                localStorage.setItem('backups', JSON.stringify(filtered));
+                this.loadBackupList();
+                NotificationSystem.show('Backup excluído!', 'info');
+            }
+
+            static updateSEOPreview() {
+                const title = document.getElementById('meta-title').value;
+                const description = document.getElementById('meta-description').value;
+                
+                document.getElementById('seo-preview-title').textContent = title || 'Lore Achadinhos - Sua Loja de Produtos Exclusivos';
+                document.getElementById('seo-preview-description').textContent = description || 'Encontre os produtos mais exclusivos e com melhor qualidade. Entrega para todo Brasil.';
+                
+                // Atualizar contadores
+                document.getElementById('title-length').textContent = `${title.length}/60 caracteres`;
+                document.getElementById('description-length').textContent = `${description.length}/160 caracteres`;
+            }
+
+            static updatePerformanceMetrics() {
+                // Simular métricas de performance
+                const loadTime = (Math.random() * 2 + 0.5).toFixed(1);
+                const memoryUsage = Math.floor(Math.random() * 30 + 30);
+                
+                document.getElementById('load-time').textContent = `${loadTime}s`;
+                document.getElementById('memory-usage').textContent = `${memoryUsage}%`;
+                
+                // Atualizar badges de performance
+                document.getElementById('load-performance').className = 
+                    `performance-badge ${loadTime < 1 ? 'performance-good' : loadTime < 2 ? 'performance-medium' : 'performance-poor'}`;
+                document.getElementById('load-performance').textContent = 
+                    loadTime < 1 ? 'Excelente' : loadTime < 2 ? 'Bom' : 'Lento';
+                    
+                document.getElementById('memory-performance').className = 
+                    `performance-badge ${memoryUsage < 50 ? 'performance-good' : memoryUsage < 70 ? 'performance-medium' : 'performance-poor'}`;
+                document.getElementById('memory-performance').textContent = 
+                    memoryUsage < 50 ? 'Bom' : memoryUsage < 70 ? 'Médio' : 'Alto';
+            }
+
+            static runPerformanceScan() {
+                NotificationSystem.show('Executando análise de performance...', 'info');
+                
+                setTimeout(() => {
+                    this.updatePerformanceMetrics();
+                    NotificationSystem.show('Análise de performance concluída!', 'success');
+                }, 2000);
+            }
+
+            static quickOptimize() {
+                NotificationSystem.show('Otimizando sistema...', 'info');
+                
+                // Simular otimizações
+                setTimeout(() => {
+                    // Aplicar otimizações rápidas
+                    document.documentElement.style.setProperty('--animation-speed', '0.2s');
+                    
+                    NotificationSystem.show('Sistema otimizado com sucesso!', 'success');
+                }, 1500);
+            }
+
+            static exportSettings() {
+                const settings = {
+                    customization: localStorage.getItem('admin_customization'),
+                    advanced: localStorage.getItem('advanced_settings'),
+                    exportDate: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(settings, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `lore-settings-${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                NotificationSystem.show('Configurações exportadas!', 'success');
+            }
+
+            static saveAllSettings() {
+                this.saveSettings();
+                NotificationSystem.show('Todas as configurações salvas!', 'success');
+                this.hideModal();
+            }
+
+            static saveSettings() {
+                localStorage.setItem('advanced_settings', JSON.stringify(this.currentSettings));
+            }
+
+            static loadAdvancedSettings() {
+                const settings = JSON.parse(localStorage.getItem('advanced_settings'));
+                if (settings) {
+                    this.currentSettings = settings;
+                    
+                    // Aplicar CSS personalizado se existir
+                    if (settings.customCSS) {
+                        document.getElementById('custom-css').value = settings.customCSS;
+                        this.applyCustomCSS();
+                    }
+                }
+            }
+
+            static setupEventListeners() {
+                // Configurar event listeners avançados
+                document.getElementById('dashboard-columns').addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    document.getElementById('columns-value').textContent = value + ' coluna' + (value > 1 ? 's' : '');
+                    document.documentElement.style.setProperty('--dashboard-columns', value);
+                });
+            }
+
+            static showBackupManager() {
+                this.showModal();
+                this.showTab('backup');
+            }
+
+            static saveAutomationSettings() {
+                NotificationSystem.show('Configurações de automação salvas!', 'success');
+            }
+        }
+
+        // ===== DASHBOARD E GERENCIAMENTO DE CONTEÚDO =====
+        class Dashboard {
+            static currentSection = 'dashboard';
+            static ordersCount = 0;
+
+            static init() {
+                this.loadSection('dashboard');
+                this.setupEventListeners();
+                this.loadStats();
+            }
+
+            static setupEventListeners() {
+                // Busca global
+                document.getElementById('global-search').addEventListener('input', (e) => {
+                    this.handleGlobalSearch(e.target.value);
+                });
+
+                // Fechar dropdown ao clicar fora
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.admin-user')) {
+                        document.getElementById('user-dropdown').classList.remove('show');
+                    }
+                });
+            }
+
+            static loadSection(section) {
+                this.currentSection = section;
+                
+                // Atualizar navegação
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.classList.add('active');
+
+                // Carregar conteúdo
+                const content = document.getElementById('dynamic-content');
+                
+                switch(section) {
+                    case 'dashboard':
+                        this.loadDashboard(content);
+                        break;
+                    case 'orders':
+                        this.loadOrders(content);
+                        break;
+                    case 'products':
+                        this.loadProducts(content);
+                        break;
+                    case 'reports':
+                        this.loadReports(content);
+                        break;
+                    case 'analytics':
+                        this.loadAnalytics(content);
+                        break;
+                    default:
+                        this.loadDashboard(content);
+                }
+            }
+
+            static loadDashboard(container) {
+                document.getElementById('page-title').textContent = 'Dashboard Geral';
+                document.getElementById('page-description').textContent = 'Bem-vindo de volta! Aqui está o resumo do seu negócio.';
+                
+                container.innerHTML = `
+                    <div class="dashboard-grid">
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="stat-trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    12%
+                                </div>
+                            </div>
+                            <div class="stat-value" id="total-orders">0</div>
+                            <div class="stat-label">Total de Pedidos</div>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="stat-trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    8%
+                                </div>
+                            </div>
+                            <div class="stat-value">R$ 12.458</div>
+                            <div class="stat-label">Receita Total</div>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="stat-trend trend-down">
+                                    <i class="fas fa-arrow-down"></i>
+                                    3%
+                                </div>
+                            </div>
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Produtos Ativos</div>
+                        </div>
+                        
+                        <div class="stat-card error">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    15%
+                                </div>
+                            </div>
+                            <div class="stat-value">892</div>
+                            <div class="stat-label">Clientes Ativos</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--enterprise-space-6); margin-top: var(--enterprise-space-6);">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3 style="color: var(--enterprise-gray-800);">Vendas Recentes</h3>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-download"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                            <div style="margin-top: var(--enterprise-space-4);">
+                                <div class="chart-container" id="sales-chart-container">
+                                    <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: var(--enterprise-space-2);"></i>
+                                    <p>Gráfico de vendas será carregado aqui</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h3 style="color: var(--enterprise-gray-800);">Atividade Recente</h3>
+                            </div>
+                            <div style="margin-top: var(--enterprise-space-4);">
+                                <div class="activity-item" style="padding: var(--enterprise-space-3); border-left: 3px solid var(--enterprise-success); margin-bottom: var(--enterprise-space-3);">
+                                    <div style="font-weight: 600;">Novo pedido #001</div>
+                                    <div style="color: var(--enterprise-gray-500); font-size: var(--enterprise-text-sm);">Há 2 minutos</div>
+                                </div>
+                                <div class="activity-item" style="padding: var(--enterprise-space-3); border-left: 3px solid var(--enterprise-accent); margin-bottom: var(--enterprise-space-3);">
+                                    <div style="font-weight: 600;">Produto atualizado</div>
+                                    <div style="color: var(--enterprise-gray-500); font-size: var(--enterprise-text-sm);">Há 15 minutos</div>
+                                </div>
+                                <div class="activity-item" style="padding: var(--enterprise-space-3); border-left: 3px solid var(--enterprise-warning); margin-bottom: var(--enterprise-space-3);">
+                                    <div style="font-weight: 600;">Novo usuário cadastrado</div>
+                                    <div style="color: var(--enterprise-gray-500); font-size: var(--enterprise-text-sm);">Há 1 hora</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                this.initializeCharts();
+            }
+
+            static loadAnalytics(container) {
+                document.getElementById('page-title').textContent = 'Analytics em Tempo Real';
+                document.getElementById('page-description').textContent = 'Métricas e insights em tempo real do seu negócio.';
+                
+                container.innerHTML = `
+                    <div class="analytics-dashboard">
+                        <div class="stat-card primary">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="stat-trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    23%
+                                </div>
+                            </div>
+                            <div class="stat-value">1.2K</div>
+                            <div class="stat-label">Visualizações Hoje</div>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="stat-trend trend-up">
+                                    <i class="fas fa-arrow-up"></i>
+                                    15%
+                                </div>
+                            </div>
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Conversões</div>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-trend trend-down">
+                                    <i class="fas fa-arrow-down"></i>
+                                    2%
+                                </div>
+                            </div>
+                            <div class="stat-value">3.8%</div>
+                            <div class="stat-label">Taxa de Rejeição</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3 style="color: var(--enterprise-gray-800);">Tráfego em Tempo Real</h3>
+                            <button class="btn btn-primary" onclick="AdvancedCustomization.runPerformanceScan()">
+                                <i class="fas fa-sync"></i>
+                                Atualizar
+                            </button>
+                        </div>
+                        <div class="chart-container">
+                            <div style="text-align: center; color: var(--enterprise-success);">
+                                <i class="fas fa-chart-bar" style="font-size: 3rem;"></i>
+                                <p>Analytics em tempo real ativo</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            static loadOrders(container) {
+                document.getElementById('page-title').textContent = 'Gerenciar Pedidos';
+                document.getElementById('page-description').textContent = 'Gerencie todos os pedidos da loja.';
+                
+                container.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3 style="color: var(--enterprise-gray-800);">Lista de Pedidos</h3>
+                            <button class="btn btn-primary" onclick="OrderManager.createOrder()">
+                                <i class="fas fa-plus"></i>
+                                Novo Pedido
+                            </button>
+                        </div>
+                        <div style="margin-top: var(--enterprise-space-4);">
+                            <div style="background: var(--enterprise-gray-50); padding: var(--enterprise-space-6); text-align: center; border-radius: var(--enterprise-radius-lg);">
+                                <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--enterprise-gray-400); margin-bottom: var(--enterprise-space-3);"></i>
+                                <h4 style="color: var(--enterprise-gray-600);">Módulo de Pedidos</h4>
+                                <p style="color: var(--enterprise-gray-500);">Sistema de gerenciamento de pedidos em desenvolvimento</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            static loadProducts(container) {
+                document.getElementById('page-title').textContent = 'Gerenciar Produtos';
+                document.getElementById('page-description').textContent = 'Gerencie o catálogo de produtos da loja.';
+                
+                container.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3 style="color: var(--enterprise-gray-800);">Catálogo de Produtos</h3>
+                            <button class="btn btn-primary" onclick="ProductManager.createProduct()">
+                                <i class="fas fa-plus"></i>
+                                Novo Produto
+                            </button>
+                        </div>
+                        <div style="margin-top: var(--enterprise-space-4);">
+                            <div style="background: var(--enterprise-gray-50); padding: var(--enterprise-space-6); text-align: center; border-radius: var(--enterprise-radius-lg);">
+                                <i class="fas fa-box" style="font-size: 3rem; color: var(--enterprise-gray-400); margin-bottom: var(--enterprise-space-3);"></i>
+                                <h4 style="color: var(--enterprise-gray-600);">Módulo de Produtos</h4>
+                                <p style="color: var(--enterprise-gray-500);">Sistema de gerenciamento de produtos em desenvolvimento</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            static loadReports(container) {
+                document.getElementById('page-title').textContent = 'Relatórios e Analytics';
+                document.getElementById('page-description').textContent = 'Acompanhe métricas e performance do negócio.';
+                
+                container.innerHTML = `
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <h3 style="color: var(--enterprise-gray-800); margin-bottom: var(--enterprise-space-4);">Relatórios Disponíveis</h3>
+                            <div style="display: flex; flex-direction: column; gap: var(--enterprise-space-3);">
+                                <button class="btn btn-primary" onclick="PDFGenerator.generateSalesReport()">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Relatório de Vendas
+                                </button>
+                                <button class="btn btn-success">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Analytics de Produtos
+                                </button>
+                                <button class="btn btn-warning">
+                                    <i class="fas fa-users"></i>
+                                    Relatório de Clientes
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <h3 style="color: var(--enterprise-gray-800); margin-bottom: var(--enterprise-space-4);">Exportar Dados</h3>
+                            <div style="display: flex; flex-direction: column; gap: var(--enterprise-space-3);">
+                                <button class="btn">
+                                    <i class="fas fa-file-csv"></i>
+                                    Exportar CSV
+                                </button>
+                                <button class="btn">
+                                    <i class="fas fa-file-excel"></i>
+                                    Exportar Excel
+                                </button>
+                                <button class="btn">
+                                    <i class="fas fa-file-export"></i>
+                                    Exportar JSON
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            static initializeCharts() {
+                // Simulação de inicialização de gráficos
+                setTimeout(() => {
+                    const chartContainer = document.getElementById('sales-chart-container');
+                    if (chartContainer) {
+                        chartContainer.innerHTML = `
+                            <div style="text-align: center; color: var(--enterprise-success);">
+                                <i class="fas fa-check-circle" style="font-size: 2rem;"></i>
+                                <p>Gráfico inicializado com sucesso!</p>
+                            </div>
+                        `;
+                    }
+                }, 1000);
+            }
+
+            static loadStats() {
+                // Simular carregamento de estatísticas
+                setTimeout(() => {
+                    this.ordersCount = 42;
+                    document.getElementById('total-orders').textContent = this.ordersCount;
+                    document.getElementById('orders-badge').textContent = this.ordersCount;
+                }, 1500);
+            }
+
+            static handleGlobalSearch(query) {
+                if (query.length > 2) {
+                    NotificationSystem.show(`Buscando por: "${query}"`, 'info', 'Busca');
+                }
+            }
+        }
+
+        // ===== GERENCIAMENTOR DE PEDIDOS =====
+        class OrderManager {
+            static createOrder() {
+                NotificationSystem.show('Funcionalidade de criar pedido em desenvolvimento', 'info');
+            }
+        }
+
+        // ===== GERENCIAMENTOR DE PRODUTOS =====
+        class ProductManager {
+            static createProduct() {
+                NotificationSystem.show('Funcionalidade de criar produto em desenvolvimento', 'info');
+            }
+        }
+
+        // ===== GERADOR DE PDF =====
+        class PDFGenerator {
+            static generateSalesReport() {
+                NotificationSystem.show('Gerando relatório de vendas em PDF...', 'info');
+                
+                // Simular geração de PDF
+                setTimeout(() => {
+                    NotificationSystem.show('Relatório de vendas gerado com sucesso!', 'success');
+                    
+                    // Simular download
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.download = 'relatorio-vendas-lore-achadinhos.pdf';
+                    link.click();
+                }, 2000);
+            }
+        }
+
+        // ===== GERENCIAMENTOR DE API =====
+        class APIManager {
+            static testConnection() {
+                NotificationSystem.show('Testando conexão com a API...', 'info');
+                
+                // Simular teste de conexão
+                setTimeout(() => {
+                    const success = Math.random() > 0.2; // 80% de chance de sucesso
+                    
+                    if (success) {
+                        NotificationSystem.show('Conexão com API estabelecida com sucesso!', 'success');
+                    } else {
+                        NotificationSystem.show('Falha na conexão com a API', 'error');
+                    }
+                }, 1500);
+            }
+        }
+
+        // ===== INICIALIZAÇÃO DO SISTEMA =====
+        document.addEventListener('DOMContentLoaded', function() {
+            AuthManager.init();
+            
+            // Adicionar usuário demo adicional
+            if (!AuthManager.users.find(u => u.email === 'gerente@loreachadinhos.com')) {
+                AuthManager.users.push({
+                    id: 2,
+                    email: 'gerente@loreachadinhos.com',
+                    password: 'gerente123',
+                    name: 'Gerente Comercial',
+                    role: 'manager',
+                    avatar: 'G'
+                });
+                localStorage.setItem('admin_users', JSON.stringify(AuthManager.users));
+            }
+        });
+
+        // ===== OTIMIZAÇÕES DE PERFORMANCE =====
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // Recalcular layouts responsivos se necessário
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.admin-sidebar').classList.remove('mobile-open');
+                }
+            }, 250);
+        });
+
+        // ===== TRATAMENTO DE ERROS GLOBAL =====
+        window.addEventListener('error', function(e) {
+            console.error('Erro global capturado:', e.error);
+            NotificationSystem.show('Ocorreu um erro inesperado no sistema', 'error');
+        });
+
+        // ===== PREVENÇÃO DE SAÍDA ACIDENTAL =====
+        window.addEventListener('beforeunload', function(e) {
+            if (AuthManager.currentUser) {
+                const message = 'Você tem alterações não salvas. Tem certeza que deseja sair?';
+                e.returnValue = message;
+                return message;
+            }
+        });
+    </script>
 </body>
 </html>

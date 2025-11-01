@@ -1,40 +1,1757 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Configurações - Lore Achadinhos</title>
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Security -->
+    <title>Configurações do Sistema - Lore Achadinhos</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Styles & Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== DESIGN SYSTEM ENTERPRISE ===== */
+        :root {
+            /* Cores Enterprise - Dinâmicas */
+            --enterprise-primary: #1a365d;
+            --enterprise-secondary: #2d3748;
+            --enterprise-accent: #3182ce;
+            --enterprise-success: #38a169;
+            --enterprise-warning: #d69e2e;
+            --enterprise-error: #e53e3e;
+            --enterprise-info: #00b5d8;
+            
+            /* Fonte Customizável */
+            --enterprise-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --enterprise-font-size: 16px;
+            --enterprise-line-height: 1.6;
+            
+            /* Layout Customizável */
+            --sidebar-width: 280px;
+            --header-height: 80px;
+            --border-radius: 0.5rem;
+            --shadow-intensity: 0.1;
+            
+            /* Cores de Texto */
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            
+            /* Espaçamentos */
+            --space-unit: 1rem;
+            --space-xs: calc(var(--space-unit) * 0.25);
+            --space-sm: calc(var(--space-unit) * 0.5);
+            --space-md: var(--space-unit);
+            --space-lg: calc(var(--space-unit) * 1.5);
+            --space-xl: calc(var(--space-unit) * 2);
+            
+            /* Escala de Cinza */
+            --enterprise-white: #ffffff;
+            --enterprise-gray-50: #f7fafc;
+            --enterprise-gray-100: #edf2f7;
+            --enterprise-gray-200: #e2e8f0;
+            --enterprise-gray-300: #cbd5e0;
+            --enterprise-gray-400: #a0aec0;
+            --enterprise-gray-500: #718096;
+            --enterprise-gray-600: #4a5568;
+            --enterprise-gray-700: #2d3748;
+            --enterprise-gray-800: #1a202c;
+            --enterprise-gray-900: #171923;
+            
+            /* Sombras */
+            --enterprise-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --enterprise-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --enterprise-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transições */
+            --enterprise-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== ESTILOS PARA CONFIGURAÇÕES ===== */
+        .settings-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--space-xl);
+            min-height: calc(100vh - 140px);
+        }
+
+        .settings-sidebar {
+            background: var(--enterprise-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            box-shadow: var(--enterprise-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .settings-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--enterprise-transition);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .settings-nav-item:hover {
+            background: var(--enterprise-gray-50);
+            color: var(--enterprise-primary);
+        }
+
+        .settings-nav-item.active {
+            background: var(--enterprise-primary);
+            color: var(--enterprise-white);
+        }
+
+        .settings-nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .settings-content {
+            background: var(--enterprise-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-xl);
+            box-shadow: var(--enterprise-shadow);
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-section h2 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .settings-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .settings-group h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .color-picker-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .color-picker-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .color-picker-label i {
+            color: var(--text-muted);
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .color-input {
+            width: 60px;
+            height: 40px;
+            border: 2px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+        }
+
+        .color-input:hover {
+            border-color: var(--enterprise-accent);
+        }
+
+        .color-input-text {
+            flex: 1;
+            padding: var(--space-sm);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--enterprise-gray-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .font-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .font-option {
+            border: 2px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            background: var(--enterprise-white);
+        }
+
+        .font-option:hover {
+            border-color: var(--enterprise-accent);
+            transform: translateY(-2px);
+        }
+
+        .font-option.selected {
+            border-color: var(--enterprise-accent);
+            background: rgba(49, 130, 206, 0.1);
+        }
+
+        .font-preview {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .font-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .font-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .logo-upload-area {
+            border: 2px dashed var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            margin-bottom: var(--space-lg);
+        }
+
+        .logo-upload-area:hover {
+            border-color: var(--enterprise-accent);
+            background: var(--enterprise-gray-50);
+        }
+
+        .logo-upload-area i {
+            font-size: 3rem;
+            color: var(--enterprise-gray-400);
+            margin-bottom: var(--space-md);
+        }
+
+        .logo-preview {
+            max-width: 300px;
+            margin: 0 auto var(--space-lg);
+            text-align: center;
+        }
+
+        .logo-preview img {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: var(--border-radius);
+        }
+
+        .logo-preview-placeholder {
+            width: 200px;
+            height: 60px;
+            background: var(--enterprise-gray-200);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--enterprise-gray-500);
+            font-weight: 600;
+            margin: 0 auto;
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .size-control label {
+            min-width: 200px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .size-slider {
+            flex: 1;
+        }
+
+        .size-value {
+            min-width: 80px;
+            text-align: right;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--enterprise-gray-300);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--enterprise-accent);
+            cursor: pointer;
+            border: 2px solid var(--enterprise-white);
+            box-shadow: var(--enterprise-shadow);
+        }
+
+        .template-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .template-item {
+            border: 2px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            background: var(--enterprise-white);
+        }
+
+        .template-item:hover {
+            border-color: var(--enterprise-accent);
+            transform: translateY(-2px);
+        }
+
+        .template-item.selected {
+            border-color: var(--enterprise-accent);
+            background: rgba(49, 130, 206, 0.1);
+        }
+
+        .template-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .template-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .template-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--enterprise-transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--enterprise-accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+
+        .btn {
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--enterprise-transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .btn-primary {
+            background: var(--enterprise-accent);
+            color: var(--enterprise-white);
+        }
+
+        .btn-primary:hover {
+            background: #2c5aa0;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--enterprise-gray-300);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--enterprise-gray-50);
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: flex-end;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--enterprise-gray-200);
+        }
+
+        .live-preview {
+            background: var(--enterprise-gray-50);
+            border-radius: var(--border-radius);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--enterprise-gray-200);
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .preview-logo {
+            max-height: 50px;
+            margin-bottom: var(--space-md);
+        }
+
+        .preview-card {
+            background: var(--enterprise-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            box-shadow: var(--enterprise-shadow);
+            margin-bottom: var(--space-md);
+        }
+
+        .preview-buttons {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .css-editor {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
+            width: 100%;
+            height: 300px;
+            padding: var(--space-md);
+            background: var(--enterprise-gray-50);
+            resize: vertical;
+            font-size: 0.9rem;
+        }
+
+        .backup-list {
+            border: 1px solid var(--enterprise-gray-300);
+            border-radius: var(--border-radius);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .backup-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--enterprise-gray-200);
+        }
+
+        .backup-item:last-child {
+            border-bottom: none;
+        }
+
+        .backup-info {
+            flex: 1;
+        }
+
+        .backup-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .backup-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .backup-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .notification {
+            background: var(--enterprise-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+            box-shadow: var(--enterprise-shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: var(--enterprise-transition);
+            border-left: 4px solid var(--enterprise-success);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success { border-left-color: var(--enterprise-success); }
+        .notification.error { border-left-color: var(--enterprise-error); }
+        .notification.warning { border-left-color: var(--enterprise-warning); }
+        .notification.info { border-left-color: var(--enterprise-info); }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification.success .notification-icon { color: var(--enterprise-success); }
+        .notification.error .notification-icon { color: var(--enterprise-error); }
+        .notification.warning .notification-icon { color: var(--enterprise-warning); }
+        .notification.info .notification-icon { color: var(--enterprise-info); }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .notification-message {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .settings-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-sidebar {
+                position: static;
+            }
+        }
+
+        /* Restante do CSS mantido do código anterior... */
+    </style>
 </head>
 <body>
-<header>
-  <img src="assets/images/logo.png" alt="Logo">
-  Lore Achadinhos - Painel Administrativo
-</header>
-<div class="sidebar">
-  <ul>
-    <li onclick="navigate('dashboard.html')">Dashboard</li>
-    <li onclick="navigate('produtos.html')">Produtos</li>
-    <li onclick="navigate('pedidos.html')">Pedidos</li>
-    <li onclick="navigate('clientes.html')">Clientes</li>
-    <li onclick="navigate('afiliados.html')">Afiliados</li>
-    <li onclick="navigate('analytics.html')">Analytics</li>
-    <li class="active" onclick="navigate('configuracoes.html')">Configurações</li>
-  </ul>
-</div>
-<main>
-  <h1>Configurações da Loja</h1>
-  <label>Nome da Loja</label>
-  <input type="text" id="nomeLoja">
-  <label>Email</label>
-  <input type="email" id="emailLoja">
-  <label>Telefone</label>
-  <input type="text" id="telefoneLoja">
-  <button onclick="salvarConfiguracoes()">Salvar Configurações</button>
-</main>
-<script src="assets/js/configuracoes.js"></script>
-<script>
-function navigate(url){ window.location.href=url; }
-</script>
+    <!-- Container de Notificações -->
+    <div class="notification-container" id="notification-container"></div>
+
+    <!-- Conteúdo Principal -->
+    <div id="admin-content">
+        <div class="admin-container">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <div class="logo" id="current-logo">
+                        <i class="fas fa-crown"></i>
+                        <span>Lore Admin</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-title">Configurações</div>
+                        <a class="nav-item active" onclick="SettingsManager.showSection('branding')">
+                            <i class="fas fa-palette"></i>
+                            Branding
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('colors')">
+                            <i class="fas fa-fill-drip"></i>
+                            Cores
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('typography')">
+                            <i class="fas fa-font"></i>
+                            Tipografia
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('layout')">
+                            <i class="fas fa-layer-group"></i>
+                            Layout
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('templates')">
+                            <i class="fas fa-paint-brush"></i>
+                            Templates
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('advanced')">
+                            <i class="fas fa-cogs"></i>
+                            Avançado
+                        </a>
+                        <a class="nav-item" onclick="SettingsManager.showSection('backup')">
+                            <i class="fas fa-database"></i>
+                            Backup
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-main">
+                <header class="admin-header">
+                    <div class="header-title">
+                        <h1 id="page-title">Configurações do Sistema</h1>
+                        <p id="page-description">Personalize completamente a aparência e comportamento do seu painel administrativo</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="SettingsManager.resetToDefault()">
+                            <i class="fas fa-undo"></i>
+                            Redefinir
+                        </button>
+                        <button class="btn btn-primary" onclick="SettingsManager.saveSettings()">
+                            <i class="fas fa-save"></i>
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Conteúdo de Configurações -->
+                <div class="settings-container">
+                    <div class="settings-sidebar">
+                        <nav class="settings-nav">
+                            <button class="settings-nav-item active" onclick="SettingsManager.showSection('branding')">
+                                <i class="fas fa-palette"></i>
+                                Branding e Logo
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('colors')">
+                                <i class="fas fa-fill-drip"></i>
+                                Esquema de Cores
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('typography')">
+                                <i class="fas fa-font"></i>
+                                Tipografia
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('layout')">
+                                <i class="fas fa-layer-group"></i>
+                                Layout e Espaçamento
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('templates')">
+                                <i class="fas fa-paint-brush"></i>
+                                Templates Rápidos
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('advanced')">
+                                <i class="fas fa-cogs"></i>
+                                CSS Personalizado
+                            </button>
+                            <button class="settings-nav-item" onclick="SettingsManager.showSection('backup')">
+                                <i class="fas fa-database"></i>
+                                Backup e Restauração
+                            </button>
+                        </nav>
+                    </div>
+
+                    <div class="settings-content">
+                        <!-- Seção Branding -->
+                        <div id="branding-section" class="settings-section active">
+                            <h2>Branding e Identidade Visual</h2>
+                            
+                            <div class="live-preview">
+                                <div class="preview-header">
+                                    <div id="preview-logo" class="preview-logo">
+                                        <!-- Logo será carregado aqui -->
+                                    </div>
+                                    <h3 style="color: var(--enterprise-primary);">Prévia do Seu Branding</h3>
+                                </div>
+                                <div class="preview-card">
+                                    <h4 style="margin-bottom: var(--space-md);">Cartão de Exemplo</h4>
+                                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                                        Esta é uma prévia de como suas configurações de branding serão aplicadas.
+                                    </p>
+                                    <div class="preview-buttons">
+                                        <button class="btn btn-primary">Botão Primário</button>
+                                        <button class="btn btn-outline">Botão Secundário</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Logotipo</h3>
+                                <div class="logo-upload-area" onclick="document.getElementById('logo-upload').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <div>Clique para fazer upload do logotipo</div>
+                                    <small>Formatos suportados: PNG, JPG, SVG. Tamanho máximo: 5MB</small>
+                                </div>
+                                <input type="file" id="logo-upload" accept="image/*" style="display: none;" onchange="SettingsManager.handleLogoUpload(this.files)">
+                                
+                                <div class="logo-preview" id="logo-preview">
+                                    <div class="logo-preview-placeholder">
+                                        <i class="fas fa-image"></i>
+                                        <span style="margin-left: var(--space-sm);">Sem logo</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Informações da Empresa</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Nome da Empresa</label>
+                                    <input type="text" class="form-input" id="company-name" value="Lore Achadinhos">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Slogan ou Descrição</label>
+                                    <input type="text" class="form-input" id="company-slogan" placeholder="Sua loja de produtos exclusivos">
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Favicon</h3>
+                                <div class="logo-upload-area" onclick="document.getElementById('favicon-upload').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <div>Clique para fazer upload do favicon</div>
+                                    <small>Recomendado: 32x32px PNG ou ICO</small>
+                                </div>
+                                <input type="file" id="favicon-upload" accept="image/*" style="display: none;" onchange="SettingsManager.handleFaviconUpload(this.files)">
+                            </div>
+                        </div>
+
+                        <!-- Seção Cores -->
+                        <div id="colors-section" class="settings-section">
+                            <h2>Esquema de Cores</h2>
+                            
+                            <div class="live-preview">
+                                <div class="preview-header">
+                                    <h3 style="color: var(--enterprise-primary);">Prévia do Esquema de Cores</h3>
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-md);">
+                                    <div style="background: var(--enterprise-primary); color: white; padding: var(--space-md); border-radius: var(--border-radius); text-align: center;">
+                                        Primária
+                                    </div>
+                                    <div style="background: var(--enterprise-accent); color: white; padding: var(--space-md); border-radius: var(--border-radius); text-align: center;">
+                                        Destaque
+                                    </div>
+                                    <div style="background: var(--enterprise-success); color: white; padding: var(--space-md); border-radius: var(--border-radius); text-align: center;">
+                                        Sucesso
+                                    </div>
+                                    <div style="background: var(--enterprise-error); color: white; padding: var(--space-md); border-radius: var(--border-radius); text-align: center;">
+                                        Erro
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="color-picker-grid">
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-palette"></i>
+                                        Cor Primária
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-primary" value="#1a365d" onchange="SettingsManager.updateColor('--enterprise-primary', this.value)">
+                                        <input type="text" class="color-input-text" id="color-primary-text" value="#1a365d" onchange="SettingsManager.updateColor('--enterprise-primary', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #1a365d;" id="preview-primary">
+                                        Primária
+                                    </div>
+                                </div>
+
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-star"></i>
+                                        Cor de Destaque
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-accent" value="#3182ce" onchange="SettingsManager.updateColor('--enterprise-accent', this.value)">
+                                        <input type="text" class="color-input-text" id="color-accent-text" value="#3182ce" onchange="SettingsManager.updateColor('--enterprise-accent', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #3182ce;" id="preview-accent">
+                                        Destaque
+                                    </div>
+                                </div>
+
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-check-circle"></i>
+                                        Cor de Sucesso
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-success" value="#38a169" onchange="SettingsManager.updateColor('--enterprise-success', this.value)">
+                                        <input type="text" class="color-input-text" id="color-success-text" value="#38a169" onchange="SettingsManager.updateColor('--enterprise-success', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #38a169;" id="preview-success">
+                                        Sucesso
+                                    </div>
+                                </div>
+
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Cor de Alerta
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-warning" value="#d69e2e" onchange="SettingsManager.updateColor('--enterprise-warning', this.value)">
+                                        <input type="text" class="color-input-text" id="color-warning-text" value="#d69e2e" onchange="SettingsManager.updateColor('--enterprise-warning', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #d69e2e;" id="preview-warning">
+                                        Alerta
+                                    </div>
+                                </div>
+
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-times-circle"></i>
+                                        Cor de Erro
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-error" value="#e53e3e" onchange="SettingsManager.updateColor('--enterprise-error', this.value)">
+                                        <input type="text" class="color-input-text" id="color-error-text" value="#e53e3e" onchange="SettingsManager.updateColor('--enterprise-error', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #e53e3e;" id="preview-error">
+                                        Erro
+                                    </div>
+                                </div>
+
+                                <div class="color-picker-item">
+                                    <label class="color-picker-label">
+                                        <i class="fas fa-info-circle"></i>
+                                        Cor de Informação
+                                    </label>
+                                    <div class="color-input-group">
+                                        <input type="color" class="color-input" id="color-info" value="#00b5d8" onchange="SettingsManager.updateColor('--enterprise-info', this.value)">
+                                        <input type="text" class="color-input-text" id="color-info-text" value="#00b5d8" onchange="SettingsManager.updateColor('--enterprise-info', this.value)">
+                                    </div>
+                                    <div class="color-preview" style="background-color: #00b5d8;" id="preview-info">
+                                        Informação
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seção Tipografia -->
+                        <div id="typography-section" class="settings-section">
+                            <h2>Tipografia</h2>
+                            
+                            <div class="live-preview">
+                                <div class="preview-header">
+                                    <h3 style="font-family: var(--enterprise-font-family);">Prévia da Tipografia</h3>
+                                </div>
+                                <div class="preview-card">
+                                    <h1 style="font-family: var(--enterprise-font-family); margin-bottom: var(--space-md);">Título Principal</h1>
+                                    <h2 style="font-family: var(--enterprise-font-family); margin-bottom: var(--space-md);">Subtítulo</h2>
+                                    <p style="font-family: var(--enterprise-font-family); line-height: var(--enterprise-line-height);">
+                                        Este é um parágrafo de exemplo demonstrando a tipografia selecionada. Observe como o texto flui naturalmente com o espaçamento de linha configurado.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Fonte Principal</h3>
+                                <div class="font-options">
+                                    <div class="font-option selected" onclick="SettingsManager.selectFont('Inter')">
+                                        <div class="font-preview" style="font-family: 'Inter';">Aa</div>
+                                        <div class="font-name">Inter</div>
+                                        <div class="font-description">Moderno e legível</div>
+                                    </div>
+                                    <div class="font-option" onclick="SettingsManager.selectFont('Roboto')">
+                                        <div class="font-preview" style="font-family: 'Roboto';">Aa</div>
+                                        <div class="font-name">Roboto</div>
+                                        <div class="font-description">Clean e versátil</div>
+                                    </div>
+                                    <div class="font-option" onclick="SettingsManager.selectFont('Poppins')">
+                                        <div class="font-preview" style="font-family: 'Poppins';">Aa</div>
+                                        <div class="font-name">Poppins</div>
+                                        <div class="font-description">Elegante e geométrico</div>
+                                    </div>
+                                    <div class="font-option" onclick="SettingsManager.selectFont('Open Sans')">
+                                        <div class="font-preview" style="font-family: 'Open Sans';">Aa</div>
+                                        <div class="font-name">Open Sans</div>
+                                        <div class="font-description">Humanista e amigável</div>
+                                    </div>
+                                    <div class="font-option" onclick="SettingsManager.selectFont('Montserrat')">
+                                        <div class="font-preview" style="font-family: 'Montserrat';">Aa</div>
+                                        <div class="font-name">Montserrat</div>
+                                        <div class="font-description">Elegante e moderno</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Tamanho da Fonte</h3>
+                                <div class="size-control">
+                                    <label>Tamanho Base</label>
+                                    <input type="range" class="size-slider" id="font-size" min="12" max="20" value="16" oninput="SettingsManager.updateFontSize(this.value)">
+                                    <span class="size-value" id="font-size-value">16px</span>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Espaçamento de Linha</h3>
+                                <div class="size-control">
+                                    <label>Altura da Linha</label>
+                                    <input type="range" class="size-slider" id="line-height" min="1.2" max="2.0" step="0.1" value="1.6" oninput="SettingsManager.updateLineHeight(this.value)">
+                                    <span class="size-value" id="line-height-value">1.6</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seção Layout -->
+                        <div id="layout-section" class="settings-section">
+                            <h2>Layout e Espaçamento</h2>
+
+                            <div class="settings-group">
+                                <h3>Dimensões Principais</h3>
+                                <div class="size-control">
+                                    <label>Largura da Sidebar</label>
+                                    <input type="range" class="size-slider" id="sidebar-width" min="200" max="400" value="280" oninput="SettingsManager.updateSidebarWidth(this.value)">
+                                    <span class="size-value" id="sidebar-width-value">280px</span>
+                                </div>
+                                
+                                <div class="size-control">
+                                    <label>Altura do Header</label>
+                                    <input type="range" class="size-slider" id="header-height" min="60" max="120" value="80" oninput="SettingsManager.updateHeaderHeight(this.value)">
+                                    <span class="size-value" id="header-height-value">80px</span>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Border Radius</h3>
+                                <div class="size-control">
+                                    <label>Raio das Bordas</label>
+                                    <input type="range" class="size-slider" id="border-radius" min="0" max="20" value="8" oninput="SettingsManager.updateBorderRadius(this.value)">
+                                    <span class="size-value" id="border-radius-value">8px</span>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Intensidade das Sombras</h3>
+                                <div class="size-control">
+                                    <label>Força das Sombras</label>
+                                    <input type="range" class="size-slider" id="shadow-intensity" min="0" max="0.3" step="0.05" value="0.1" oninput="SettingsManager.updateShadowIntensity(this.value)">
+                                    <span class="size-value" id="shadow-intensity-value">0.1</span>
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Unidade de Espaçamento</h3>
+                                <div class="size-control">
+                                    <label>Tamanho Base do Espaço</label>
+                                    <input type="range" class="size-slider" id="space-unit" min="12" max="24" value="16" oninput="SettingsManager.updateSpaceUnit(this.value)">
+                                    <span class="size-value" id="space-unit-value">16px</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seção Templates -->
+                        <div id="templates-section" class="settings-section">
+                            <h2>Templates Rápidos</h2>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+                                Aplique templates pré-configurados para mudar rapidamente a aparência do seu painel.
+                            </p>
+
+                            <div class="template-gallery">
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('modern')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <div class="template-name">Moderno</div>
+                                    <div class="template-description">Design limpo e contemporâneo</div>
+                                </div>
+
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('dark')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #2d3748, #1a202c);">
+                                        <i class="fas fa-moon"></i>
+                                    </div>
+                                    <div class="template-name">Dark Mode</div>
+                                    <div class="template-description">Tema escuro profissional</div>
+                                </div>
+
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('minimal')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #f7fafc, #edf2f7); color: #4a5568;">
+                                        <i class="fas fa-minimize"></i>
+                                    </div>
+                                    <div class="template-name">Minimalista</div>
+                                    <div class="template-description">Foco no conteúdo</div>
+                                </div>
+
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('warm')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #ed8936, #dd6b20);">
+                                        <i class="fas fa-sun"></i>
+                                    </div>
+                                    <div class="template-name">Quente</div>
+                                    <div class="template-description">Cores vibrantes e acolhedoras</div>
+                                </div>
+
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('professional')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #2d3748, #4a5568);">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="template-name">Profissional</div>
+                                    <div class="template-description">Aparência corporativa</div>
+                                </div>
+
+                                <div class="template-item" onclick="SettingsManager.applyTemplate('colorful')">
+                                    <div class="template-preview" style="background: linear-gradient(135deg, #ed64a6, #805ad5);">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    <div class="template-name">Colorido</div>
+                                    <div class="template-description">Cores vibrantes e modernas</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seção Avançado -->
+                        <div id="advanced-section" class="settings-section">
+                            <h2>CSS Personalizado</h2>
+                            <p style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+                                Adicione seu próprio CSS para personalizações avançadas. Este código será aplicado após todos os outros estilos.
+                            </p>
+
+                            <div class="form-group">
+                                <label class="form-label">CSS Personalizado</label>
+                                <textarea class="css-editor" id="custom-css" placeholder="/* Adicione seu CSS personalizado aqui */"></textarea>
+                            </div>
+
+                            <div style="display: flex; gap: var(--space-md);">
+                                <button class="btn btn-primary" onclick="SettingsManager.applyCustomCSS()">
+                                    <i class="fas fa-play"></i>
+                                    Aplicar CSS
+                                </button>
+                                <button class="btn btn-outline" onclick="SettingsManager.clearCustomCSS()">
+                                    <i class="fas fa-trash"></i>
+                                    Limpar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Seção Backup -->
+                        <div id="backup-section" class="settings-section">
+                            <h2>Backup e Restauração</h2>
+
+                            <div class="settings-group">
+                                <h3>Criar Backup</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Nome do Backup</label>
+                                    <input type="text" class="form-input" id="backup-name" placeholder="backup-configuracoes">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Descrição</label>
+                                    <textarea class="form-input" id="backup-description" rows="3" placeholder="Descreva o propósito deste backup..."></textarea>
+                                </div>
+                                <button class="btn btn-primary" onclick="SettingsManager.createBackup()">
+                                    <i class="fas fa-save"></i>
+                                    Criar Backup
+                                </button>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Backups Existentes</h3>
+                                <div class="backup-list" id="backup-list">
+                                    <!-- Lista de backups será carregada aqui -->
+                                </div>
+                            </div>
+
+                            <div class="settings-group">
+                                <h3>Exportar/Importar</h3>
+                                <div style="display: flex; gap: var(--space-md);">
+                                    <button class="btn btn-outline" onclick="SettingsManager.exportSettings()">
+                                        <i class="fas fa-download"></i>
+                                        Exportar Configurações
+                                    </button>
+                                    <button class="btn btn-outline" onclick="document.getElementById('import-settings').click()">
+                                        <i class="fas fa-upload"></i>
+                                        Importar Configurações
+                                    </button>
+                                    <input type="file" id="import-settings" accept=".json" style="display: none;" onchange="SettingsManager.importSettings(this.files)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-actions">
+                            <button class="btn btn-outline" onclick="SettingsManager.resetToDefault()">
+                                <i class="fas fa-undo"></i>
+                                Redefinir para Padrão
+                            </button>
+                            <button class="btn btn-primary" onclick="SettingsManager.saveSettings()">
+                                <i class="fas fa-save"></i>
+                                Salvar Todas as Configurações
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // ===== SISTEMA DE CONFIGURAÇÕES =====
+        class SettingsManager {
+            static currentSettings = JSON.parse(localStorage.getItem('admin_settings')) || {};
+            static customCSS = localStorage.getItem('admin_custom_css') || '';
+            static backups = JSON.parse(localStorage.getItem('admin_backups')) || [];
+
+            static init() {
+                this.loadSettings();
+                this.setupEventListeners();
+                this.loadBackupList();
+                this.applyCustomCSS();
+            }
+
+            static setupEventListeners() {
+                // Sincronizar inputs de cor
+                document.querySelectorAll('.color-input').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const textInput = e.target.parentElement.querySelector('.color-input-text');
+                        if (textInput) {
+                            textInput.value = e.target.value;
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.color-input-text').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const colorInput = e.target.parentElement.querySelector('.color-input');
+                        if (colorInput && /^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                            colorInput.value = e.target.value;
+                        }
+                    });
+                });
+
+                // Atualizar valores dos sliders
+                document.querySelectorAll('.size-slider').forEach(slider => {
+                    slider.addEventListener('input', (e) => {
+                        const valueSpan = document.getElementById(e.target.id + '-value');
+                        if (valueSpan) {
+                            if (e.target.id === 'line-height') {
+                                valueSpan.textContent = e.target.value;
+                            } else {
+                                valueSpan.textContent = e.target.value + 'px';
+                            }
+                        }
+                    });
+                });
+            }
+
+            static showSection(sectionName) {
+                // Esconder todas as seções
+                document.querySelectorAll('.settings-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.querySelectorAll('.settings-nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Mostrar seção selecionada
+                document.getElementById(sectionName + '-section').classList.add('active');
+                event.target.classList.add('active');
+            }
+
+            static updateColor(variable, value) {
+                document.documentElement.style.setProperty(variable, value);
+                
+                // Atualizar preview
+                const preview = document.getElementById('preview-' + variable.split('-').pop());
+                if (preview) {
+                    preview.style.backgroundColor = value;
+                }
+
+                // Sincronizar inputs
+                const colorInput = document.getElementById('color-' + variable.split('-').pop());
+                const textInput = document.getElementById('color-' + variable.split('-').pop() + '-text');
+                
+                if (colorInput && textInput) {
+                    colorInput.value = value;
+                    textInput.value = value;
+                }
+            }
+
+            static selectFont(fontName) {
+                const fontMap = {
+                    'Inter': "'Inter', sans-serif",
+                    'Roboto': "'Roboto', sans-serif",
+                    'Poppins': "'Poppins', sans-serif",
+                    'Open Sans': "'Open Sans', sans-serif",
+                    'Montserrat': "'Montserrat', sans-serif"
+                };
+
+                document.documentElement.style.setProperty('--enterprise-font-family', fontMap[fontName]);
+
+                // Atualizar seleção visual
+                document.querySelectorAll('.font-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                event.target.classList.add('selected');
+            }
+
+            static updateFontSize(size) {
+                document.documentElement.style.setProperty('--enterprise-font-size', size + 'px');
+            }
+
+            static updateLineHeight(height) {
+                document.documentElement.style.setProperty('--enterprise-line-height', height);
+            }
+
+            static updateSidebarWidth(width) {
+                document.documentElement.style.setProperty('--sidebar-width', width + 'px');
+            }
+
+            static updateHeaderHeight(height) {
+                document.documentElement.style.setProperty('--header-height', height + 'px');
+            }
+
+            static updateBorderRadius(radius) {
+                document.documentElement.style.setProperty('--border-radius', radius + 'px');
+            }
+
+            static updateShadowIntensity(intensity) {
+                // Aplicar intensidade às sombras existentes
+                const shadows = document.querySelectorAll('[class*="shadow"]');
+                // Esta é uma simplificação - em um sistema real, você recriaria as sombras
+                console.log('Intensidade da sombra atualizada para:', intensity);
+            }
+
+            static updateSpaceUnit(unit) {
+                document.documentElement.style.setProperty('--space-unit', unit + 'px');
+            }
+
+            static handleLogoUpload(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        const logoData = e.target.result;
+                        
+                        // Atualizar preview
+                        const preview = document.getElementById('logo-preview');
+                        preview.innerHTML = `<img src="${logoData}" alt="Logo">`;
+                        
+                        // Atualizar logo atual
+                        const currentLogo = document.getElementById('current-logo');
+                        currentLogo.innerHTML = `<img src="${logoData}" alt="Logo" style="max-height: 30px;">`;
+                        
+                        // Salvar nos settings
+                        this.currentSettings.logo = logoData;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            static handleFaviconUpload(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        // Criar link do favicon
+                        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.href = e.target.result;
+                        document.head.appendChild(link);
+                        
+                        this.currentSettings.favicon = e.target.result;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            static applyTemplate(templateName) {
+                const templates = {
+                    'modern': {
+                        '--enterprise-primary': '#667eea',
+                        '--enterprise-accent': '#764ba2',
+                        '--enterprise-success': '#48bb78',
+                        '--enterprise-warning': '#ed8936',
+                        '--enterprise-error': '#f56565'
+                    },
+                    'dark': {
+                        '--enterprise-primary': '#2d3748',
+                        '--enterprise-accent': '#4a5568',
+                        '--enterprise-success': '#38a169',
+                        '--enterprise-warning': '#d69e2e',
+                        '--enterprise-error': '#e53e3e',
+                        '--enterprise-white': '#1a202c',
+                        '--enterprise-gray-50': '#2d3748',
+                        '--enterprise-gray-100': '#4a5568'
+                    },
+                    'minimal': {
+                        '--enterprise-primary': '#4a5568',
+                        '--enterprise-accent': '#718096',
+                        '--enterprise-success': '#48bb78',
+                        '--enterprise-warning': '#ed8936',
+                        '--enterprise-error': '#f56565'
+                    },
+                    'warm': {
+                        '--enterprise-primary': '#ed8936',
+                        '--enterprise-accent': '#dd6b20',
+                        '--enterprise-success': '#38a169',
+                        '--enterprise-warning': '#d69e2e',
+                        '--enterprise-error': '#e53e3e'
+                    },
+                    'professional': {
+                        '--enterprise-primary': '#2d3748',
+                        '--enterprise-accent': '#4a5568',
+                        '--enterprise-success': '#38a169',
+                        '--enterprise-warning': '#d69e2e',
+                        '--enterprise-error': '#e53e3e'
+                    },
+                    'colorful': {
+                        '--enterprise-primary': '#ed64a6',
+                        '--enterprise-accent': '#805ad5',
+                        '--enterprise-success': '#48bb78',
+                        '--enterprise-warning': '#ed8936',
+                        '--enterprise-error': '#f56565'
+                    }
+                };
+
+                const template = templates[templateName];
+                if (template) {
+                    Object.entries(template).forEach(([variable, value]) => {
+                        document.documentElement.style.setProperty(variable, value);
+                        
+                        // Atualizar inputs
+                        const colorName = variable.split('-').pop();
+                        const colorInput = document.getElementById('color-' + colorName);
+                        const textInput = document.getElementById('color-' + colorName + '-text');
+                        
+                        if (colorInput && textInput) {
+                            colorInput.value = value;
+                            textInput.value = value;
+                        }
+                    });
+
+                    this.showNotification(`Template "${templateName}" aplicado com sucesso!`, 'success');
+                }
+            }
+
+            static applyCustomCSS() {
+                const css = document.getElementById('custom-css').value;
+                this.customCSS = css;
+                
+                // Remover estilo anterior
+                const oldStyle = document.getElementById('custom-css-style');
+                if (oldStyle) oldStyle.remove();
+
+                // Aplicar novo estilo
+                if (css.trim()) {
+                    const style = document.createElement('style');
+                    style.id = 'custom-css-style';
+                    style.textContent = css;
+                    document.head.appendChild(style);
+                }
+
+                localStorage.setItem('admin_custom_css', css);
+                this.showNotification('CSS personalizado aplicado com sucesso!', 'success');
+            }
+
+            static clearCustomCSS() {
+                document.getElementById('custom-css').value = '';
+                const oldStyle = document.getElementById('custom-css-style');
+                if (oldStyle) oldStyle.remove();
+                
+                this.customCSS = '';
+                localStorage.removeItem('admin_custom_css');
+                this.showNotification('CSS personalizado removido!', 'info');
+            }
+
+            static createBackup() {
+                const name = document.getElementById('backup-name').value || `backup-${new Date().toISOString().split('T')[0]}`;
+                const description = document.getElementById('backup-description').value;
+                
+                const backup = {
+                    id: Date.now(),
+                    name: name,
+                    description: description,
+                    date: new Date().toLocaleString('pt-BR'),
+                    data: {
+                        settings: this.currentSettings,
+                        customCSS: this.customCSS
+                    }
+                };
+
+                this.backups.push(backup);
+                localStorage.setItem('admin_backups', JSON.stringify(this.backups));
+                
+                this.loadBackupList();
+                this.showNotification('Backup criado com sucesso!', 'success');
+                
+                // Limpar formulário
+                document.getElementById('backup-name').value = '';
+                document.getElementById('backup-description').value = '';
+            }
+
+            static loadBackupList() {
+                const backupList = document.getElementById('backup-list');
+                
+                if (this.backups.length === 0) {
+                    backupList.innerHTML = '<div style="padding: var(--space-md); text-align: center; color: var(--text-muted);">Nenhum backup encontrado</div>';
+                    return;
+                }
+
+                backupList.innerHTML = this.backups.map(backup => `
+                    <div class="backup-item">
+                        <div class="backup-info">
+                            <div class="backup-name">${backup.name}</div>
+                            <div class="backup-date">${backup.date} • ${backup.description || 'Sem descrição'}</div>
+                        </div>
+                        <div class="backup-actions">
+                            <button class="btn btn-outline" onclick="SettingsManager.restoreBackup(${backup.id})" style="padding: var(--space-sm);">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="btn btn-outline" onclick="SettingsManager.deleteBackup(${backup.id})" style="padding: var(--space-sm);">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            static restoreBackup(backupId) {
+                const backup = this.backups.find(b => b.id === backupId);
+                
+                if (backup && confirm('Restaurar este backup? Isso substituirá as configurações atuais.')) {
+                    this.currentSettings = backup.data.settings;
+                    this.customCSS = backup.data.customCSS || '';
+                    
+                    this.applySettings();
+                    this.applyCustomCSS();
+                    this.showNotification('Backup restaurado com sucesso!', 'success');
+                }
+            }
+
+            static deleteBackup(backupId) {
+                this.backups = this.backups.filter(b => b.id !== backupId);
+                localStorage.setItem('admin_backups', JSON.stringify(this.backups));
+                this.loadBackupList();
+                this.showNotification('Backup excluído!', 'info');
+            }
+
+            static exportSettings() {
+                const settings = {
+                    settings: this.currentSettings,
+                    customCSS: this.customCSS,
+                    exportDate: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(settings, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `configuracoes-lore-${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                this.showNotification('Configurações exportadas com sucesso!', 'success');
+            }
+
+            static importSettings(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        try {
+                            const settings = JSON.parse(e.target.result);
+                            
+                            if (settings.settings && settings.customCSS !== undefined) {
+                                this.currentSettings = settings.settings;
+                                this.customCSS = settings.customCSS;
+                                
+                                this.applySettings();
+                                this.applyCustomCSS();
+                                this.showNotification('Configurações importadas com sucesso!', 'success');
+                            } else {
+                                this.showNotification('Arquivo de configurações inválido!', 'error');
+                            }
+                        } catch (error) {
+                            this.showNotification('Erro ao importar configurações!', 'error');
+                        }
+                    };
+                    
+                    reader.readAsText(file);
+                }
+            }
+
+            static saveSettings() {
+                // Coletar todas as configurações atuais
+                const settings = {
+                    colors: {
+                        '--enterprise-primary': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-primary').trim(),
+                        '--enterprise-accent': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-accent').trim(),
+                        '--enterprise-success': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-success').trim(),
+                        '--enterprise-warning': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-warning').trim(),
+                        '--enterprise-error': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-error').trim(),
+                        '--enterprise-info': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-info').trim()
+                    },
+                    typography: {
+                        '--enterprise-font-family': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-font-family').trim(),
+                        '--enterprise-font-size': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-font-size').trim(),
+                        '--enterprise-line-height': getComputedStyle(document.documentElement).getPropertyValue('--enterprise-line-height').trim()
+                    },
+                    layout: {
+                        '--sidebar-width': getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width').trim(),
+                        '--header-height': getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim(),
+                        '--border-radius': getComputedStyle(document.documentElement).getPropertyValue('--border-radius').trim(),
+                        '--space-unit': getComputedStyle(document.documentElement).getPropertyValue('--space-unit').trim()
+                    },
+                    branding: {
+                        companyName: document.getElementById('company-name').value,
+                        slogan: document.getElementById('company-slogan').value,
+                        logo: this.currentSettings.logo,
+                        favicon: this.currentSettings.favicon
+                    }
+                };
+
+                this.currentSettings = settings;
+                localStorage.setItem('admin_settings', JSON.stringify(settings));
+                localStorage.setItem('admin_custom_css', this.customCSS);
+                
+                this.showNotification('Configurações salvas com sucesso!', 'success');
+            }
+
+            static loadSettings() {
+                if (this.currentSettings.colors) {
+                    // Aplicar cores
+                    Object.entries(this.currentSettings.colors).forEach(([variable, value]) => {
+                        document.documentElement.style.setProperty(variable, value);
+                    });
+
+                    // Atualizar inputs de cor
+                    Object.entries(this.currentSettings.colors).forEach(([variable, value]) => {
+                        const colorName = variable.split('-').pop();
+                        const colorInput = document.getElementById('color-' + colorName);
+                        const textInput = document.getElementById('color-' + colorName + '-text');
+                        
+                        if (colorInput && textInput) {
+                            colorInput.value = value;
+                            textInput.value = value;
+                        }
+                    });
+                }
+
+                if (this.currentSettings.typography) {
+                    // Aplicar tipografia
+                    Object.entries(this.currentSettings.typography).forEach(([variable, value]) => {
+                        document.documentElement.style.setProperty(variable, value);
+                    });
+
+                    // Atualizar inputs de tipografia
+                    if (this.currentSettings.typography['--enterprise-font-size']) {
+                        document.getElementById('font-size').value = parseInt(this.currentSettings.typography['--enterprise-font-size']);
+                        document.getElementById('font-size-value').textContent = this.currentSettings.typography['--enterprise-font-size'];
+                    }
+
+                    if (this.currentSettings.typography['--enterprise-line-height']) {
+                        document.getElementById('line-height').value = parseFloat(this.currentSettings.typography['--enterprise-line-height']);
+                        document.getElementById('line-height-value').textContent = this.currentSettings.typography['--enterprise-line-height'];
+                    }
+                }
+
+                if (this.currentSettings.layout) {
+                    // Aplicar layout
+                    Object.entries(this.currentSettings.layout).forEach(([variable, value]) => {
+                        document.documentElement.style.setProperty(variable, value);
+                    });
+
+                    // Atualizar inputs de layout
+                    Object.entries(this.currentSettings.layout).forEach(([variable, value]) => {
+                        const input = document.getElementById(variable.replace('--', '').replace(/-/g, '-'));
+                        const valueSpan = document.getElementById(variable.replace('--', '').replace(/-/g, '-') + '-value');
+                        
+                        if (input && valueSpan) {
+                            const numericValue = parseInt(value);
+                            input.value = numericValue;
+                            valueSpan.textContent = value;
+                        }
+                    });
+                }
+
+                if (this.currentSettings.branding) {
+                    // Aplicar branding
+                    document.getElementById('company-name').value = this.currentSettings.branding.companyName || 'Lore Achadinhos';
+                    document.getElementById('company-slogan').value = this.currentSettings.branding.slogan || '';
+
+                    if (this.currentSettings.branding.logo) {
+                        document.getElementById('logo-preview').innerHTML = `<img src="${this.currentSettings.branding.logo}" alt="Logo">`;
+                        document.getElementById('current-logo').innerHTML = `<img src="${this.currentSettings.branding.logo}" alt="Logo" style="max-height: 30px;">`;
+                    }
+                }
+
+                // Carregar CSS personalizado
+                document.getElementById('custom-css').value = this.customCSS;
+            }
+
+            static applySettings() {
+                this.loadSettings();
+            }
+
+            static resetToDefault() {
+                if (confirm('Tem certeza que deseja redefinir todas as configurações para os valores padrão? Esta ação não pode ser desfeita.')) {
+                    this.currentSettings = {};
+                    this.customCSS = '';
+                    
+                    localStorage.removeItem('admin_settings');
+                    localStorage.removeItem('admin_custom_css');
+                    
+                    // Recarregar a página para aplicar os padrões
+                    location.reload();
+                }
+            }
+
+            static showNotification(message, type = 'info') {
+                const container = document.getElementById('notification-container');
+                const id = 'notification-' + Date.now();
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.id = id;
+                
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+
+                notification.innerHTML = `
+                    <i class="fas ${icons[type]} notification-icon"></i>
+                    <div class="notification-content">
+                        <div class="notification-title">${this.getNotificationTitle(type)}</div>
+                        <div class="notification-message">${message}</div>
+                    </div>
+                    <button class="notification-close" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+
+                container.appendChild(notification);
+
+                setTimeout(() => notification.classList.add('show'), 100);
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.classList.remove('show');
+                        setTimeout(() => notification.remove(), 300);
+                    }
+                }, 5000);
+            }
+
+            static getNotificationTitle(type) {
+                const titles = {
+                    success: 'Sucesso!',
+                    error: 'Erro!',
+                    warning: 'Atenção!',
+                    info: 'Informação'
+                };
+                return titles[type] || 'Notificação';
+            }
+        }
+
+        // ===== INICIALIZAÇÃO DO SISTEMA =====
+        document.addEventListener('DOMContentLoaded', function() {
+            SettingsManager.init();
+        });
+    </script>
 </body>
 </html>
