@@ -4,39 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Conta - Lore Achadinhos</title>
-    <!-- Mesmo CSS -->
+    <!-- Cole aqui o mesmo CSS do produtos.html -->
 </head>
 <body>
-    <!-- Header -->
+    <!-- Cole aqui o mesmo header do produtos.html -->
 
-    <main class="container">
-        <div class="account-layout">
-            <aside class="account-sidebar">
-                <nav class="account-nav">
-                    <a href="#pedidos" class="nav-item active">Meus Pedidos</a>
-                    <a href="#dados" class="nav-item">Meus Dados</a>
-                    <a href="#enderecos" class="nav-item">Endereços</a>
-                    <a href="#favoritos" class="nav-item">Favoritos</a>
-                    <a href="#trocas" class="nav-item">Trocas e Devoluções</a>
-                </nav>
-            </aside>
-            
-            <div class="account-content">
-                <div id="pedidos" class="tab-content active">
-                    <!-- Histórico de pedidos -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Minha Conta</h1>
+                <p class="page-subtitle">Gerencie seus pedidos, dados pessoais e preferências</p>
+            </div>
+
+            <div class="account-layout">
+                <!-- Menu lateral -->
+                <aside class="account-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-details">
+                            <h3>Maria Silva</h3>
+                            <p>maria@email.com</p>
+                        </div>
+                    </div>
+                    <nav class="account-nav">
+                        <a href="#pedidos" class="nav-item active">
+                            <i class="fas fa-shopping-bag"></i>
+                            Meus Pedidos
+                        </a>
+                        <a href="#dados" class="nav-item">
+                            <i class="fas fa-user"></i>
+                            Meus Dados
+                        </a>
+                        <a href="#enderecos" class="nav-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Endereços
+                        </a>
+                        <a href="#favoritos" class="nav-item">
+                            <i class="fas fa-heart"></i>
+                            Favoritos
+                        </a>
+                        <a href="#trocas" class="nav-item">
+                            <i class="fas fa-exchange-alt"></i>
+                            Trocas e Devoluções
+                        </a>
+                        <a href="#sair" class="nav-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Conteúdo principal -->
+                <div class="account-content">
+                    <!-- Aba de Pedidos -->
+                    <div id="pedidos" class="tab-content active">
+                        <h2>Meus Pedidos</h2>
+                        <div class="orders-list">
+                            <!-- Lista de pedidos será carregada aqui -->
+                            <div class="empty-state">
+                                <i class="fas fa-shopping-bag"></i>
+                                <h3>Nenhum pedido encontrado</h3>
+                                <p>Você ainda não fez nenhum pedido.</p>
+                                <a href="produtos.html" class="btn btn-primary">Fazer Compras</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outras abas serão implementadas -->
                 </div>
-                
-                <div id="dados" class="tab-content">
-                    <!-- Formulário de dados pessoais -->
-                </div>
-                
-                <!-- Outras abas -->
             </div>
         </div>
     </main>
 
-    <script>
-        // Lógica da área do cliente
-    </script>
+    <!-- Cole aqui o mesmo footer do produtos.html -->
 </body>
 </html>
