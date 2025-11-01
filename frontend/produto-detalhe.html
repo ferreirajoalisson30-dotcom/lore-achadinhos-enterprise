@@ -3,51 +3,1627 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Produto - Lore Achadinhos</title>
-    <!-- Cole aqui o mesmo CSS do produtos.html -->
+    <title>Vestido Floral Verão - Lore Achadinhos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #7B1FA2;
+            --secondary: #FF69B4;
+            --accent: #9370DB;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .promo-text {
+            font-weight: 500;
+        }
+
+        .top-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+
+        /* Header Principal */
+        .main-header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 30px;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+        }
+
+        .search-box {
+            display: flex;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 12px 16px;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Header Actions */
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 12px;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .action-item:hover {
+            color: var(--primary);
+        }
+
+        .action-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .cart-count {
+            background: var(--error);
+            color: var(--white);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: var(--gray-800);
+            color: var(--white);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-categories {
+            position: relative;
+            padding: 12px 0;
+        }
+
+        .categories-toggle {
+            background: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Product Detail */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        /* Product Gallery */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .main-image {
+            background: var(--gray-100);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .thumbnail {
+            background: var(--gray-100);
+            border-radius: 8px;
+            height: 80px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 20px 0;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: var(--error);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: var(--warning);
+        }
+
+        .rating-text {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        .product-price {
+            margin-bottom: 24px;
+        }
+
+        .current-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-right: 12px;
+        }
+
+        .original-price {
+            font-size: 20px;
+            color: var(--gray-500);
+            text-decoration: line-through;
+            margin-right: 12px;
+        }
+
+        .discount {
+            color: var(--success);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .installments {
+            color: var(--gray-600);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* Product Options */
+        .product-options {
+            margin-bottom: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 24px;
+        }
+
+        .option-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+        }
+
+        .size-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 12px 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .size-option:hover {
+            border-color: var(--primary);
+        }
+
+        .size-option.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .size-option.disabled {
+            background: var(--gray-100);
+            color: var(--gray-400);
+            cursor: not-allowed;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid var(--gray-300);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            border-color: var(--primary);
+        }
+
+        .color-option.selected {
+            border-color: var(--primary);
+        }
+
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            background: var(--gray-100);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--gray-600);
+            transition: background 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: none;
+            background: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 0;
+        }
+
+        .stock-info {
+            color: var(--success);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Product Actions */
+        .product-actions {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Product Features */
+        .product-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        .feature i {
+            color: var(--success);
+            font-size: 16px;
+        }
+
+        /* Product Tabs */
+        .product-tabs {
+            margin-bottom: 60px;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 16px 32px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .description-content {
+            line-height: 1.8;
+            color: var(--gray-700);
+        }
+
+        .description-content h3 {
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .description-content ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .description-content li {
+            margin-bottom: 8px;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .specs-table td {
+            padding: 12px 16px;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 600;
+            color: var(--gray-700);
+            width: 200px;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .review-card {
+            background: var(--gray-50);
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .reviewer {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .review-date {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .review-rating {
+            color: var(--warning);
+            margin-bottom: 8px;
+        }
+
+        .review-text {
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        /* Related Products */
+        .related-products {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            height: 200px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: var(--gray-500);
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-800);
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .current-price-sm {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .original-price-sm {
+            font-size: 14px;
+            color: var(--gray-500);
+            text-decoration: line-through;
+        }
+
+        .add-to-cart-sm {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-sm:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 30px;
+            text-align: center;
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .product-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .tabs-header {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: left;
+                border-bottom: 1px solid var(--gray-200);
+            }
+
+            .thumbnail-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Cole aqui o mesmo header do produtos.html -->
-
-    <main class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
         <div class="container">
-            <div class="product-detail">
-                <!-- Galeria de imagens -->
-                <div class="product-gallery">
-                    <!-- Imagens do produto -->
+            <div class="top-bar-content">
+                <div class="promo-text">
+                    <i class="fas fa-shipping-fast"></i> Frete Grátis acima de R$ 199 | Parcele em até 12x
+                </div>
+                <div class="top-links">
+                    <a href="#"><i class="fas fa-store"></i> Lojas</a>
+                    <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
+                    <a href="minha-conta.html"><i class="fas fa-user"></i> Minha Conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-crown"></i>
+                    LoreAchadinhos
+                </a>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="O que você está procurando?">
+                        <button class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Informações do produto -->
+                <div class="header-actions">
+                    <a href="minha-conta.html" class="action-item">
+                        <i class="fas fa-user"></i>
+                        Entrar
+                    </a>
+                    <a href="#" class="action-item">
+                        <i class="fas fa-heart"></i>
+                        Favoritos
+                    </a>
+                    <a href="carrinho.html" class="action-item" style="position: relative;">
+                        <i class="fas fa-shopping-bag"></i>
+                        Carrinho
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-categories">
+                    <div class="categories-toggle">
+                        <i class="fas fa-bars"></i>
+                        Todas as Categorias
+                    </div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="produtos.html?category=ofertas">Ofertas do Dia</a></li>
+                    <li><a href="produtos.html?category=mais-vendidos">Mais Vendidos</a></li>
+                    <li><a href="produtos.html?category=novidades">Novidades</a></li>
+                    <li><a href="produtos.html?category=black-friday">Black Friday</a></li>
+                    <li><a href="produtos.html?category=moda-verao">Moda Verão</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="index.html">Início</a> / 
+                <a href="produtos.html">Produtos</a> / 
+                <a href="produtos.html?category=vestidos">Vestidos</a> / 
+                <span>Vestido Floral Verão</span>
+            </div>
+
+            <!-- Detalhes do Produto -->
+            <div class="product-detail">
+                <!-- Galeria de Imagens -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Vestido Floral Verão" id="main-image">
+                    </div>
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail active" data-image="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
+                            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Vestido 1">
+                        </div>
+                        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
+                            <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Vestido 2">
+                        </div>
+                        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1485231183945-fffde7cb34e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
+                            <img src="https://images.unsplash.com/photo-1485231183945-fffde7cb34e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Vestido 3">
+                        </div>
+                        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80">
+                            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Vestido 4">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações do Produto -->
                 <div class="product-info">
-                    <h1 id="product-title">Carregando...</h1>
-                    <div class="product-price-detail">
-                        <!-- Preços e parcelas -->
-                    </div>
+                    <div class="product-badge">Oferta Especial</div>
+                    <h1 class="product-title">Vestido Floral Verão com Alças Finas</h1>
                     
+                    <div class="product-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.5 (128 avaliações)</span>
+                    </div>
+
+                    <div class="product-price">
+                        <span class="current-price">R$ 89,90</span>
+                        <span class="original-price">R$ 129,90</span>
+                        <span class="discount">30% OFF</span>
+                        <div class="installments">ou 6x de R$ 14,98 sem juros</div>
+                    </div>
+
+                    <!-- Opções do Produto -->
                     <div class="product-options">
-                        <!-- Tamanhos, cores, quantidade -->
+                        <div class="option-group">
+                            <label class="option-label">Tamanho:</label>
+                            <div class="size-options">
+                                <div class="size-option" data-size="PP">PP</div>
+                                <div class="size-option" data-size="P">P</div>
+                                <div class="size-option selected" data-size="M">M</div>
+                                <div class="size-option" data-size="G">G</div>
+                                <div class="size-option" data-size="GG">GG</div>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">Cor:</label>
+                            <div class="color-options">
+                                <div class="color-option selected" style="background: #8A2BE2;" data-color="Lilás"></div>
+                                <div class="color-option" style="background: #FF69B4;" data-color="Rosa"></div>
+                                <div class="color-option" style="background: #9370DB;" data-color="Lilás Claro"></div>
+                                <div class="color-option" style="background: #FFFFFF; border: 1px solid #ccc;" data-color="Branco"></div>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">Quantidade:</label>
+                            <div class="quantity-selector">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" id="decrease-qty">-</button>
+                                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                                    <button class="quantity-btn" id="increase-qty">+</button>
+                                </div>
+                                <div class="stock-info">
+                                    <i class="fas fa-check-circle"></i>
+                                    12 unidades em estoque
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
+
+                    <!-- Ações do Produto -->
                     <div class="product-actions">
-                        <button class="btn-primary add-to-cart-detail">Adicionar ao Carrinho</button>
-                        <button class="btn-secondary buy-now">Comprar Agora</button>
+                        <button class="btn btn-primary" id="add-to-cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                        <button class="btn btn-secondary" id="buy-now">
+                            <i class="fas fa-bolt"></i>
+                            Comprar Agora
+                        </button>
                     </div>
-                    
-                    <div class="product-description">
-                        <!-- Descrição detalhada -->
+
+                    <!-- Características -->
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span>Frete Grátis acima de R$ 199</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-undo"></i>
+                            <span>Troca Grátis em 30 dias</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Compra 100% Segura</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Parcele em até 12x</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Abas de Informações -->
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">Descrição</button>
+                    <button class="tab-btn" data-tab="specs">Especificações</button>
+                    <button class="tab-btn" data-tab="reviews">Avaliações</button>
+                    <button class="tab-btn" data-tab="shipping">Entrega</button>
+                </div>
+
+                <div class="tab-content active" id="description-tab">
+                    <div class="description-content">
+                        <h3>Vestido Floral Verão - Elegância e Conforto</h3>
+                        <p>Este vestido floral é a peça perfeita para os dias ensolarados. Confeccionado em viscose de alta qualidade, oferece conforto e leveza, enquanto o design moderno com alças finas e decote em V valoriza o seu corpo.</p>
+                        
+                        <h3>Características Principais:</h3>
+                        <ul>
+                            <li>Composição: 95% Viscose, 5% Elastano</li>
+                            <li>Comprimento: Midi (acima do tornozelo)</li>
+                            <li>Modelagem: Ajustada no busto e evasê na saia</li>
+                            <li>Forro interno em tecido respirável</li>
+                            <li>Fechamento: Zíper traseiro</li>
+                        </ul>
+
+                        <h3>Indicações de Uso:</h3>
+                        <p>Perfeito para eventos diurnos, festas, encontros românticos ou passeios ao ar livre. Combine com sandálias rasteiras e acessórios delicados para um look completo e elegante.</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="specs-tab">
+                    <table class="specs-table">
+                        <tr>
+                            <td>Composição</td>
+                            <td>95% Viscose, 5% Elastano</td>
+                        </tr>
+                        <tr>
+                            <td>Comprimento</td>
+                            <td>Midi (105cm)</td>
+                        </tr>
+                        <tr>
+                            <td>Lavagem</td>
+                            <td>Lavar à mão, não usar alvejante</td>
+                        </tr>
+                        <tr>
+                            <td>Origem</td>
+                            <td>Produzido no Brasil</td>
+                        </tr>
+                        <tr>
+                            <td>Modelo</td>
+                            <td>Altura: 1.75m | Veste tamanho M</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="tab-content" id="reviews-tab">
+                    <div class="reviews-list">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer">Ana Silva</div>
+                                <div class="review-date">15/01/2024</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-text">
+                                Amei o vestido! O caimento é perfeito e o tecido é muito confortável. Recebi vários elogios quando usei.
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer">Maria Santos</div>
+                                <div class="review-date">12/01/2024</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="review-text">
+                                Vestido lindo e de ótima qualidade. Só achei um pouco comprido (tenho 1.60m), mas ficou ótimo com salto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="shipping-tab">
+                    <div class="description-content">
+                        <h3>Política de Entrega</h3>
+                        <p>Entregamos para todo o Brasil com prazos variados de acordo com a localidade.</p>
+                        
+                        <h3>Prazos Estimados:</h3>
+                        <ul>
+                            <li><strong>Capital e Região Metropolitana:</strong> 2-5 dias úteis</li>
+                            <li><strong>Demais Localidades:</strong> 5-12 dias úteis</li>
+                        </ul>
+
+                        <h3>Valor do Frete:</h3>
+                        <ul>
+                            <li><strong>Frete Grátis:</strong> Para compras acima de R$ 199,00</li>
+                            <li><strong>Frete Econômico:</strong> A partir de R$ 14,90</li>
+                            <li><strong>Entrega Expressa:</strong> Disponível para algumas regiões</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produtos Relacionados -->
             <section class="related-products">
-                <h2>Produtos Relacionados</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Produtos Relacionados</h2>
+                    <a href="produtos.html?category=vestidos" class="view-all">
+                        Ver Todos
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+
                 <div class="products-grid">
-                    <!-- Produtos relacionados -->
+                    <!-- Produto 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vestido Midi">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vestidos</div>
+                                                        <h3 class="product-name">Vestido Midi Elegante</h3>
+                            <div class="product-price">
+                                <span class="current-price-sm">R$ 99,90</span>
+                                <span class="original-price-sm">R$ 139,90</span>
+                            </div>
+                            <button class="add-to-cart-sm">
+                                <i class="fas fa-shopping-bag"></i>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produto 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1485231183945-fffde7cb34e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vestido Longo">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vestidos</div>
+                            <h3 class="product-name">Vestido Longo Festa</h3>
+                            <div class="product-price">
+                                <span class="current-price-sm">R$ 159,90</span>
+                            </div>
+                            <button class="add-to-cart-sm">
+                                <i class="fas fa-shopping-bag"></i>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produto 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vestido Curto">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vestidos</div>
+                            <h3 class="product-name">Vestido Curto Verão</h3>
+                            <div class="product-price">
+                                <span class="current-price-sm">R$ 79,90</span>
+                                <span class="original-price-sm">R$ 99,90</span>
+                            </div>
+                            <button class="add-to-cart-sm">
+                                <i class="fas fa-shopping-bag"></i>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produto 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vestido Floral">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vestidos</div>
+                            <h3 class="product-name">Vestido Floral Primavera</h3>
+                            <div class="product-price">
+                                <span class="current-price-sm">R$ 119,90</span>
+                            </div>
+                            <button class="add-to-cart-sm">
+                                <i class="fas fa-shopping-bag"></i>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Cole aqui o mesmo footer do produtos.html -->
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">Produto adicionado ao carrinho!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Lore Achadinhos</h3>
+                    <p style="color: var(--gray-400); margin-bottom: 20px;">
+                        Sua loja de moda feminina com as melhores tendências e preços imbatíveis. Qualidade e estilo para mulheres modernas.
+                    </p>
+                </div>
+                <div class="footer-column">
+                    <h3>Institucional</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Nossas Lojas</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
+                        <li><a href="#">Programa de Afiliados</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ajuda</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="minha-conta.html">Meus Pedidos</a></li>
+                        <li><a href="#">Formas de Pagamento</a></li>
+                        <li><a href="#">Entregas</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contato@lore.com</li>
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Lore Achadinhos. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sistema da Página do Produto
+        class ProductDetailManager {
+            constructor() {
+                this.currentProduct = this.getProductData();
+                this.init();
+            }
+
+            init() {
+                this.setupImageGallery();
+                this.setupProductOptions();
+                this.setupTabs();
+                this.setupEventListeners();
+                this.updateCartCount();
+            }
+
+            getProductData() {
+                // Simular dados do produto
+                return {
+                    id: 1,
+                    name: 'Vestido Floral Verão com Alças Finas',
+                    price: 89.90,
+                    originalPrice: 129.90,
+                    category: 'Vestidos',
+                    images: [
+                        'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                        'https://images.unsplash.com/photo-1485231183945-fffde7cb34e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                        'https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+                    ],
+                    sizes: ['PP', 'P', 'M', 'G', 'GG'],
+                    colors: ['Lilás', 'Rosa', 'Lilás Claro', 'Branco'],
+                    selectedSize: 'M',
+                    selectedColor: 'Lilás',
+                    quantity: 1
+                };
+            }
+
+            setupImageGallery() {
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                const mainImage = document.getElementById('main-image');
+
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', () => {
+                        // Remover active de todas
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        // Adicionar active à clicada
+                        thumbnail.classList.add('active');
+                        // Trocar imagem principal
+                        const newImage = thumbnail.getAttribute('data-image');
+                        mainImage.src = newImage;
+                    });
+                });
+            }
+
+            setupProductOptions() {
+                // Tamanhos
+                const sizeOptions = document.querySelectorAll('.size-option');
+                sizeOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        if (option.classList.contains('disabled')) return;
+                        
+                        sizeOptions.forEach(o => o.classList.remove('selected'));
+                        option.classList.add('selected');
+                        this.currentProduct.selectedSize = option.getAttribute('data-size');
+                    });
+                });
+
+                // Cores
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        colorOptions.forEach(o => o.classList.remove('selected'));
+                        option.classList.add('selected');
+                        this.currentProduct.selectedColor = option.getAttribute('data-color');
+                    });
+                });
+
+                // Quantidade
+                const decreaseBtn = document.getElementById('decrease-qty');
+                const increaseBtn = document.getElementById('increase-qty');
+                const quantityInput = document.getElementById('quantity');
+
+                decreaseBtn.addEventListener('click', () => {
+                    let value = parseInt(quantityInput.value);
+                    if (value > 1) {
+                        quantityInput.value = value - 1;
+                        this.currentProduct.quantity = quantityInput.value;
+                    }
+                });
+
+                increaseBtn.addEventListener('click', () => {
+                    let value = parseInt(quantityInput.value);
+                    if (value < 10) {
+                        quantityInput.value = value + 1;
+                        this.currentProduct.quantity = quantityInput.value;
+                    }
+                });
+
+                quantityInput.addEventListener('change', () => {
+                    let value = parseInt(quantityInput.value);
+                    if (value < 1) quantityInput.value = 1;
+                    if (value > 10) quantityInput.value = 10;
+                    this.currentProduct.quantity = quantityInput.value;
+                });
+            }
+
+            setupTabs() {
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                const tabContents = document.querySelectorAll('.tab-content');
+
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tabId = btn.getAttribute('data-tab');
+                        
+                        // Remover active de todos
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        tabContents.forEach(c => c.classList.remove('active'));
+                        
+                        // Adicionar active ao selecionado
+                        btn.classList.add('active');
+                        document.getElementById(`${tabId}-tab`).classList.add('active');
+                    });
+                });
+            }
+
+            setupEventListeners() {
+                // Adicionar ao carrinho
+                document.getElementById('add-to-cart').addEventListener('click', () => {
+                    this.addToCart();
+                });
+
+                // Comprar agora
+                document.getElementById('buy-now').addEventListener('click', () => {
+                    this.buyNow();
+                });
+            }
+
+            addToCart() {
+                const cart = JSON.parse(localStorage.getItem('lore_cart')) || [];
+                const existingItem = cart.find(item => 
+                    item.id === this.currentProduct.id && 
+                    item.selectedSize === this.currentProduct.selectedSize &&
+                    item.selectedColor === this.currentProduct.selectedColor
+                );
+
+                if (existingItem) {
+                    existingItem.quantity += this.currentProduct.quantity;
+                } else {
+                    cart.push({
+                        ...this.currentProduct,
+                        quantity: this.currentProduct.quantity
+                    });
+                }
+
+                localStorage.setItem('lore_cart', JSON.stringify(cart));
+                this.showNotification('Produto adicionado ao carrinho!');
+                this.updateCartCount();
+            }
+
+            buyNow() {
+                this.addToCart();
+                // Redirecionar para o carrinho
+                setTimeout(() => {
+                    window.location.href = 'carrinho.html';
+                }, 1000);
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('lore_cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartCount = document.getElementById('cart-count');
+                cartCount.textContent = totalItems;
+            }
+
+            showNotification(message) {
+                const notification = document.getElementById('notification');
+                const messageEl = document.getElementById('notification-message');
+                
+                messageEl.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Inicializar gerenciador do produto
+        const productManager = new ProductDetailManager();
+    </script>
 </body>
 </html>
