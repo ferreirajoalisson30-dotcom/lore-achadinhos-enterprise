@@ -1,10 +1,39 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" }
+    {
+      "src": "frontend/admin/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/admin/assets/**/*",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/",
+      "dest": "/frontend/admin/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/frontend/admin/dashboard.html"
+    },
+    {
+      "src": "/produtos",
+      "dest": "/frontend/admin/produtos.html"
+    },
+    {
+      "src": "/pedidos",
+      "dest": "/frontend/admin/pedidos.html"
+    },
+    {
+      "src": "/configuracoes",
+      "dest": "/frontend/admin/configuracoes.html"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/frontend/admin/assets/$1"
+    }
   ]
 }

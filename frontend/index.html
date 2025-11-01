@@ -1142,6 +1142,165 @@
         .mt-0 {
             margin-top: 0;
         }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
+            z-index: 10001;
+            transition: var(--transition);
+            overflow-y: auto;
+            padding: var(--space-6);
+        }
+
+        .admin-panel.open {
+            right: 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .admin-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .admin-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-600);
+            transition: var(--transition);
+        }
+
+        .admin-close:hover {
+            color: var(--error);
+        }
+
+        .admin-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .admin-section h3 {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--gray-800);
+        }
+
+        .admin-form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .admin-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: var(--space-3);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            transition: var(--transition);
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+        }
+
+        .admin-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .admin-btn.secondary {
+            background: var(--gray-600);
+        }
+
+        .admin-btn.secondary:hover {
+            background: var(--gray-700);
+        }
+
+        .admin-btn.danger {
+            background: var(--error);
+        }
+
+        .admin-btn.danger:hover {
+            background: #dc2626;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .admin-stat-card {
+            background: var(--gray-50);
+            padding: var(--space-4);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .admin-stat-value {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .admin-stat-label {
+            font-size: var(--text-sm);
+            color: var(--gray-600);
+        }
+
+        /* ===== OVERLAY ===== */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1512,6 +1671,73 @@
         </div>
     </footer>
 
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <h2 class="admin-title">Painel Administrativo</h2>
+            <button class="admin-close" id="admin-close" aria-label="Fechar painel administrativo">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Estatísticas Rápidas</h3>
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value">1.247</div>
+                    <div class="admin-stat-label">Visitas Hoje</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value">R$ 8.521</div>
+                    <div class="admin-stat-label">Vendas Hoje</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value">42</div>
+                    <div class="admin-stat-label">Pedidos</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value">87%</div>
+                    <div class="admin-stat-label">Conversão</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Gerenciar Produtos</h3>
+            <div class="admin-form-group">
+                <label class="admin-label" for="product-name">Nome do Produto</label>
+                <input type="text" id="product-name" class="admin-input" placeholder="Digite o nome do produto">
+            </div>
+            <div class="admin-form-group">
+                <label class="admin-label" for="product-price">Preço</label>
+                <input type="number" id="product-price" class="admin-input" placeholder="R$ 0,00">
+            </div>
+            <button class="admin-btn">
+                <i class="fas fa-plus"></i>
+                Adicionar Produto
+            </button>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Configurações</h3>
+            <button class="admin-btn secondary" style="margin-bottom: var(--space-3);">
+                <i class="fas fa-cog"></i>
+                Configurações Gerais
+            </button>
+            <button class="admin-btn secondary" style="margin-bottom: var(--space-3);">
+                <i class="fas fa-users"></i>
+                Gerenciar Usuários
+            </button>
+            <button class="admin-btn danger">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair do Admin
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
     <!-- Notification -->
     <div class="notification" id="notification" role="alert" aria-live="polite">
         <i class="fas fa-check-circle" aria-hidden="true"></i>
@@ -1559,7 +1785,8 @@
                 this.appState = {
                     user: null,
                     cart: [],
-                    favorites: []
+                    favorites: [],
+                    adminMode: false
                 };
                 this.init();
             }
@@ -1570,6 +1797,7 @@
                 this.setupCategories();
                 this.updateCartCount();
                 this.initializePage();
+                this.setupAdminShortcut();
             }
 
             loadUserState() {
@@ -1640,6 +1868,22 @@
                 if (loginTrigger) {
                     loginTrigger.addEventListener('click', () => {
                         this.showLoginModal();
+                    });
+                }
+
+                // Admin Panel
+                const adminClose = document.getElementById('admin-close');
+                const overlay = document.getElementById('overlay');
+                
+                if (adminClose) {
+                    adminClose.addEventListener('click', () => {
+                        this.closeAdminPanel();
+                    });
+                }
+                
+                if (overlay) {
+                    overlay.addEventListener('click', () => {
+                        this.closeAdminPanel();
                     });
                 }
             }
@@ -1753,6 +1997,49 @@
                 const userStatus = document.querySelector('.user-status');
                 if (userStatus && this.appState.user) {
                     userStatus.textContent = this.appState.user.name || 'Minha Conta';
+                }
+            }
+
+            // ===== SISTEMA ADMINISTRATIVO =====
+            setupAdminShortcut() {
+                let keySequence = [];
+                const secretCode = 'loreadmin';
+                
+                document.addEventListener('keydown', (e) => {
+                    keySequence.push(e.key);
+                    if (keySequence.length > secretCode.length) {
+                        keySequence.shift();
+                    }
+                    
+                    if (keySequence.join('') === secretCode) {
+                        this.openAdminPanel();
+                        keySequence = [];
+                    }
+                });
+            }
+
+            openAdminPanel() {
+                const adminPanel = document.getElementById('admin-panel');
+                const overlay = document.getElementById('overlay');
+                
+                if (adminPanel && overlay) {
+                    adminPanel.classList.add('open');
+                    overlay.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    this.appState.adminMode = true;
+                    this.showNotification('Painel administrativo ativado', 'info');
+                }
+            }
+
+            closeAdminPanel() {
+                const adminPanel = document.getElementById('admin-panel');
+                const overlay = document.getElementById('overlay');
+                
+                if (adminPanel && overlay) {
+                    adminPanel.classList.remove('open');
+                    overlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                    this.appState.adminMode = false;
                 }
             }
 
