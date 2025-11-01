@@ -1,0 +1,180 @@
+# Na pasta principal "Lore Achadinhos"
+echo '{
+  "version": 2,
+  "name": "lore-achadinhos",
+  "builds": [
+    {
+      "src": "frontend/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/produtos.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/carrinho.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/admin/**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.jpg",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.svg",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/frontend/index.html",
+      "headers": {
+        "Cache-Control": "s-maxage=3600, stale-while-revalidate"
+      }
+    },
+    {
+      "src": "/produtos",
+      "dest": "/frontend/produtos.html"
+    },
+    {
+      "src": "/carrinho",
+      "dest": "/frontend/carrinho.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/frontend/admin/dashboard.html"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/frontend/admin/$1"
+    },
+    {
+      "src": "/(.*\\.(css|js|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "headers": {
+        "Cache-Control": "s-maxage=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/frontend/index.html"
+    },
+    {
+      "source": "/produtos",
+      "destination": "/frontend/produtos.html"
+    },
+    {
+      "source": "/carrinho",
+      "destination": "/frontend/carrinho.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/frontend/admin/dashboard.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/frontend/admin/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/frontend/:path*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/loja",
+      "destination": "/produtos",
+      "permanent": false
+    },
+    {
+      "source": "/catalogo",
+      "destination": "/produtos",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(html|css|js))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "NODE_VERSION": "18"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {
+    "frontend/**/*.html": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "installCommand": "echo \"No installation needed for static site\"",
+  "outputDirectory": "frontend",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": null
+}' > vercel.json
